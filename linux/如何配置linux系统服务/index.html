@@ -19,7 +19,7 @@
 <meta property="og:url" content="https://xudongye.github.io/xdlog/linux/如何配置linux系统服务/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
 <meta property="og:description" content="Linux的系统服务daemon(守护进程；后台程序)一、service与daemon  service是从功能需求角度而言，daemon是从功能实现角度而言 服务依赖于daemon 当实现某种功能的进程Process常驻在内存，就成为了后台进程 常驻内存中Process是为了给系统提供稳定连续的基础服务Service,也就是后台进程提供了系统服务 系统需要各种服务，从而就需要各种进程  二、主机">
-<meta property="og:updated_time" content="2019-11-18T09:52:40.943Z">
+<meta property="og:updated_time" content="2019-11-18T09:55:59.202Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何配置linux系统服务?">
 <meta name="twitter:description" content="Linux的系统服务daemon(守护进程；后台程序)一、service与daemon  service是从功能需求角度而言，daemon是从功能实现角度而言 服务依赖于daemon 当实现某种功能的进程Process常驻在内存，就成为了后台进程 常驻内存中Process是为了给系统提供稳定连续的基础服务Service,也就是后台进程提供了系统服务 系统需要各种服务，从而就需要各种进程  二、主机">
@@ -248,7 +248,7 @@
 </li>
 <li>unit文件位置 <ul>
 <li>Unit 文件按照 Systemd 约定，应该被放置在指定的3个系统目录之一。这3个目录是有优先级的，依照下面表格，越靠上的优先级越高，因此在几个目录中有同名文件的时候，只有优先级最高的目录里的那个会被使用</li>
-<li>路径 | 说明 |<br>-|-|-<br>/etc/systemd/system | 系统或用户提供的配置文件 |<br>/run/systemd/system | 软件运行时生成的配置文件 |<br>/usr/lib/systemd/system | 系统或第三方软件安装时添加的配置文件 |     </li>
+<li>| 路径 | 说明 |<br>|——-|:——-:|<br>| /etc/systemd/system | 系统或用户提供的配置文件 |<br>| /run/systemd/system | 软件运行时生成的配置文件 |<br>| /usr/lib/systemd/system | 系统或第三方软件安装时添加的配置文件 |     </li>
 </ul>
 </li>
 </ul>

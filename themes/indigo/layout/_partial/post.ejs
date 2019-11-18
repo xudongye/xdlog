@@ -1,0 +1,54 @@
+<%- partial('post/toc', { post: post}) %>
+<article id="<%= post.layout %>-<%= post.slug %>" 
+  class="post-article article-type-<%= post.layout %>" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title"><%- post.title %></h1>
+        <div class="post-meta">
+            <%- partial('post/date', {date_format: config.date_format}) %>
+            <%- partial('post/category') %>
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <%- post.content %>
+        </div>
+        
+        <blockquote class="post-copyright">
+            <div class="content">
+               <%- _.template(theme.copyright)(locals) %>
+            </div>
+            <footer>
+                <a href="<%- config.url %>">
+                    <img src="<%- theme.avatar %>" alt="<%- config.author %>">
+                    <%- config.author %>
+                </a>
+            </footer>
+        </blockquote>
+
+        <% if(page.reward){ %>
+        <div class="post-reward">
+            <a id="rewardBtn" href="javascript:;" class="post-reward-btn waves-effect waves-circle waves-light">赏</a>
+        </div>
+        <% } %>
+
+        <div class="post-footer">
+            <%- partial('post/tag') %>
+
+            <% if(theme.share){ %>
+            <div class="post-share-wrap">
+                <%- partial('post/share', {
+                        className: 'post-share'
+                }) %>
+                <a href="javascript:;" id="share-fab" class="post-share-fab waves-effect waves-circle">
+                    <i class="icon icon-share-alt icon-lg"></i>
+                </a>
+            </div>
+            <% } %>
+
+        </div>
+    </div>   
+
+    <%- partial('post/nav') %>
+            
+    <%- partial('post/comment') %>
+</article>
+<%- partial('post/reward') %>

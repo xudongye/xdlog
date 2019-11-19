@@ -71,9 +71,147 @@ tags:
 * unit文件位置 
     * Unit 文件按照 Systemd 约定，应该被放置在指定的3个系统目录之一。这3个目录是有优先级的，依照下面表格，越靠上的优先级越高，因此在几个目录中有同名文件的时候，只有优先级最高的目录里的那个会被使用
 ---
-     路径 | 说明 
-     ---|---
-     /etc/systemd/system | 系统或用户提供的配置文件
-     /run/systemd/system | 软件运行时生成的配置文件
-     /usr/lib/systemd/system | 系统或第三方软件安装时添加的配置文件  
+路径 | 说明 
+---|---
+/etc/systemd/system | 系统或用户提供的配置文件
+/run/systemd/system | 软件运行时生成的配置文件
+/usr/lib/systemd/system | 系统或第三方软件安装时添加的配置文件  
 ---   
+* unit模板文件 
+    * 在现实中，往往有一些应用需要被复制多份运行，例如在一个负载均衡实例后面运行的多个相同的服务实例。但是按照之前的例子，每个服务都需要一个单独的 Unit 文件，这样复制多份相同文件的做显然不便于服务的管理。为此 Systemd 定义了一种特殊的 Service Unit文件，称为 Unit 模板
+    * 模板文件的主要特点是，文件名以@符号结尾，而启动的时候指定的Unit名称为模板名称附加一个参数字符串。例如，将之前的例子第二个 Unit 文件修改为可以用于启动多个实例的模板
+    * 首先修改文件名，添加一个@符号。
+      例如原来的文件名是 apache.service，那么可以将它修改为 apache@.service，这样做的目的是表面这个文件是一个模板文件。而在服务启动时可以在@后面放置一个用于区分服务实例的附加字符串参数，通常这个参数会使用监听的端口号或使用的控制台TTY编号等。例如 “systemctl start apache@8080.service”
+    * 然后修改 Unit 文件内容。
+      Unit 文件中可以获取服务启动时的附加参数，因此通常需要修改 Unit 文件中不应固定的部分，例如服务监听的 IP 和端口，替换为从附加参数中获取
+  ````
+  [Unit]
+  Description=My Advanced Service Template
+  After=etcd.servicedocker.service
+  [Service]
+  TimeoutStartSec=0
+  ExecStartPre=-/usr/bin/docker kill apache%i
+  ExecStartPre=-/usr/bin/docker rm apache%i
+  ExecStartPre=/usr/bin/docker pull coreos/apache
+  ExecStart=/usr/bin/docker run --name apache%i -p %i:80 coreos/apache /usr/sbin/apache2ctl -D FOREGROUND
+  ExecStartPost=/usr/bin/etcdctl set /domains/example.com/%H:%i running
+  ExecStop=/usr/bin/docker stop apache1
+  ExecStopPost=/usr/bin/etcdctl rm /domains/example.com/%H:%i
+  [Install]
+  WantedBy=multi-user.target
+  ````
+    * 仔细观察一下变化了的地方，上面使用到了占位符 %H 和 %i，常用的占位符有6种（一共19种，其余不怎么常用的查文档吧），这些占位符会在 Unit 启动时被实际的值动态的替换掉
+    * 这些参数中除了 %i 以外，同样可以用于非模板的 Unit 文件中。%p 在普通 Unit 文件中会被动态替换为服务名称去掉 .service 后缀的名字
+---
+占位符 | 作用
+---|---
+%n | 完整的 Unit 文件名字，包括 .service 后缀名
+%m | 实际运行的节点的 Machine ID，适合用来做Etcd路径的一部分，例如 /machines/%m/units
+%b | 作用有点像 Machine ID，但这个值每次节点重启都会改变，称为 Boot ID
+%H | 实际运行节点的主机名
+%p | Unit 文件名中在 @ 符号之前的部分，不包括 @ 符号
+%i | Unit 文件名中在 @ 符号之后的部分，不包括 @ 符号和 .service 后缀名
+---
+
+* 启动 Unit 模板的服务实例
+    * 模板服务的启动对于 Systemd 和 Fleet 大致相同
+    * Systemd 的情况略简单一+些，只需要运行时加上后缀参数。例如 “systemctl start apache@8080.service”。Systemd 首先会在其特定的目录下寻找名为 apache@8080.service的文件，如果没有找到，而文件名中包含@字符，它就会尝试去掉后缀参数匹配模板文件。例如没有找到apache@8080.service，那么Systemd会找到apache@.service，并将它通过模板文件中实例化
+    * Fleet 没有特定的 Unit 文件存放目录，不过在通过 fleetctl start 或 fleetctl submit 命令指定 Unit 文件路径时加上后缀参数，Fleet 同样会自动匹配去掉后缀参数后的模板文件。例如 “fleetctl submit ${HOME}/apache@8080.service”，就会匹配到 ${HOME} 目录下面的 apache@.service 模板文件
+* systemctl命令 系统服务的控制-启动、关闭、重启；注销、取消注销
+    * 启动服务 
+        * 格式：systemctl start [unit type] 
+        * systemctl start network.service
+        * 对比之前的 service命令
+        * 格式：service [服务] start
+        * service network start
+    * 停止服务
+        * 格式：systemctl stop [unit type] 
+    * 重启服务
+        * 格式：systemctl restart [unit type]
+    * 重新加载服务
+        * 格式：systemctl reload [unit type] 
+        * 其功能是重新加载服务，加载更新后的配置
+    * 注销指定服务
+        * 格式：systemctl mask [unit type] 
+    * 取消注销指定服务
+        * 格式：systemctl unmask [unit type] 
+    * 关闭网络服务
+        * 在使用systemctl关闭网络服务时有一些特殊 需要同时关闭unit.servce和unit.socket。比如说，如果 sshd.service 和 sshd.socket 都开启了，如果只关闭了sshd.service , 那么 sshd.socket 还在监听网络，在网络上如果有要求连接ssh时就会启动 sshd.service。所以想完全关闭ssh的话，需.service和 .socket同时关闭
+            * systemctl stop sshd.service
+            * systemctl stop sshd.socket
+            * systemctl disable sshd.service sshd.socket 
+* 设置服务的开机启动/不启动——对应之前的chkconfig命令
+    * 设置服务开机启动。
+    * 格式：systemctl enable [unit type] 
+    * 设置服务开机不启动
+    * 格式：systemctl disable [unit type] 
+    * 查看服务运行状态
+    * 格式：systemctl status [unit type]
+* 查看系统上的所有服务
+    * 格式：systemctl -list-units [-all] [-type=TYPE]  依据unit列出所有启动的unit[-all 包括未启动的][指定TYPE的服务]
+    * 格式：systemctl -list-unit-files [-all] [-type=TYPE]  依据/usr/lib/systemd/system/ 内的启动文件，列出启动文件列表
+````
+#列出所有的系统服务
+systemctl    
+
+#列出所有启动unit
+systemctl list-units    
+
+#列出所有启动文件
+systemctl list-unit-files    
+
+#列出所有service类型的unit
+systemctl list-units –type=service –all    
+
+#列出 cpu电源管理机制的服务
+systemctl list-units –type=service –all grep cpu    
+
+#列出所有target
+systemctl list-units –type=target –all
+````
+* 查看服务是否运行
+    * 格式：systemctl is-active [unit type]
+* 查看服务是否为开机启动
+    * 格式：systemctl is-enable [unit type]
+* 控制开关机
+    * 系统关机 systemctl poweroff
+    * 对应之前init命令 init 0
+* 重新启动
+    * systemctl reboot
+    * init 6
+* 进入睡眠模式
+    * systemctl suspend
+* 进入休眠模式
+    * systemctl hibernate
+* 强制进入救援模式
+    * systemctl rescue
+* 强制进入紧急救援模式
+    * systemctl emergency
+* 设置系统运行级别
+    * 取得当前的target 
+    * systemctl get-default 
+    * 设置指定的target为默认的运行级别
+    * 格式：systemctl set-default [unit.target]
+````
+#设置默认的运行级别为multi-user
+systemctl set-default multi-user.target
+````
+* 切换到指定的运行级别
+    * 格式：systemctl isolate [unit.target]
+````
+#在不重启的情况下，切换到运行级别multi-user下
+systemctl isolate multi-user.target
+#在不重启的情况下，切换到图形界面下
+systemctl isolate graphical.target
+````
+
+* 分析各服务之间的依赖关系
+    * 格式：systemctl list-dependencies [unit.type] [-reverse]   此unit依赖谁，[--reverse]则反之
+````
+#查看当前运行级别target启动了哪些服务。
+systemctl list-dependencies
+
+#查看哪些服务引用了当前运行级别target。 
+systemctl list-dependencies --reverse
+````
+    

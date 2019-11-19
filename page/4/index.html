@@ -154,6 +154,72 @@
     <ul class="post-list">
     
         <li class="post-list-item">
+            <article id="post-lebooks/诗歌社区模块设计"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-16T08:12:08.000Z" itemprop="datePublished" class="post-time">
+  2016-11-16
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/lebooks/诗歌社区模块设计/">诗歌社区模块设计</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        诗歌社区模块设计根据产品原型，初步划分出以下功能模块。
+用户数据：
+
+User：所有用户，并且设置一个所有人都默认关注的乐书小秘书
+
+行为：CRUD
+登录、注册数据：
+
+Token：登录令牌，保存在Redis中
+
+行为：
+
+登录相关的对token的CRUD
+第三方登录
+
+邀请数据：
+
+Invitation：用户(user_id reference User.id)与邀请码(invitatio...
+    
+    
+        <a href="/xdlog/lebooks/诗歌社区模块设计/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/lebooks-private/">lebooks-private</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
             <article id="post-java/tomcat/深入剖析tomcat学习笔记/14Server和Service"
   class="article-card article-type-post" itemprop="blogPost">
      
@@ -606,56 +672,6 @@ Logger接口org.apache.catalina.Logger接口描述了一个通用的信息与异
     
     
         <a href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/7日志记录器/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-java/tomcat/深入剖析tomcat学习笔记/6生命周期"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-11-07T12:07:39.000Z" itemprop="datePublished" class="post-time">
-  2016-11-07
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/6生命周期/">生命周期</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        生命周期tomcat开发者将Catalina中的各种组件的启动、关闭行为，都抽象为一个接口org.apache.catalina.Lifecycle，进而可以在管理生命周期相关行为时面向接口编程。通过实现Lifecycle接口完成单一启动/关闭机制，并且以一种优雅的方式（观察者模式）向其他组件发送事件消息。
-Lifecycle接口Catalina在设计上允许一个组件包含其他组件，父级组件负责...
-    
-    
-        <a href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/6生命周期/" class="post-more waves-effect waves-button">
             阅读全文...
         </a>
     </div>

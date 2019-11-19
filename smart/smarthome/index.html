@@ -5,24 +5,24 @@
   
   
   
-  <title>Linux下apt-get安装MySQL | Last.Whisper.Diary | 水货开发者的鱼塘遨游日志</title>
+  <title>智能家居的简单理解 | Last.Whisper.Diary | 水货开发者的鱼塘遨游日志</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="theme-color" content="#3F51B5">
   
   
-  <meta name="keywords" content="linux,mysql">
-  <meta name="description" content="Linux下apt-get安装MySQL apt-get install mysql-server  apt-get install mysql-client  mysql -u root -p进入mysql命令行，用set password命令修改密码  12SET PASSWORD FOR &apos;root&apos;@&apos;localhost&apos;=PASSWORD(‘localhost login passwor">
-<meta name="keywords" content="linux,mysql">
+  <meta name="keywords" content="智能家居,SmartHome">
+  <meta name="description" content="智能家居前言2018年第一次接触物联网行业，公司主要做智能家居(smart home)定制服务。  什么是智能家居？ 智能家居是以住宅为平台，利用综合布线技术，网络通讯技术，安全防范技术，自动控制技术，音视频技术将家居生活有关设施集成，构建高效的住宅设施与家庭日程事务的管理系统，提升家居安全性，便利性，舒适性，艺术性，并实现环保节能的家居环境。   发展背景 智能家居是在互联网影响之下物联化的体现">
+<meta name="keywords" content="智能家居,SmartHome">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux下apt-get安装MySQL">
-<meta property="og:url" content="https://xudongye.github.io/xdlog/mysql/Linux下apt-get安装MySQL/index.html">
+<meta property="og:title" content="智能家居的简单理解">
+<meta property="og:url" content="https://xudongye.github.io/xdlog/smart/smarthome/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
-<meta property="og:description" content="Linux下apt-get安装MySQL apt-get install mysql-server  apt-get install mysql-client  mysql -u root -p进入mysql命令行，用set password命令修改密码  12SET PASSWORD FOR &apos;root&apos;@&apos;localhost&apos;=PASSWORD(‘localhost login passwor">
-<meta property="og:updated_time" content="2019-09-26T09:04:29.845Z">
+<meta property="og:description" content="智能家居前言2018年第一次接触物联网行业，公司主要做智能家居(smart home)定制服务。  什么是智能家居？ 智能家居是以住宅为平台，利用综合布线技术，网络通讯技术，安全防范技术，自动控制技术，音视频技术将家居生活有关设施集成，构建高效的住宅设施与家庭日程事务的管理系统，提升家居安全性，便利性，舒适性，艺术性，并实现环保节能的家居环境。   发展背景 智能家居是在互联网影响之下物联化的体现">
+<meta property="og:updated_time" content="2019-11-19T06:02:53.312Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux下apt-get安装MySQL">
-<meta name="twitter:description" content="Linux下apt-get安装MySQL apt-get install mysql-server  apt-get install mysql-client  mysql -u root -p进入mysql命令行，用set password命令修改密码  12SET PASSWORD FOR &apos;root&apos;@&apos;localhost&apos;=PASSWORD(‘localhost login passwor">
+<meta name="twitter:title" content="智能家居的简单理解">
+<meta name="twitter:description" content="智能家居前言2018年第一次接触物联网行业，公司主要做智能家居(smart home)定制服务。  什么是智能家居？ 智能家居是以住宅为平台，利用综合布线技术，网络通讯技术，安全防范技术，自动控制技术，音视频技术将家居生活有关设施集成，构建高效的住宅设施与家庭日程事务的管理系统，提升家居安全性，便利性，舒适性，艺术性，并实现环保节能的家居环境。   发展背景 智能家居是在互联网影响之下物联化的体现">
   
     <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
   
@@ -112,7 +112,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Linux下apt-get安装MySQL</div>
+        <div class="flex-col header-title ellipsis">智能家居的简单理解</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -134,7 +134,7 @@
 <header class="content-header post-header">
 
     <div class="container">
-        <h1 class="title">Linux下apt-get安装MySQL</h1>
+        <h1 class="title">智能家居的简单理解</h1>
         
         
 
@@ -150,52 +150,77 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Linux下apt-get安装MySQL"><span class="post-toc-number">1.</span> <span class="post-toc-text">Linux下apt-get安装MySQL</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#智能家居"><span class="post-toc-number">1.</span> <span class="post-toc-text">智能家居</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">前言</span></a></li></ol></li></ol>
         </nav>
     </aside>
     
-<article id="post-mysql/Linux下apt-get安装MySQL" 
+<article id="post-smart/smarthome" 
   class="post-article article-type-post" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Linux下apt-get安装MySQL</h1>
+        <h1 class="post-card-title">智能家居的简单理解</h1>
         <div class="post-meta">
-            <time datetime="2016-03-03T03:36:24.000Z" itemprop="datePublished" class="post-time">
-  2016-03-03
+            <time datetime="2019-11-18T08:19:24.000Z" itemprop="datePublished" class="post-time">
+  2019-11-18
 </time>
 
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Linux/">Linux</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/SmartHome/">SmartHome</a></li></ul>
 
 
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h1 id="Linux下apt-get安装MySQL"><a href="#Linux下apt-get安装MySQL" class="headerlink" title="Linux下apt-get安装MySQL"></a>Linux下apt-get安装MySQL</h1><ol>
-<li><p>apt-get install mysql-server</p>
+            <h1 id="智能家居"><a href="#智能家居" class="headerlink" title="智能家居"></a>智能家居</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>2018年第一次接触物联网行业，公司主要做智能家居(smart home)定制服务。</p>
+<ul>
+<li>什么是智能家居？<ul>
+<li>智能家居是以住宅为平台，利用综合布线技术，网络通讯技术，安全防范技术，自动控制技术，音视频技术将家居生活有关设施集成，构建高效的住宅设施与家庭日程事务的管理系统，提升家居安全性，便利性，舒适性，艺术性，并实现环保节能的家居环境。</li>
+</ul>
 </li>
-<li><p>apt-get install mysql-client</p>
+<li>发展背景<ul>
+<li>智能家居是在互联网影响之下物联化的体现，通过物联网技术将家中各种设备(音视频，照明，窗帘，空调，安防，数字影院等)连接到一起，提供家电控制，照明控制，电话远程控制，室内外遥控，防盗报警，环境监测，暖通控制，红外转发以及可编程定时控制等多种功能和手段。与普通家居相比，智能家居不仅具有传统的居住功能，兼备建筑，网络通信，信息家电，设备自动化，提供全方位的信息交互功能，甚至为各种能源费用节约资金。</li>
+</ul>
 </li>
-<li><p>mysql -u root -p进入mysql命令行，用set password命令修改密码</p>
- <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> <span class="keyword">PASSWORD</span> <span class="keyword">FOR</span> <span class="string">'root'</span>@<span class="string">'localhost'</span>=<span class="keyword">PASSWORD</span>(‘localhost login <span class="keyword">password</span><span class="string">');</span></span><br><span class="line"><span class="string">SET PASSWORD FOR'</span>root<span class="string">'@'</span>%<span class="string">'=PASSWORD(‘remote login password'</span>);</span><br></pre></td></tr></table></figure>
+<li>基本分类<ul>
+<li>家庭自动化<ul>
+<li>家庭自动化是智能家居的一个重要系统，在智能家居刚出现时，家庭自动化甚至就等同于智能家居，它仍是智能家居的核心之一，但随着网络技术有智能家居的普遍应用，网络家电/信息家电的成熟，家庭自动化的许多产品功能将融入到这些新产品中去，从而使单纯的家庭自动化产品在系统设计中越来越少，其核心地位也将被家庭网络/家庭信息系统所代替。它将作为家庭网络中的控制网络部份在智能家居中发挥作用</li>
+</ul>
 </li>
-<li><p>大坑-mysql不能远程访问</p>
-<p> gedit /etc/mysql.my.cnf<br> 找到bind-address      =127.0.0.1<br> 修改为bind-address   =0.0.0.0</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Instead of skip-networking the default is now to listen only on</span><br><span class="line"># localhost which is more compatible and is not less secure.</span><br><span class="line">bind-address        = 0.0.0.0</span><br></pre></td></tr></table></figure>
-</code></pre><p> 授权远程ip登录</p>
-<pre><code><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GRANT</span> ALL <span class="keyword">PRIVILEGES</span> <span class="keyword">ON</span> *.* <span class="keyword">TO</span> <span class="string">'myuser'</span>@<span class="string">'%'</span> <span class="keyword">IDENTIFIED</span> <span class="keyword">BY</span> <span class="string">'mypassword'</span> <span class="keyword">WITH</span> <span class="keyword">GRANT</span> <span class="keyword">OPTION</span>;</span><br><span class="line"><span class="keyword">FLUSH</span>   <span class="keyword">PRIVILEGES</span>;</span><br></pre></td></tr></table></figure>
-</code></pre></li>
-<li><p>修改字符集解决中文乱码问题</p>
-<p> my.cnf中mysqld添加配置</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">character-set-server=utf8mb4</span><br><span class="line">init-connect = &quot;SET NAMES utf8mb4&quot;</span><br></pre></td></tr></table></figure>
-</code></pre></li>
-</ol>
+<li>家庭网络<ul>
+<li>家庭网络和纯粹的“家庭局域网”分开来，它是指连接家庭里的PC、各种外设及与因特网互联的网络系统，它只是家庭网络的一个组成部份。家庭网络是在家庭范围内(可扩展至邻居，小区)将PC、家电、安全系统、照明系统和广域网相连接的一种新技术</li>
+</ul>
+</li>
+<li>网络家电<ul>
+<li>要实现家电间互联和信息交换，就需要解决：1. 描述家电的工作特性的产品模型，使得数据的交换具有特定含义；2. 信息传输的网络媒介。在解决网络媒介这一难点中，可选择的方案有：电力线、无线射频、双绞线、同轴电缆、红外线、光纤。认为比较可行的网络家电包括网络冰箱、网络空调、网络洗衣机、网络热水器、网络微波炉、网络炊具等。网络家电未来的方向也是充分融合到家庭网络中去</li>
+</ul>
+</li>
+<li>信息家电<ul>
+<li>信息家电应该是一种价格低廉、操作简便、 实用性强、带有PC主要功能的家电产品。利用电脑、电信和电子技术与传统家电（包括白色家电：电冰箱、洗衣机、微波炉等和黑色家电：电视机、录像机、音响、VCD、DVD等）相结合的创新产品， 是为数字化与网络技术更广泛地深入家庭生活而设计的新型家用电器，信息家电包括PC、机顶盒、HPC、超级VCD、无线数据通信设备、WEBTV、INTERNET电话等等，所有能够通过网络系统交互信息的家电产品，都可以称之为信息家电。音频、视频和通信设备是信息家电的主要组成部分。另一方面, 在传统家电的基础上，将信息技术融入传统的家电当中，使其功能更加强大，使用更加简单、方便和实用，为家庭生活创造更高品质的生活环境。比如模拟电视发展成数字电视，VCD变成DVD，电冰箱、洗衣机、微波炉等也将会变成数字化、网络化、智能化的信息家电</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>技术特点<ul>
+<li>通过家庭网关及其系统软件建立智能家居平台系统</li>
+<li>统一的平台</li>
+<li>通过外部扩展模块实现与家电的互连</li>
+<li>嵌入式系统的应用</li>
+</ul>
+</li>
+<li>设计原则<ul>
+<li>实用便利</li>
+<li>标准性</li>
+<li>方便性</li>
+<li>轻巧型</li>
+</ul>
+</li>
+</ul>
 
         </div>
         
         <blockquote class="post-copyright">
             <div class="content">
-               原创作品，允许转载，转载时务必以链接形式标明文章出处、作者信息以及本声明，否则将追究法律责任。<a href="/xdlog/mysql/Linux下apt-get安装MySQL/" target="_blank" rel="external">https://xudongye.github.io/xdlog/mysql/Linux下apt-get安装MySQL/</a>
+               原创作品，允许转载，转载时务必以链接形式标明文章出处、作者信息以及本声明，否则将追究法律责任。<a href="/xdlog/smart/smarthome/" target="_blank" rel="external">https://xudongye.github.io/xdlog/smart/smarthome/</a>
             </div>
             <footer>
                 <a href="https://xudongye.github.io/xdlog">
@@ -213,7 +238,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/mysql/">mysql</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/SmartHome/">SmartHome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/智能家居/">智能家居</a></li></ul>
 
 
             
@@ -267,18 +292,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/xdlog/linux/Ubuntu安装tomcat7-nginx-mysql/" id="post-prev" class="post-nav-link">
+      <a href="/xdlog/linux/如何配置linux系统服务/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Ubuntu安装tomcat7 nginx mysql等服务</h4>
+        <h4 class="title">如何配置linux系统服务?</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/xdlog/mysql/windows mysql部署指南/" id="post-next" class="post-nav-link">
+      <a href="/xdlog/java/spring/spring配置占位符源码解析/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">windows mysql部署指南</h4>
+        <h4 class="title">spring配置占位符替换源码解析</h4>
       </a>
     </div>
   
@@ -324,10 +349,10 @@
 
 <script>var BLOG = { ROOT: '/xdlog/' };
 BLOG.SHARE = {
-title: "Linux下apt-get安装MySQL",
+title: "智能家居的简单理解",
 pic: "/xdlog/img/logo.jpg",
 summary: document.getElementsByName('summary')[0].content,
-url: "https://xudongye.github.io/xdlog/mysql/Linux下apt-get安装MySQL/" }
+url: "https://xudongye.github.io/xdlog/smart/smarthome/" }
 </script>
 <div class="global-share" id="global-share">
     <div class="tit">分享到：</div>

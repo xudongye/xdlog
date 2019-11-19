@@ -19,7 +19,7 @@
 <meta property="og:url" content="https://xudongye.github.io/xdlog/design/电商商品表数据库设计/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
 <meta property="og:description" content="一个传统的电商项目，最难的地方也就在于数据库中表的关联，以及多表之间的查询关联，缕清楚表与表之间的关系，才能进行随心所欲的CRUD 第一张表：tb_category 商品类目表  123456789101112131415161718@Id@GeneratedValue(strategy = GenerationType.IDENTITY)private Long id;private Strin">
-<meta property="og:updated_time" content="2019-11-19T06:38:04.095Z">
+<meta property="og:updated_time" content="2019-11-19T06:40:01.678Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="电商商品表数据库设计">
 <meta name="twitter:description" content="一个传统的电商项目，最难的地方也就在于数据库中表的关联，以及多表之间的查询关联，缕清楚表与表之间的关系，才能进行随心所欲的CRUD 第一张表：tb_category 商品类目表  123456789101112131415161718@Id@GeneratedValue(strategy = GenerationType.IDENTITY)private Long id;private Strin">
@@ -180,7 +180,7 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@Id</span><br><span class="line">@GeneratedValue(strategy = GenerationType.IDENTITY)</span><br><span class="line">private Long id;</span><br><span class="line">//产品名称：手机，电脑，零食</span><br><span class="line">private String name;</span><br><span class="line">private String icon;</span><br><span class="line">private Boolean deleted;</span><br><span class="line">@Temporal(TemporalType.TIMESTAMP)</span><br><span class="line">private Date createTime;</span><br><span class="line">@Temporal(TemporalType.TIMESTAMP)</span><br><span class="line">private Date modifyTime;</span><br><span class="line">@ManyToOne(fetch = FetchType.LAZY)</span><br><span class="line">@JoinColumn(name = &quot;category_id&quot;, nullable = false)</span><br><span class="line">private Category category;</span><br><span class="line">private String brandName;</span><br><span class="line">private Double originalPrice;</span><br><span class="line">private Double promotionPrice;</span><br><span class="line">private Long hitCount;</span><br><span class="line">private Long saleCount;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>第三张表：tb_propertyItem 商品规格属性表</li>
+<li>第三张表：tb_propertyItem 商品规格属性表(sku)</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Id</span><br><span class="line">@GeneratedValue(strategy = GenerationType.IDENTITY)</span><br><span class="line">private Long id;</span><br><span class="line">private String name;</span><br></pre></td></tr></table></figure>
 <ul>

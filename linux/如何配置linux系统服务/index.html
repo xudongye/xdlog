@@ -19,7 +19,7 @@
 <meta property="og:url" content="https://xudongye.github.io/xdlog/linux/如何配置linux系统服务/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
 <meta property="og:description" content="Linux的系统服务daemon(守护进程；后台程序)一、service与daemon  service是从功能需求角度而言，daemon是从功能实现角度而言 服务依赖于daemon 当实现某种功能的进程Process常驻在内存，就成为了后台进程 常驻内存中Process是为了给系统提供稳定连续的基础服务Service,也就是后台进程提供了系统服务 系统需要各种服务，从而就需要各种进程  二、主机">
-<meta property="og:updated_time" content="2019-11-18T10:19:59.661Z">
+<meta property="og:updated_time" content="2019-11-19T01:56:09.398Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何配置linux系统服务?">
 <meta name="twitter:description" content="Linux的系统服务daemon(守护进程；后台程序)一、service与daemon  service是从功能需求角度而言，daemon是从功能实现角度而言 服务依赖于daemon 当实现某种功能的进程Process常驻在内存，就成为了后台进程 常驻内存中Process是为了给系统提供稳定连续的基础服务Service,也就是后台进程提供了系统服务 系统需要各种服务，从而就需要各种进程  二、主机">
@@ -275,6 +275,178 @@
 </tbody>
 </table>
 <hr>
+<ul>
+<li><p>unit模板文件 </p>
+<ul>
+<li>在现实中，往往有一些应用需要被复制多份运行，例如在一个负载均衡实例后面运行的多个相同的服务实例。但是按照之前的例子，每个服务都需要一个单独的 Unit 文件，这样复制多份相同文件的做显然不便于服务的管理。为此 Systemd 定义了一种特殊的 Service Unit文件，称为 Unit 模板</li>
+<li>模板文件的主要特点是，文件名以@符号结尾，而启动的时候指定的Unit名称为模板名称附加一个参数字符串。例如，将之前的例子第二个 Unit 文件修改为可以用于启动多个实例的模板</li>
+<li>首先修改文件名，添加一个@符号。<br>例如原来的文件名是 apache.service，那么可以将它修改为 apache@.service，这样做的目的是表面这个文件是一个模板文件。而在服务启动时可以在@后面放置一个用于区分服务实例的附加字符串参数，通常这个参数会使用监听的端口号或使用的控制台TTY编号等。例如 “systemctl start apache@8080.service”</li>
+<li><p>然后修改 Unit 文件内容。<br>Unit 文件中可以获取服务启动时的附加参数，因此通常需要修改 Unit 文件中不应固定的部分，例如服务监听的 IP 和端口，替换为从附加参数中获取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=My Advanced Service Template</span><br><span class="line">After=etcd.servicedocker.service</span><br><span class="line">[Service]</span><br><span class="line">TimeoutStartSec=0</span><br><span class="line">ExecStartPre=-/usr/bin/docker kill apache%i</span><br><span class="line">ExecStartPre=-/usr/bin/docker rm apache%i</span><br><span class="line">ExecStartPre=/usr/bin/docker pull coreos/apache</span><br><span class="line">ExecStart=/usr/bin/docker run --name apache%i -p %i:80 coreos/apache /usr/sbin/apache2ctl -D FOREGROUND</span><br><span class="line">ExecStartPost=/usr/bin/etcdctl set /domains/example.com/%H:%i running</span><br><span class="line">ExecStop=/usr/bin/docker stop apache1</span><br><span class="line">ExecStopPost=/usr/bin/etcdctl rm /domains/example.com/%H:%i</span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>仔细观察一下变化了的地方，上面使用到了占位符 %H 和 %i，常用的占位符有6种（一共19种，其余不怎么常用的查文档吧），这些占位符会在 Unit 启动时被实际的值动态的替换掉</p>
+</li>
+<li>这些参数中除了 %i 以外，同样可以用于非模板的 Unit 文件中。%p 在普通 Unit 文件中会被动态替换为服务名称去掉 .service 后缀的名字</li>
+</ul>
+</li>
+</ul>
+<hr>
+<table>
+<thead>
+<tr>
+<th>占位符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%n</td>
+<td>完整的 Unit 文件名字，包括 .service 后缀名</td>
+</tr>
+<tr>
+<td>%m</td>
+<td>实际运行的节点的 Machine ID，适合用来做Etcd路径的一部分，例如 /machines/%m/units</td>
+</tr>
+<tr>
+<td>%b</td>
+<td>作用有点像 Machine ID，但这个值每次节点重启都会改变，称为 Boot ID</td>
+</tr>
+<tr>
+<td>%H</td>
+<td>实际运行节点的主机名</td>
+</tr>
+<tr>
+<td>%p</td>
+<td>Unit 文件名中在 @ 符号之前的部分，不包括 @ 符号</td>
+</tr>
+<tr>
+<td>%i</td>
+<td>Unit 文件名中在 @ 符号之后的部分，不包括 @ 符号和 .service 后缀名</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<ul>
+<li>启动 Unit 模板的服务实例<ul>
+<li>模板服务的启动对于 Systemd 和 Fleet 大致相同</li>
+<li>Systemd 的情况略简单一+些，只需要运行时加上后缀参数。例如 “systemctl start apache@8080.service”。Systemd 首先会在其特定的目录下寻找名为 apache@8080.service的文件，如果没有找到，而文件名中包含@字符，它就会尝试去掉后缀参数匹配模板文件。例如没有找到apache@8080.service，那么Systemd会找到apache@.service，并将它通过模板文件中实例化</li>
+<li>Fleet 没有特定的 Unit 文件存放目录，不过在通过 fleetctl start 或 fleetctl submit 命令指定 Unit 文件路径时加上后缀参数，Fleet 同样会自动匹配去掉后缀参数后的模板文件。例如 “fleetctl submit ${HOME}/apache@8080.service”，就会匹配到 ${HOME} 目录下面的 apache@.service 模板文件</li>
+</ul>
+</li>
+<li>systemctl命令 系统服务的控制-启动、关闭、重启；注销、取消注销<ul>
+<li>启动服务 <ul>
+<li>格式：systemctl start [unit type] </li>
+<li>systemctl start network.service</li>
+<li>对比之前的 service命令</li>
+<li>格式：service [服务] start</li>
+<li>service network start</li>
+</ul>
+</li>
+<li>停止服务<ul>
+<li>格式：systemctl stop [unit type] </li>
+</ul>
+</li>
+<li>重启服务<ul>
+<li>格式：systemctl restart [unit type]</li>
+</ul>
+</li>
+<li>重新加载服务<ul>
+<li>格式：systemctl reload [unit type] </li>
+<li>其功能是重新加载服务，加载更新后的配置</li>
+</ul>
+</li>
+<li>注销指定服务<ul>
+<li>格式：systemctl mask [unit type] </li>
+</ul>
+</li>
+<li>取消注销指定服务<ul>
+<li>格式：systemctl unmask [unit type] </li>
+</ul>
+</li>
+<li>关闭网络服务<ul>
+<li>在使用systemctl关闭网络服务时有一些特殊 需要同时关闭unit.servce和unit.socket。比如说，如果 sshd.service 和 sshd.socket 都开启了，如果只关闭了sshd.service , 那么 sshd.socket 还在监听网络，在网络上如果有要求连接ssh时就会启动 sshd.service。所以想完全关闭ssh的话，需.service和 .socket同时关闭<ul>
+<li>systemctl stop sshd.service</li>
+<li>systemctl stop sshd.socket</li>
+<li>systemctl disable sshd.service sshd.socket </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>设置服务的开机启动/不启动——对应之前的chkconfig命令<ul>
+<li>设置服务开机启动。</li>
+<li>格式：systemctl enable [unit type] </li>
+<li>设置服务开机不启动</li>
+<li>格式：systemctl disable [unit type] </li>
+<li>查看服务运行状态</li>
+<li>格式：systemctl status [unit type]</li>
+</ul>
+</li>
+<li><p>查看系统上的所有服务</p>
+<ul>
+<li>格式：systemctl -list-units [-all] [-type=TYPE]  依据unit列出所有启动的unit[-all 包括未启动的][指定TYPE的服务]</li>
+<li>格式：systemctl -list-unit-files [-all] [-type=TYPE]  依据/usr/lib/systemd/system/ 内的启动文件，列出启动文件列表<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#列出所有的系统服务</span><br><span class="line">systemctl    </span><br><span class="line"></span><br><span class="line">#列出所有启动unit</span><br><span class="line">systemctl list-units    </span><br><span class="line"></span><br><span class="line">#列出所有启动文件</span><br><span class="line">systemctl list-unit-files    </span><br><span class="line"></span><br><span class="line">#列出所有service类型的unit</span><br><span class="line">systemctl list-units –type=service –all    </span><br><span class="line"></span><br><span class="line">#列出 cpu电源管理机制的服务</span><br><span class="line">systemctl list-units –type=service –all grep cpu    </span><br><span class="line"></span><br><span class="line">#列出所有target</span><br><span class="line">systemctl list-units –type=target –all</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>查看服务是否运行</p>
+<ul>
+<li>格式：systemctl is-active [unit type]</li>
+</ul>
+</li>
+<li>查看服务是否为开机启动<ul>
+<li>格式：systemctl is-enable [unit type]</li>
+</ul>
+</li>
+<li>控制开关机<ul>
+<li>系统关机 systemctl poweroff</li>
+<li>对应之前init命令 init 0</li>
+</ul>
+</li>
+<li>重新启动<ul>
+<li>systemctl reboot</li>
+<li>init 6</li>
+</ul>
+</li>
+<li>进入睡眠模式<ul>
+<li>systemctl suspend</li>
+</ul>
+</li>
+<li>进入休眠模式<ul>
+<li>systemctl hibernate</li>
+</ul>
+</li>
+<li>强制进入救援模式<ul>
+<li>systemctl rescue</li>
+</ul>
+</li>
+<li>强制进入紧急救援模式<ul>
+<li>systemctl emergency</li>
+</ul>
+</li>
+<li><p>设置系统运行级别</p>
+<ul>
+<li>取得当前的target </li>
+<li>systemctl get-default </li>
+<li>设置指定的target为默认的运行级别</li>
+<li>格式：systemctl set-default [unit.target]<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#设置默认的运行级别为multi-user</span><br><span class="line">systemctl set-default multi-user.target</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>切换到指定的运行级别</p>
+<ul>
+<li>格式：systemctl isolate [unit.target]<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#在不重启的情况下，切换到运行级别multi-user下</span><br><span class="line">systemctl isolate multi-user.target</span><br><span class="line">#在不重启的情况下，切换到图形界面下</span><br><span class="line">systemctl isolate graphical.target</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>分析各服务之间的依赖关系</p>
+<ul>
+<li>格式：systemctl list-dependencies [unit.type] [-reverse]   此unit依赖谁，[–reverse]则反之<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#查看当前运行级别target启动了哪些服务。</span><br><span class="line">systemctl list-dependencies</span><br><span class="line"></span><br><span class="line">#查看哪些服务引用了当前运行级别target。 </span><br><span class="line">systemctl list-dependencies --reverse</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
 
         </div>
         

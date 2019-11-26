@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <title>还搞不懂redis？ | Last.Whisper.Diary | 水货开发者的鱼塘遨游日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="redis">
+  <meta name="description" content="Redis 最适合的场景？   1、会话缓存（Session Cache）   最常用的一种使用 Redis 的情景是会话缓存（session cache）。用 Redis 缓存会话比其他存储（如 Memcached）的优势在于：Redis 提供持久化。当维护一个不是严格要求一致性的缓存时，如果用户的购物车信息全部丢失，大部分人都会不高兴的，现在，他们还会这样吗？ 幸运的是，随着 Redis 这些">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="还搞不懂redis？">
+<meta property="og:url" content="https://xudongye.github.io/xdlog/interview/还搞不懂redis？/index.html">
+<meta property="og:site_name" content="Last.Whisper.Diary">
+<meta property="og:description" content="Redis 最适合的场景？   1、会话缓存（Session Cache）   最常用的一种使用 Redis 的情景是会话缓存（session cache）。用 Redis 缓存会话比其他存储（如 Memcached）的优势在于：Redis 提供持久化。当维护一个不是严格要求一致性的缓存时，如果用户的购物车信息全部丢失，大部分人都会不高兴的，现在，他们还会这样吗？ 幸运的是，随着 Redis 这些">
+<meta property="og:updated_time" content="2019-11-26T02:08:17.039Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="还搞不懂redis？">
+<meta name="twitter:description" content="Redis 最适合的场景？   1、会话缓存（Session Cache）   最常用的一种使用 Redis 的情景是会话缓存（session cache）。用 Redis 缓存会话比其他存储（如 Memcached）的优势在于：Redis 提供持久化。当维护一个不是严格要求一致性的缓存时，如果用户的购物车信息全部丢失，大部分人都会不高兴的，现在，他们还会这样吗？ 幸运的是，随着 Redis 这些">
+  
+    <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
+  
+  <meta name="summary" content="没有人可以和生活讨价还价。——《风雨哈佛路》">
+  <link rel="shortcut icon" href="/xdlog/favicon.ico">
+  <link rel="stylesheet" href="/xdlog/css/style.css?v=1.1.7">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar"><img src="/xdlog/img/logo.jpg"></a>
+        <hgroup class="introduce">
+          <h5 class="nickname">大雷小宇</h5>
+          <a href="mailto:simonye@aliyun.com" title="simonye@aliyun.com" class="mail">simonye@aliyun.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/xudongye" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/thanks"  >
+                <i class="icon icon-lg icon-link"></i>
+                致谢
+              </a>
+            </li>
+        
+      </ul>
+
+      <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>Last.Whisper.Diary &copy; 2019</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+    </div>
+  </div>
+</aside>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">还搞不懂redis？</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container">
+        <h1 class="title">还搞不懂redis？</h1>
+        
+        
+
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis-最适合的场景？"><span class="post-toc-number">1.</span> <span class="post-toc-text">Redis 最适合的场景？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#什么是-redis"><span class="post-toc-number">2.</span> <span class="post-toc-text">什么是 redis</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Redis-是完全免费的开源框架，遵守BSD协议，是一个高性能的key-value数据库。"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">Redis 是完全免费的开源框架，遵守BSD协议，是一个高性能的key-value数据库。</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis-与其他-key-value-存储有什么不同？"><span class="post-toc-number">3.</span> <span class="post-toc-text">Redis 与其他 key-value 存储有什么不同？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis-的数据类型？"><span class="post-toc-number">4.</span> <span class="post-toc-text">Redis 的数据类型？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用-Redis-有哪些好处？"><span class="post-toc-number">5.</span> <span class="post-toc-text">使用 Redis 有哪些好处？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis-相比-Memcached-有哪些优势？"><span class="post-toc-number">6.</span> <span class="post-toc-text">Redis 相比 Memcached 有哪些优势？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Memcache-与-Redis-的区别都有哪些？"><span class="post-toc-number">7.</span> <span class="post-toc-text">Memcache 与 Redis 的区别都有哪些？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis-是单进程单线程的？"><span class="post-toc-number">8.</span> <span class="post-toc-text">Redis 是单进程单线程的？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一个字符串类型的值能存储最大容量是多少？"><span class="post-toc-number">9.</span> <span class="post-toc-text">一个字符串类型的值能存储最大容量是多少？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用过-Redis-做异步队列"><span class="post-toc-number">10.</span> <span class="post-toc-text">使用过 Redis 做异步队列</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用过-Redis-分布式锁么，它是什么回事？"><span class="post-toc-number">11.</span> <span class="post-toc-text">使用过 Redis 分布式锁么，它是什么回事？</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-interview/还搞不懂redis？" 
+  class="post-article article-type-post" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">还搞不懂redis？</h1>
+        <div class="post-meta">
+            <time datetime="2019-11-26T01:38:30.000Z" itemprop="datePublished" class="post-time">
+  2019-11-26
+</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/数据库/">数据库</a></li></ul>
+
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="Redis-最适合的场景？"><a href="#Redis-最适合的场景？" class="headerlink" title="Redis 最适合的场景？"></a>Redis 最适合的场景？</h2><p>   1、会话缓存（Session Cache）<br>   最常用的一种使用 Redis 的情景是会话缓存（session cache）。用 Redis 缓存会话比其他存储（如 Memcached）的优势在于：Redis 提供持久化。当维护一个不是严格要求一致性的缓存时，如果用户的购物车信息全部丢失，大部分人都会不高兴的，现在，他们还会这样吗？ 幸运的是，随着 Redis 这些年的改进，很容易找到怎么恰当的使用 Redis 来缓存会话的文档。甚至广为人知的商业平台Magento 也提供 Redis 的插件。<br>   2、全页缓存（FPC）<br>   除基本的会话 token 之外，Redis 还提供很简便的 FPC 平台。回到一致性问题，即使重启了 Redis 实例，因为有磁盘的持久化，用户也不会看到页面加载速度的下降，这是一个极大改进，类似 PHP 本地 FPC。 再次以 Magento 为例，Magento提供一个插件来使用 Redis 作为全页缓存后端。 此外，对 WordPress 的用户来说，Pantheon 有一个非常好的插件 wp-redis，这个插件能帮助你以最快速度加载你曾浏览过的页面。<br>   3、队列Reids<br>   在内存存储引擎领域的一大优点是提供 list 和 set 操作，这使得 Redis能作为一个很好的消息队列平台来使用。Redis 作为队列使用的操作，就类似于本地程序语言（如 Python）对 list 的 push/pop 操作。 如果你快速的在 Google中搜索“Redis queues”，你马上就能找到大量的开源项目，这些项目的目的就是利用 Redis 创建非常好的后端工具，以满足各种队列需求。例如，Celery 有一个后台就是使用 Redis 作为 broker。<br>   4，排行榜/计数器Redis<br>   在内存中对数字进行递增或递减的操作实现的非常好。集合（Set）和有序集合（Sorted Set）也使得我们在执行这些操作的时候变的非常简单，Redis 只是正好提供了这两种数据结构。所以，我们要从排序集合中获取到排名最靠前的 10个用户–我们称之为“user_scores”，我们只需要像下面一样执行即可： 当然，这是假定你是根据你用户的分数做递增的排序。如果你想返回用户及用户的分数，你需要这样执行： ZRANGE user_scores 0 10 WITHSCORES Agora Games 就是一个很好的例子，用 Ruby 实现的，它的排行榜就是使用 Redis 来存储数据的，你可以在这里看到。<br>   5、发布/订阅<br>   最后（但肯定不是最不重要的）是 Redis 的发布/订阅功能。发布/订阅的使用场景确实非常多。我已看见人们在社交网络连接中使用，还可作为基于发布/订阅的脚本触发器，甚至用 Redis 的发布/订阅功能来建立聊天系统！</p>
+<h2 id="什么是-redis"><a href="#什么是-redis" class="headerlink" title="什么是 redis"></a>什么是 redis</h2><h4 id="Redis-是完全免费的开源框架，遵守BSD协议，是一个高性能的key-value数据库。"><a href="#Redis-是完全免费的开源框架，遵守BSD协议，是一个高性能的key-value数据库。" class="headerlink" title="Redis 是完全免费的开源框架，遵守BSD协议，是一个高性能的key-value数据库。"></a>Redis 是完全免费的开源框架，遵守<a href="https://www.jianshu.com/p/4a5bc226299b" target="_blank" rel="noopener">BSD协议</a>，是一个高性能的key-value数据库。</h4><ol>
+<li>Redis 与其他 key - value 缓存产品有以下三个特点：<br> （1）Redis 支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。<br> （2）Redis 不仅仅支持简单的 key-value 类型的数据，同时还提供 list，set，zset，hash 等数据结构的存储。<br> （3）Redis 支持数据的备份，即 master-slave 模式的数据备份。</li>
+<li>Redis 优势：<br> （1）性能极高 – Redis 能读的速度是 110000 次/s,写的速度是 81000 次/s 。<br> （2）丰富的数据类型 – Redis 支持二进制案例的 Strings, Lists, Hashes, Sets 及Ordered Sets 数据类型操作。<br> （3）原子 – Redis 的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务，即原子性，通过 MULTI 和 EXEC指令包起来。<br> （4）丰富的特性 – Redis 还支持 publish/subscribe, 通知, key 过期等等特性。<h2 id="Redis-与其他-key-value-存储有什么不同？"><a href="#Redis-与其他-key-value-存储有什么不同？" class="headerlink" title="Redis 与其他 key-value 存储有什么不同？"></a>Redis 与其他 key-value 存储有什么不同？</h2>（1）Redis 有着更为复杂的数据结构并且提供对他们的原子性操作，这是一个不同于其他数据库的进化路径。Redis 的数据类型都是基于基本数据结构的同时对程序员透明，无需进行额外的抽象。<br>（2）Redis 运行在内存中但是可以持久化到磁盘，所以在对不同数据集进行高速读写时需要权衡内存，因为数据量不能大于硬件内存。在内存数据库方面的另一个优点是，相比在磁盘上相同的复杂的数据结构，在内存中操作起来非常简单，这样 Redis可以做很多内部复杂性很强的事情。同时，在磁盘格式方面他们是紧凑的以追加的方式产生的，因为他们并不需要进行随机访问。</li>
+</ol>
+<h2 id="Redis-的数据类型？"><a href="#Redis-的数据类型？" class="headerlink" title="Redis 的数据类型？"></a>Redis 的数据类型？</h2><p>   Redis 支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及 zsetsorted set(有序集合)。<br>   我们实际项目中比较常用的是 string，hash 如果你是 Redis 中高级用户，还需要加上下面几种数据结构 HyperLogLog、Geo、Pub/Sub。<br>   如果你说还玩过 Redis Module，像 BloomFilter，RedisSearch，Redis-ML，面试官得眼睛就开始发亮了。</p>
+<h2 id="使用-Redis-有哪些好处？"><a href="#使用-Redis-有哪些好处？" class="headerlink" title="使用 Redis 有哪些好处？"></a>使用 Redis 有哪些好处？</h2><p>   （1）速度快，因为数据存在内存中，类似于 HashMap，HashMap 的优势就是查找和操作的时间复杂度都是 OI<br>   （2）支持丰富数据类型，支持 string，list，set，Zset，hash 等<br>   （3）支持事务，操作都是原子性，所谓的原子性就是对数据的更改要么全部执行，要么全部不执行<br>   （4）丰富的特性：可用于缓存，消息，按 key 设置过期时间，过期后将会自动删除</p>
+<h2 id="Redis-相比-Memcached-有哪些优势？"><a href="#Redis-相比-Memcached-有哪些优势？" class="headerlink" title="Redis 相比 Memcached 有哪些优势？"></a>Redis 相比 Memcached 有哪些优势？</h2><p>   （1）Memcached 所有的值均是简单的字符串，redis 作为其替代者，支持更为丰富的数据类<br>   （2）Redis 的速度比 Memcached 快<br>   （3）Redis 可以持久化其数据</p>
+<h2 id="Memcache-与-Redis-的区别都有哪些？"><a href="#Memcache-与-Redis-的区别都有哪些？" class="headerlink" title="Memcache 与 Redis 的区别都有哪些？"></a>Memcache 与 Redis 的区别都有哪些？</h2><p>   （1）存储方式 Memecache 把数据全部存在内存之中，断电后会挂掉，数据不能超过内存大小。 Redis 有部份存在硬盘上，这样能保证数据的持久性<br>   （2）数据支持类型 Memcache 对数据类型支持相对简单。 Redis 有复杂的数据类型。<br>   （3）使用底层模型不同 它们之间底层实现方式 以及与客户端之间通信的应用协议不一样。 Redis 直接自己构建了 VM 机制 ，因为一般的系统调用系统函数的话，会浪费一定的时间去移动和请求。</p>
+<h2 id="Redis-是单进程单线程的？"><a href="#Redis-是单进程单线程的？" class="headerlink" title="Redis 是单进程单线程的？"></a>Redis 是单进程单线程的？</h2><p>   Redis 是单进程单线程的，redis 利用队列技术将并发访问变为串行访问，消除了传统数据库串行控制的开销。</p>
+<h2 id="一个字符串类型的值能存储最大容量是多少？"><a href="#一个字符串类型的值能存储最大容量是多少？" class="headerlink" title="一个字符串类型的值能存储最大容量是多少？"></a>一个字符串类型的值能存储最大容量是多少？</h2><p>   512M</p>
+<h2 id="使用过-Redis-做异步队列"><a href="#使用过-Redis-做异步队列" class="headerlink" title="使用过 Redis 做异步队列"></a>使用过 Redis 做异步队列</h2><p>   使用 list 结构作为队列，rpush 生产消息，lpop 消费消息。当 lpop 没有消息的时候，要适当 sleep 一会再重试。如果对方追问可不可以不用 sleep 呢？list 还有个指令叫 blpop，在没有消息的时候，它会阻塞住直到消息到来。如果对方追问能不能生产一次消费多次呢？使用 pub/sub 主题订阅者模式，可以实现1:N 的消息队列<br>   pub/sub 有什么缺点？<br>   在消费者下线的情况下，生产的消息会丢失，得使用专业的消息队列如 RabbitMQ等</p>
+<h2 id="使用过-Redis-分布式锁么，它是什么回事？"><a href="#使用过-Redis-分布式锁么，它是什么回事？" class="headerlink" title="使用过 Redis 分布式锁么，它是什么回事？"></a>使用过 Redis 分布式锁么，它是什么回事？</h2><p>   先拿 setnx 来争抢锁，抢到之后，再用 expire 给锁加一个过期时间防止锁忘记了释放</p>
+
+        </div>
+        
+        <blockquote class="post-copyright">
+            <div class="content">
+               原创作品，允许转载，转载时务必以链接形式标明文章出处、作者信息以及本声明，否则将追究法律责任。<a href="/xdlog/interview/还搞不懂redis？/" target="_blank" rel="external">https://xudongye.github.io/xdlog/interview/还搞不懂redis？/</a>
+            </div>
+            <footer>
+                <a href="https://xudongye.github.io/xdlog">
+                    <img src="/xdlog/img/logo.jpg" alt="大雷小宇">
+                    大雷小宇
+                </a>
+            </footer>
+        </blockquote>
+
+        
+        <div class="post-reward">
+            <a id="rewardBtn" href="javascript:;" class="post-reward-btn waves-effect waves-circle waves-light">赏</a>
+        </div>
+        
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/redis/">redis</a></li></ul>
+
+
+            
+            <div class="post-share-wrap">
+                <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+                <a href="javascript:;" id="share-fab" class="post-share-fab waves-effect waves-circle">
+                    <i class="icon icon-share-alt icon-lg"></i>
+                </a>
+            </div>
+            
+
+        </div>
+    </div>   
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/xdlog/design/电商商品表数据库设计/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">电商商品表数据库设计</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+    
+
+
+
+</article>
+
+<div id="reward" class="reward-lay">
+    <a class="reward-off" id="rewardOff" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/xdlog/images/reward/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/xdlog/images/reward/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+</div>
+  </main>
+  <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>var BLOG = { ROOT: '/xdlog/' };
+BLOG.SHARE = {
+title: "还搞不懂redis？",
+pic: "/xdlog/img/logo.jpg",
+summary: document.getElementsByName('summary')[0].content,
+url: "https://xudongye.github.io/xdlog/interview/还搞不懂redis？/" }
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+  <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script src="/xdlog/js/main.min.js?v=1.1.7"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/xdlog/js/search.min.js?v=1.1.7"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

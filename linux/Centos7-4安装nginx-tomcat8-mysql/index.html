@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <title>Centos7.4安装nginx-tomcat8-mysql | Last.Whisper.Diary | 水货开发者的鱼塘遨游日志</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="部署,系统服务">
+  <meta name="description" content="修改hostname 修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称 修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称 重启  安装 nginx-1.17.0.tar.gznginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 l">
+<meta name="keywords" content="部署,系统服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos7.4安装nginx-tomcat8-mysql">
+<meta property="og:url" content="https://xudongye.github.io/xdlog/linux/Centos7-4安装nginx-tomcat8-mysql/index.html">
+<meta property="og:site_name" content="Last.Whisper.Diary">
+<meta property="og:description" content="修改hostname 修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称 修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称 重启  安装 nginx-1.17.0.tar.gznginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 l">
+<meta property="og:updated_time" content="2019-12-03T03:03:09.242Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Centos7.4安装nginx-tomcat8-mysql">
+<meta name="twitter:description" content="修改hostname 修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称 修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称 重启  安装 nginx-1.17.0.tar.gznginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 l">
+  
+    <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
+  
+  <meta name="summary" content="没有人可以和生活讨价还价。——《风雨哈佛路》">
+  <link rel="shortcut icon" href="/xdlog/favicon.ico">
+  <link rel="stylesheet" href="/xdlog/css/style.css?v=1.1.7">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar"><img src="/xdlog/img/logo.jpg"></a>
+        <hgroup class="introduce">
+          <h5 class="nickname">大雷小宇</h5>
+          <a href="mailto:simonye@aliyun.com" title="simonye@aliyun.com" class="mail">simonye@aliyun.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/xudongye" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/thanks"  >
+                <i class="icon icon-lg icon-link"></i>
+                致谢
+              </a>
+            </li>
+        
+      </ul>
+
+      <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>Last.Whisper.Diary &copy; 2019</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+    </div>
+  </div>
+</aside>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Centos7.4安装nginx-tomcat8-mysql</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container">
+        <h1 class="title">Centos7.4安装nginx-tomcat8-mysql</h1>
+        
+        
+
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改hostname"><span class="post-toc-number">1.</span> <span class="post-toc-text">修改hostname</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-nginx-1-17-0-tar-gz"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装 nginx-1.17.0.tar.gz</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#添加nginx-service"><span class="post-toc-number"></span> <span class="post-toc-text">添加nginx.service</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#vim-lib-systemd-system-nginx-service"><span class="post-toc-number"></span> <span class="post-toc-text">vim /lib/systemd/system/nginx.service</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#路径对应安装路径"><span class="post-toc-number"></span> <span class="post-toc-text">路径对应安装路径</span></a>
+        </nav>
+    </aside>
+    
+<article id="post-linux/Centos7-4安装nginx-tomcat8-mysql" 
+  class="post-article article-type-post" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Centos7.4安装nginx-tomcat8-mysql</h1>
+        <div class="post-meta">
+            <time datetime="2019-12-03T02:38:11.000Z" itemprop="datePublished" class="post-time">
+  2019-12-03
+</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Linux/">Linux</a></li></ul>
+
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="修改hostname"><a href="#修改hostname" class="headerlink" title="修改hostname"></a>修改hostname</h3><ol>
+<li>修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称</li>
+<li>修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称</li>
+<li>重启</li>
+</ol>
+<h3 id="安装-nginx-1-17-0-tar-gz"><a href="#安装-nginx-1-17-0-tar-gz" class="headerlink" title="安装 nginx-1.17.0.tar.gz"></a>安装 nginx-1.17.0.tar.gz</h3><p>nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 linux 上安装 pcre 库，pcre-devel 是使用 pcre 开发的一个二次开发库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y pcre pcre-devel</span><br></pre></td></tr></table></figure></p>
+<p>zlib 库提供了很多种压缩和解压缩的方式， nginx 使用 zlib 对 http 包的内容进行 gzip ，所以需要在 Centos 上安装 zlib 库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y zlib zlib-devel</span><br></pre></td></tr></table></figure></p>
+<p>如果有需要，根据error提示可能还需要GCC和OpenSSL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc-c++</span><br><span class="line">yum install -y openssl openssl-devel</span><br></pre></td></tr></table></figure></p>
+<p>开始安装nginx,1.17.0这个是目前最新版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -c https://nginx.org/download/nginx-1.17.0.tar.gz</span><br></pre></td></tr></table></figure></p>
+<p>解压并进入nginx目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx-1.17.0.tar.gz</span><br><span class="line">cd nginx-1.17.0</span><br><span class="line">````    </span><br><span class="line">使用nginx的默认配置</span><br></pre></td></tr></table></figure></p>
+<p>./configure<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">查找安装路径</span><br></pre></td></tr></table></figure></p>
+<p>whereis nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装好后，把nginx添加到系统服务中</span><br></pre></td></tr></table></figure></p>
+<h1 id="添加nginx-service"><a href="#添加nginx-service" class="headerlink" title="添加nginx.service"></a>添加nginx.service</h1><h1 id="vim-lib-systemd-system-nginx-service"><a href="#vim-lib-systemd-system-nginx-service" class="headerlink" title="vim /lib/systemd/system/nginx.service"></a>vim /lib/systemd/system/nginx.service</h1><p>[Unit]<br>Description=nginx service<br>After=network.target </p>
+<p>[Service]<br>Type=forking</p>
+<h1 id="路径对应安装路径"><a href="#路径对应安装路径" class="headerlink" title="路径对应安装路径"></a>路径对应安装路径</h1><p>ExecStart=/usr/local/nginx/sbin/nginx<br>ExecReload=/usr/local/nginx/sbin/nginx -s reload<br>ExecStop=/usr/local/nginx/sbin/nginx -s quit<br>PrivateTmp=true </p>
+<p>[Install]<br>WantedBy=multi-user.target<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">添加完成之后即可</span><br></pre></td></tr></table></figure></p>
+<p>systemctl enable|status/|start|restart|stop nginx.service<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">### firewalld 防火墙配置</span><br><span class="line"></span><br><span class="line">不改变状态下重载防火墙</span><br></pre></td></tr></table></figure></p>
+<p>firewall-cmd –reload<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">基本使用</span><br></pre></td></tr></table></figure></p>
+<p>启动： systemctl start firewalld<br>关闭： systemctl stop firewalld<br>查看状态： systemctl status firewalld<br>开机禁用  ： systemctl disable firewalld<br>开机启用  ： systemctl enable firewalld<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl是CentOS7的服务管理工具中主要的工具，它融合之前service和chkconfig的功能于一体</span><br></pre></td></tr></table></figure></p>
+<p>启动一个服务：systemctl start firewalld.service<br>关闭一个服务：systemctl stop firewalld.service<br>重启一个服务：systemctl restart firewalld.service<br>显示一个服务的状态：systemctl status firewalld.service<br>在开机时启用一个服务：systemctl enable firewalld.service<br>在开机时禁用一个服务：systemctl disable firewalld.service<br>查看服务是否开机启动：systemctl is-enabled firewalld.service<br>查看已启动的服务列表：systemctl list-unit-files|grep enabled<br>查看启动失败的服务列表：systemctl –failed<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">配置firewalld-cmd</span><br></pre></td></tr></table></figure></p>
+<p>查看版本： firewall-cmd –version<br>查看帮助： firewall-cmd –help<br>显示状态： firewall-cmd –state<br>查看所有打开的端口： firewall-cmd –zone=public –list-ports<br>更新防火墙规则： firewall-cmd –reload<br>查看区域信息:  firewall-cmd –get-active-zones<br>查看指定接口所属区域： firewall-cmd –get-zone-of-interface=eth0<br>拒绝所有包：firewall-cmd –panic-on<br>取消拒绝状态： firewall-cmd –panic-off<br>查看是否拒绝： firewall-cmd –query-panic<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">开启一个端口</span><br></pre></td></tr></table></figure></p>
+<p>添加<br>firewall-cmd –zone=public –add-port=80/tcp –permanent    （–permanent永久生效，没有此参数重启后失效）<br>重新载入<br>firewall-cmd –reload<br>查看<br>firewall-cmd –zone= public –query-port=80/tcp<br>删除<br>firewall-cmd –zone= public –remove-port=80/tcp –permanent<br>````</p>
+
+        </div>
+        
+        <blockquote class="post-copyright">
+            <div class="content">
+               原创作品，允许转载，转载时务必以链接形式标明文章出处、作者信息以及本声明，否则将追究法律责任。<a href="/xdlog/linux/Centos7-4安装nginx-tomcat8-mysql/" target="_blank" rel="external">https://xudongye.github.io/xdlog/linux/Centos7-4安装nginx-tomcat8-mysql/</a>
+            </div>
+            <footer>
+                <a href="https://xudongye.github.io/xdlog">
+                    <img src="/xdlog/img/logo.jpg" alt="大雷小宇">
+                    大雷小宇
+                </a>
+            </footer>
+        </blockquote>
+
+        
+        <div class="post-reward">
+            <a id="rewardBtn" href="javascript:;" class="post-reward-btn waves-effect waves-circle waves-light">赏</a>
+        </div>
+        
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/系统服务/">系统服务</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/部署/">部署</a></li></ul>
+
+
+            
+            <div class="post-share-wrap">
+                <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+                <a href="javascript:;" id="share-fab" class="post-share-fab waves-effect waves-circle">
+                    <i class="icon icon-share-alt icon-lg"></i>
+                </a>
+            </div>
+            
+
+        </div>
+    </div>   
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/xdlog/interview/还搞不懂redis？/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">还搞不懂redis？</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+    
+
+
+
+</article>
+
+<div id="reward" class="reward-lay">
+    <a class="reward-off" id="rewardOff" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/xdlog/images/reward/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/xdlog/images/reward/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+</div>
+  </main>
+  <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>var BLOG = { ROOT: '/xdlog/' };
+BLOG.SHARE = {
+title: "Centos7.4安装nginx-tomcat8-mysql",
+pic: "/xdlog/img/logo.jpg",
+summary: document.getElementsByName('summary')[0].content,
+url: "https://xudongye.github.io/xdlog/linux/Centos7-4安装nginx-tomcat8-mysql/" }
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+  <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script src="/xdlog/js/main.min.js?v=1.1.7"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/xdlog/js/search.min.js?v=1.1.7"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

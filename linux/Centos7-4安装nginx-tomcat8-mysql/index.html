@@ -12,17 +12,17 @@
   
   
   <meta name="keywords" content="部署,系统服务,CentOs7.4">
-  <meta name="description" content="修改hostname 修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称 修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称 重启  安装 nginx-1.17.0.tar.gznginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 l">
+  <meta name="description" content="修改hostname 修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称 修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称 重启  安装 nginx-1.17.0.tar.gz nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在">
 <meta name="keywords" content="部署,系统服务,CentOs7.4">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Centos7.4安装nginx-tomcat8-mysql">
 <meta property="og:url" content="https://xudongye.github.io/xdlog/linux/Centos7-4安装nginx-tomcat8-mysql/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
-<meta property="og:description" content="修改hostname 修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称 修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称 重启  安装 nginx-1.17.0.tar.gznginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 l">
-<meta property="og:updated_time" content="2019-12-03T07:30:12.722Z">
+<meta property="og:description" content="修改hostname 修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称 修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称 重启  安装 nginx-1.17.0.tar.gz nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在">
+<meta property="og:updated_time" content="2019-12-03T07:34:20.969Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos7.4安装nginx-tomcat8-mysql">
-<meta name="twitter:description" content="修改hostname 修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称 修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称 重启  安装 nginx-1.17.0.tar.gznginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 l">
+<meta name="twitter:description" content="修改hostname 修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称 修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称 重启  安装 nginx-1.17.0.tar.gz nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在">
   
     <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
   
@@ -176,33 +176,54 @@
 <li>修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称</li>
 <li>重启</li>
 </ol>
-<h3 id="安装-nginx-1-17-0-tar-gz"><a href="#安装-nginx-1-17-0-tar-gz" class="headerlink" title="安装 nginx-1.17.0.tar.gz"></a>安装 nginx-1.17.0.tar.gz</h3><p>nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 linux 上安装 pcre 库，pcre-devel 是使用 pcre 开发的一个二次开发库</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y pcre pcre-devel</span><br></pre></td></tr></table></figure>
-</code></pre><p>zlib 库提供了很多种压缩和解压缩的方式， nginx 使用 zlib 对 http 包的内容进行 gzip ，所以需要在 Centos 上安装 zlib 库</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y zlib zlib-devel</span><br></pre></td></tr></table></figure>
-</code></pre><p>如果有需要，根据error提示可能还需要GCC和OpenSSL</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc-c++</span><br><span class="line">yum install -y openssl openssl-devel</span><br></pre></td></tr></table></figure>
-</code></pre><p>开始安装nginx,1.17.0这个是目前最新版本</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -c https://nginx.org/download/nginx-1.17.0.tar.gz</span><br></pre></td></tr></table></figure>
-</code></pre><p>解压并进入nginx目录</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx-1.17.0.tar.gz</span><br><span class="line">cd nginx-1.17.0</span><br></pre></td></tr></table></figure>
-</code></pre><p>使用nginx的默认配置</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br></pre></td></tr></table></figure>
-</code></pre><p>查找安装路径</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whereis nginx</span><br></pre></td></tr></table></figure>
-</code></pre><p>安装好后，把nginx添加到系统服务中</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 添加nginx.service</span><br><span class="line"># vim /lib/systemd/system/nginx.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=nginx service</span><br><span class="line">After=network.target </span><br><span class="line">[Service] </span><br><span class="line">Type=forking</span><br><span class="line"># 路径对应安装路径</span><br><span class="line">ExecStart=/usr/local/nginx/sbin/nginx</span><br><span class="line">ExecReload=/usr/local/nginx/sbin/nginx -s reload</span><br><span class="line">ExecStop=/usr/local/nginx/sbin/nginx -s quit</span><br><span class="line">PrivateTmp=true </span><br><span class="line">[Install] </span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
-</code></pre><p>添加完成之后即可</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable|status/|start|restart|stop nginx.service</span><br></pre></td></tr></table></figure>
-</code></pre><h3 id="firewalld-防火墙配置"><a href="#firewalld-防火墙配置" class="headerlink" title="firewalld 防火墙配置"></a>firewalld 防火墙配置</h3><p>不改变状态下重载防火墙</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
-</code></pre><p>基本使用</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">启动： systemctl start firewalld</span><br><span class="line">关闭： systemctl stop firewalld</span><br><span class="line">查看状态： systemctl status firewalld </span><br><span class="line">开机禁用  ： systemctl disable firewalld</span><br><span class="line">开机启用  ： systemctl enable firewalld</span><br></pre></td></tr></table></figure>
-</code></pre><p>systemctl是CentOS7的服务管理工具中主要的工具，它融合之前service和chkconfig的功能于一体</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">启动一个服务：systemctl start firewalld.service</span><br><span class="line">关闭一个服务：systemctl stop firewalld.service</span><br><span class="line">重启一个服务：systemctl restart firewalld.service</span><br><span class="line">显示一个服务的状态：systemctl status firewalld.service</span><br><span class="line">在开机时启用一个服务：systemctl enable firewalld.service</span><br><span class="line">在开机时禁用一个服务：systemctl disable firewalld.service</span><br><span class="line">查看服务是否开机启动：systemctl is-enabled firewalld.service</span><br><span class="line">查看已启动的服务列表：systemctl list-unit-files|grep enabled</span><br><span class="line">查看启动失败的服务列表：systemctl --failed</span><br></pre></td></tr></table></figure>
-</code></pre><p>配置firewalld-cmd</p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">查看版本： firewall-cmd --version</span><br><span class="line">查看帮助： firewall-cmd --help</span><br><span class="line">显示状态： firewall-cmd --state</span><br><span class="line">查看所有打开的端口： firewall-cmd --zone=public --list-ports</span><br><span class="line">更新防火墙规则： firewall-cmd --reload</span><br><span class="line">查看区域信息:  firewall-cmd --get-active-zones</span><br><span class="line">查看指定接口所属区域： firewall-cmd --get-zone-of-interface=eth0</span><br><span class="line">拒绝所有包：firewall-cmd --panic-on</span><br><span class="line">取消拒绝状态： firewall-cmd --panic-off</span><br><span class="line">查看是否拒绝： firewall-cmd --query-panic</span><br></pre></td></tr></table></figure>
-</code></pre><p>开启一个端口<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">添加</span><br><span class="line">firewall-cmd --zone=public --add-port=80/tcp --permanent    （--permanent永久生效，没有此参数重启后失效）</span><br><span class="line">重新载入</span><br><span class="line">firewall-cmd --reload</span><br><span class="line">查看</span><br><span class="line">firewall-cmd --zone=public --query-port=80/tcp</span><br><span class="line">删除</span><br><span class="line">firewall-cmd --zone=public --remove-port=80/tcp --permanent</span><br></pre></td></tr></table></figure></p>
+<h3 id="安装-nginx-1-17-0-tar-gz"><a href="#安装-nginx-1-17-0-tar-gz" class="headerlink" title="安装 nginx-1.17.0.tar.gz"></a>安装 nginx-1.17.0.tar.gz</h3><ol>
+<li><p>nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在 linux 上安装 pcre 库，pcre-devel 是使用 pcre 开发的一个二次开发库</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y pcre pcre-devel</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>zlib 库提供了很多种压缩和解压缩的方式， nginx 使用 zlib 对 http 包的内容进行 gzip ，所以需要在 Centos 上安装 zlib 库</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y zlib zlib-devel</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果有需要，根据error提示可能还需要GCC和OpenSSL</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc-c++</span><br><span class="line">yum install -y openssl openssl-devel</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开始安装nginx,1.17.0这个是目前最新版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -c https://nginx.org/download/nginx-1.17.0.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压并进入nginx目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx-1.17.0.tar.gz</span><br><span class="line">cd nginx-1.17.0</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol>
+<li><p>使用nginx的默认配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查找安装路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whereis nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装好后，把nginx添加到系统服务中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 添加nginx.service</span><br><span class="line"># vim /lib/systemd/system/nginx.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=nginx service</span><br><span class="line">After=network.target </span><br><span class="line">[Service] </span><br><span class="line">Type=forking</span><br><span class="line"># 路径对应安装路径</span><br><span class="line">ExecStart=/usr/local/nginx/sbin/nginx</span><br><span class="line">ExecReload=/usr/local/nginx/sbin/nginx -s reload</span><br><span class="line">ExecStop=/usr/local/nginx/sbin/nginx -s quit</span><br><span class="line">PrivateTmp=true </span><br><span class="line">[Install] </span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加完成之后即可</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable|status/|start|restart|stop nginx.service</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="firewalld-防火墙配置"><a href="#firewalld-防火墙配置" class="headerlink" title="firewalld 防火墙配置"></a>firewalld 防火墙配置</h3><ol>
+<li><p>不改变状态下重载防火墙</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基本使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">启动： systemctl start firewalld</span><br><span class="line">关闭： systemctl stop firewalld</span><br><span class="line">查看状态： systemctl status firewalld </span><br><span class="line">开机禁用  ： systemctl disable firewalld</span><br><span class="line">开机启用  ： systemctl enable firewalld</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>systemctl是CentOS7的服务管理工具中主要的工具，它融合之前service和chkconfig的功能于一体</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">启动一个服务：systemctl start firewalld.service</span><br><span class="line">关闭一个服务：systemctl stop firewalld.service</span><br><span class="line">重启一个服务：systemctl restart firewalld.service</span><br><span class="line">显示一个服务的状态：systemctl status firewalld.service</span><br><span class="line">在开机时启用一个服务：systemctl enable firewalld.service</span><br><span class="line">在开机时禁用一个服务：systemctl disable firewalld.service</span><br><span class="line">查看服务是否开机启动：systemctl is-enabled firewalld.service</span><br><span class="line">查看已启动的服务列表：systemctl list-unit-files|grep enabled</span><br><span class="line">查看启动失败的服务列表：systemctl --failed</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置firewalld-cmd</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">查看版本： firewall-cmd --version</span><br><span class="line">查看帮助： firewall-cmd --help</span><br><span class="line">显示状态： firewall-cmd --state</span><br><span class="line">查看所有打开的端口： firewall-cmd --zone=public --list-ports</span><br><span class="line">更新防火墙规则： firewall-cmd --reload</span><br><span class="line">查看区域信息:  firewall-cmd --get-active-zones</span><br><span class="line">查看指定接口所属区域： firewall-cmd --get-zone-of-interface=eth0</span><br><span class="line">拒绝所有包：firewall-cmd --panic-on</span><br><span class="line">取消拒绝状态： firewall-cmd --panic-off</span><br><span class="line">查看是否拒绝： firewall-cmd --query-panic</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启一个端口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">添加</span><br><span class="line">firewall-cmd --zone=public --add-port=80/tcp --permanent    （--permanent永久生效，没有此参数重启后失效）</span><br><span class="line">重新载入</span><br><span class="line">firewall-cmd --reload</span><br><span class="line">查看</span><br><span class="line">firewall-cmd --zone=public --query-port=80/tcp</span><br><span class="line">删除</span><br><span class="line">firewall-cmd --zone=public --remove-port=80/tcp --permanent</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 <h3 id="CentOs7-4安装Mysql8-0-17-参考文献"><a href="#CentOs7-4安装Mysql8-0-17-参考文献" class="headerlink" title="CentOs7.4安装Mysql8.0.17,参考文献"></a>CentOs7.4安装Mysql8.0.17,<a href="https://www.cnblogs.com/yangk1996/p/10700537.html" target="_blank" rel="noopener">参考文献</a></h3><ol>
 <li><a href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="noopener">Mysql下载传送门</a></li>
 <li><p>卸载Linux自带mariadb<a href="http://www.sohu.com/a/252174706_355140" target="_blank" rel="noopener">什么是mariadb?</a></p>

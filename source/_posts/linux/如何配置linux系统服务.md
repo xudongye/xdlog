@@ -3,10 +3,9 @@ title: 如何配置linux系统服务?
 date: 2019-11-18 17:10:38
 categories: 
 - Linux
-- CentOs7.4
 tags: 
 - Linux
-- Centos
+- CentOs7.4
 ---
 
 ### Linux的系统服务daemon(守护进程；后台程序)

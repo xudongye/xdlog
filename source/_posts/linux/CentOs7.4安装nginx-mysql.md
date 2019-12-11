@@ -73,9 +73,99 @@ tags:
 
 9.  添加完成之后即可
     ```
-    systemctl enable|status/|start|restart|stop nginx.service
+    systemctl enable|status|start|restart|stop nginx.service
     ```
+10. Nginx部署前后端分离服务以及配置
+    * 在前后端分离端项目里，前端的代码会被打包成为纯静态文件。使用 Nginx的目的就是让静态文件运行起服务，由于后端的接口也是分离的，直接请求可能会产生跨域问题，此时就需要Nginx转发代理后端接口。
+    ````
+    user  root; #指定 Nginx Worker 进程运行用户以及用户组
+    worker_processes  auto; #启动进程
+    
+    error_log /var/log/nginx/error.log; #全局错误日志
+    #error_log  logs/error.log  notice;
+    #error_log  logs/error.log  info;
+    pid /run/nginx.pid; #PID文件
+    
+    
+    events {
+        worker_connections  1024; #单个后台worker process进程的最大并发链接数
+    }
+    
+    
+    http {
+        include       mime.types;
+        default_type  application/octet-stream;
+        gzip on; #开启gzip压缩
+        gzip_min_length 1k; #设置对数据启用压缩的最少字节数
+        gzip_buffers    4 16k;
+        gzip_http_version 1.0;
+        gzip_comp_level 6; #设置数据的压缩等级,等级为1-9，压缩比从小到大
+        gzip_types text/plain text/css text/javascript application/json application/javascript application/x-javascript application/xml; #设置需要压缩的数据格式
+        gzip_vary on;
+    
+        server {
+            listen       80;    #侦听80端口,并为默认服务,default_server只能有一个
+            server_name  www.kuanghuan.shop;    #服务域名,可以有多个,用空格隔开
+            root /khgo/volume/project/front;    ##定义服务器的默认网站根目录位置
+            error_page  404              /404.html; #将404错误页面重定向到index.html可以解决history模式访问不到页面问题
+            location / {
+                root   html;
+                index  index.html index.htm;
+            }
+    
+            location /storemanager/ {
+                try_files $uri $uri/ /storemanager/index.html;
+            }
+    
+    
+            location /learn/ {
+            set $cors '';
+            if ($http_origin ~* 'https?://(localhost(:8090)?|www\.kuanghuan\.shop|kuanghuan\.shop)') {
+             set $cors 'true';
+             }
+    
+            if ($cors = 'true') {
+            add_header 'Access-Control-Allow-Origin' "$http_origin" always;
+            add_header 'Access-Control-Allow-Credentials' 'true' always;
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+            add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With' always;
+            }
+    
+            if ($request_method = 'OPTIONS') {
+            return 204;
+            }
+    
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header X-Forwarded-Server $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass http://127.0.0.1:8080/learn/;
+            }
+    
+             # 图片缓存时间设置
+            location ~ .*.(gif|jpg|jpeg|png|bmp|swf)$ {
+                expires 10d;
+            }
+            # JS和CSS缓存时间设置
+            location ~ .*.(js|css)?$ {
+                expires 1h;
+            }
+    
+            # redirect server error pages to the static page /50x.html
+            #
+            error_page   500 502 503 504  /50x.html;
+            location = /50x.html {
+                root   html;
+            }
+        } 
+    }
 
+    ````
+    *  将前端代码打包后的dist文件放入指定服务目录/khgo/volume/project/front/storemanager
+    *  将服务目录指定到/khgo/volume/project/front目录下即可代理静态服务
+    *  配置里开启了gzip压缩，可以很大程度上减小文件体积大小
+    *  将404错误页面重定向到index.html，可以解决前端history路由模式由于刷新页面访问不到服务出现404的问题
+    *  location为代理接口，可以转发代理后端的请求接口域名或者ip，即可解决接口跨域问题
+    
 ### firewalld 防火墙配置
 
 1.  不改变状态下重载防火墙

@@ -19,7 +19,7 @@
 <meta property="og:url" content="https://xudongye.github.io/xdlog/linux/CentOs7.4安装nginx-mysql/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
 <meta property="og:description" content="修改hostname 修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称 修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称 重启  安装 nginx-1.17.0.tar.gz nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在">
-<meta property="og:updated_time" content="2019-12-05T07:33:45.367Z">
+<meta property="og:updated_time" content="2019-12-11T08:11:07.163Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos7.4安装nginx-tomcat8-mysql">
 <meta name="twitter:description" content="修改hostname 修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称 修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称 重启  安装 nginx-1.17.0.tar.gz nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在">
@@ -204,7 +204,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 添加nginx.service</span><br><span class="line"># vim /lib/systemd/system/nginx.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=nginx service</span><br><span class="line">After=network.target </span><br><span class="line">[Service] </span><br><span class="line">Type=forking</span><br><span class="line"># 路径对应安装路径</span><br><span class="line">ExecStart=/usr/local/nginx/sbin/nginx</span><br><span class="line">ExecReload=/usr/local/nginx/sbin/nginx -s reload</span><br><span class="line">ExecStop=/usr/local/nginx/sbin/nginx -s quit</span><br><span class="line">PrivateTmp=true </span><br><span class="line">[Install] </span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>添加完成之后即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable|status/|start|restart|stop nginx.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable|status|start|restart|stop nginx.service</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h3 id="firewalld-防火墙配置"><a href="#firewalld-防火墙配置" class="headerlink" title="firewalld 防火墙配置"></a>firewalld 防火墙配置</h3><ol>

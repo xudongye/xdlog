@@ -1,5 +1,5 @@
 ---
-title: Centos7.4安装nginx-tomcat8-mysql
+title: Centos7.4安装nginx-mysql
 date: 2019-12-03 10:38:11
 categories: 
 - Linux

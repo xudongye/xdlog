@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="Last.Whisper.Diary">
 <meta property="og:description" content="修改hostname 修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称 修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称 重启  安装 nginx-1.17.0.tar.gz nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在">
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/linux/redis_download.png">
-<meta property="og:updated_time" content="2019-12-16T07:26:53.034Z">
+<meta property="og:updated_time" content="2019-12-16T07:31:01.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos7.4安装nginx-mysql-redis">
 <meta name="twitter:description" content="修改hostname 修改/etc/hostname文件内容：$ sudo vim /etc/hostname 将里面的内容修改为新的主机名称 修改/etc/hosts文件：$ sudo vim /etc/hosts 将127.0.0.1这一行的内容修改为新的主机名称 重启  安装 nginx-1.17.0.tar.gz nginx 的 http 模块使用 pcre 来解析正则表达式，所以需要在">
@@ -152,7 +152,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改hostname"><span class="post-toc-number">1.</span> <span class="post-toc-text">修改hostname</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-nginx-1-17-0-tar-gz"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装 nginx-1.17.0.tar.gz</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#firewalld-防火墙配置"><span class="post-toc-number">3.</span> <span class="post-toc-text">firewalld 防火墙配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CentOs7-4安装Mysql8-0-17-参考文献"><span class="post-toc-number">4.</span> <span class="post-toc-text">CentOs7.4安装Mysql8.0.17,参考文献</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CentOs7-4安装-redis-5-0-5"><span class="post-toc-number">5.</span> <span class="post-toc-text">CentOs7.4安装 redis-5.0.5</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改hostname"><span class="post-toc-number">1.</span> <span class="post-toc-text">修改hostname</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装-nginx-1-17-0-tar-gz"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装 nginx-1.17.0.tar.gz</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#firewalld-防火墙配置"><span class="post-toc-number">3.</span> <span class="post-toc-text">firewalld 防火墙配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CentOs7-4安装Mysql8-0-17-参考文献"><span class="post-toc-number">4.</span> <span class="post-toc-text">CentOs7.4安装Mysql8.0.17,参考文献</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CentOs7-4安装-redis-5-0-5"><span class="post-toc-number">5.</span> <span class="post-toc-text">CentOs7.4安装 redis-5.0.5</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#默认启动"><span class="post-toc-number"></span> <span class="post-toc-text">默认启动</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#携带配置启动"><span class="post-toc-number"></span> <span class="post-toc-text">携带配置启动</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#绑定的主机地址"><span class="post-toc-number"></span> <span class="post-toc-text">绑定的主机地址</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#指定Redis监听端口，默认端口为6379-为什么选用6379作为默认端口-因为6379在手机按键上MERZ对应的号码，而MERZ取自意大利歌女Alessia-Merz的名字"><span class="post-toc-number"></span> <span class="post-toc-text">指定Redis监听端口，默认端口为6379,为什么选用6379作为默认端口,因为6379在手机按键上MERZ对应的号码，而MERZ取自意大利歌女Alessia Merz的名字</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#redis3-2版本后新增protected-mode配置，默认是yes，即开启。设置外部网络连接redis服务"><span class="post-toc-number"></span> <span class="post-toc-text">redis3.2版本后新增protected-mode配置，默认是yes，即开启。设置外部网络连接redis服务</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能"><span class="post-toc-number"></span> <span class="post-toc-text">当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程"><span class="post-toc-number"></span> <span class="post-toc-text">Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#当运行多个-redis-服务时，需要指定不同的-pid-文件和端口"><span class="post-toc-number"></span> <span class="post-toc-text">当运行多个 redis 服务时，需要指定不同的 pid 文件和端口</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#指定日志记录级别，Redis总共支持四个级别：debug、verbose、notice、warning，默认为verbose"><span class="post-toc-number"></span> <span class="post-toc-text">指定日志记录级别，Redis总共支持四个级别：debug、verbose、notice、warning，默认为verbose</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#设置数据库的数量，默认数据库为0，可以使用SELECT-命令在连接上指定数据库id"><span class="post-toc-number"></span> <span class="post-toc-text">设置数据库的数量，默认数据库为0，可以使用SELECT 命令在连接上指定数据库id</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH-命令提供密码，默认关闭"><span class="post-toc-number"></span> <span class="post-toc-text">设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH 命令提供密码，默认关闭</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，"><span class="post-toc-number"></span> <span class="post-toc-text">设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#如果设置-maxclients-0，表示不作限制。当客户端连接数到达限制时，Redis会关闭新的连接并向客户端"><span class="post-toc-number"></span> <span class="post-toc-text">如果设置 maxclients 0，表示不作限制。当客户端连接数到达限制时，Redis会关闭新的连接并向客户端</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#返回max-number-of-clients-reached错误信息"><span class="post-toc-number"></span> <span class="post-toc-text">返回max number of clients reached错误信息</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key，"><span class="post-toc-number"></span> <span class="post-toc-text">指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key，</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#当此方法处理-后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。Redis新的vm机制，会把Key存放内存，"><span class="post-toc-number"></span> <span class="post-toc-text">当此方法处理 后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。Redis新的vm机制，会把Key存放内存，</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#Value会存放在swap区"><span class="post-toc-number"></span> <span class="post-toc-text">Value会存放在swap区</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#一般推荐Redis设置内存为最大物理内存的四分之三"><span class="post-toc-number"></span> <span class="post-toc-text">一般推荐Redis设置内存为最大物理内存的四分之三</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#指定是否在每次更新操作后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。"><span class="post-toc-number"></span> <span class="post-toc-text">指定是否在每次更新操作后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#因为-redis本身同步数据文件是按上面save条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为no"><span class="post-toc-number"></span> <span class="post-toc-text">因为 redis本身同步数据文件是按上面save条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为no</span></a>
         </nav>
     </aside>
     
@@ -262,86 +262,35 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED WITH mysql_native_password BY &apos;khgo2019&apos;;</span><br><span class="line">失败：ERROR 1819 (HY000): Your password does not satisfy the current policy requirements</span><br><span class="line">原因：密码强度太低</span><br><span class="line">为了安全我们就不修改mysql默认安全策略了(大小写，特殊字符都加上)</span><br><span class="line">ALTER USER &apos;root&apos;@&apos;localhost&apos; IDENTIFIED WITH mysql_native_password BY &apos;khGo_2019&apos;;</span><br><span class="line">成功！</span><br><span class="line">远程访问Mysql,通过下面命令授权</span><br><span class="line">create user &apos;root&apos;@&apos;%&apos; identified with mysql_native_password by &apos;mypassword&apos;;</span><br><span class="line">grant all privileges on *.* to &apos;root&apos;@&apos;%&apos; with grant option;</span><br><span class="line">flush privileges;</span><br><span class="line">exit;</span><br><span class="line">最后使用navicat看是否能连接数据库！</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h3 id="CentOs7-4安装-redis-5-0-5"><a href="#CentOs7-4安装-redis-5-0-5" class="headerlink" title="CentOs7.4安装 redis-5.0.5"></a>CentOs7.4安装 redis-5.0.5</h3><p>1.下载最稳定个版本<a href="http://www.redis.cn/download.html" target="_blank" rel="noopener">下载地址</a><br><img src="../../images/linux/redis_download.png" alt="redis_download"></p>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    $ wget http://download.redis.io/releases/redis-5.0.5.tar.gz</span><br><span class="line">    $ tar tar xzf redis-5.0.5.tar.gz</span><br><span class="line">    $ cd redis-5.0.5</span><br><span class="line">    $ make</span><br><span class="line">    ````    </span><br><span class="line"></span><br><span class="line">2.make命令结束后，redis-5.0.5目录里面会出现编译后的redis服务程序redis-server,以及测试的客户端程序redis-cli,两个程序都位于src目录下</span><br></pre></td></tr></table></figure>
+<h3 id="CentOs7-4安装-redis-5-0-5"><a href="#CentOs7-4安装-redis-5-0-5" class="headerlink" title="CentOs7.4安装 redis-5.0.5"></a>CentOs7.4安装 redis-5.0.5</h3><ol>
+<li><p>下载最稳定个版本<a href="http://www.redis.cn/download.html" target="_blank" rel="noopener">下载地址</a><br><img src="../../images/linux/redis_download.png" alt="redis_download"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    $ wget http://download.redis.io/releases/redis-5.0.5.tar.gz</span><br><span class="line">    $ tar tar xzf redis-5.0.5.tar.gz</span><br><span class="line">    $ cd redis-5.0.5</span><br><span class="line">    $ make</span><br><span class="line">    ````    </span><br><span class="line"></span><br><span class="line">2.  make命令结束后，redis-5.0.5目录里面会出现编译后的redis服务程序redis-server,以及测试的客户端程序redis-cli,两个程序都位于src目录下</span><br></pre></td></tr></table></figure>
+<h1 id="默认启动"><a href="#默认启动" class="headerlink" title="默认启动"></a>默认启动</h1><p>$ cd src<br>$ ./redis-server &amp;</p>
+<h1 id="携带配置启动"><a href="#携带配置启动" class="headerlink" title="携带配置启动"></a>携带配置启动</h1><p>$ ./redis-server ../redis.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3.  启动服务进程后，可以使用测试客户端redis-cli和redis服务交互</span><br></pre></td></tr></table></figure>
+<p>$ ./redis-cli<br>redis&gt; set foo bar<br>OK<br>redis&gt; get foo<br>“bar”<br>redis&gt; exit</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">4.  设置redis为系统服务</span><br></pre></td></tr></table></figure>
+<p>#/lib/systemd/system/redis.service<br>[Unit]<br>Description=Redis Server<br>After=network.target</p>
+<p>[Service]<br>Type=forking<br>PIDFile=/var/run/redis_6379.pid<br>ExecStart=/khgo/volume/service/redis-5.0.5/src/redis-server /khgo/volume/service/redis-5.0.5/redis.conf<br>ExecReload=/bin/kill -s HUP $MAINPID<br>ExecStop=/bin/kill -s QUIT $MAINPID<br>PrivateTmp=true</p>
+<p>[Install]<br>WantedBy=mutli-user.target</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">5.  重新载入服务</span><br></pre></td></tr></table></figure>
+<p>#重新载入 systemctl 并启动服务<br>systemctl daemon-reload<br>systemctl start redis.service<br>#查看状态<br>systemctl status redis.service<br>#关闭<br>systemctl stop redis.service<br>#开机自启<br>systemctl enable redis.service<br>#是否开机自启<br>systemctl is-enabled redis.service</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">6.  redis配置</span><br></pre></td></tr></table></figure>
+<h1 id="绑定的主机地址"><a href="#绑定的主机地址" class="headerlink" title="绑定的主机地址"></a>绑定的主机地址</h1><p>#bind 127.0.0.1</p>
+<h1 id="指定Redis监听端口，默认端口为6379-为什么选用6379作为默认端口-因为6379在手机按键上MERZ对应的号码，而MERZ取自意大利歌女Alessia-Merz的名字"><a href="#指定Redis监听端口，默认端口为6379-为什么选用6379作为默认端口-因为6379在手机按键上MERZ对应的号码，而MERZ取自意大利歌女Alessia-Merz的名字" class="headerlink" title="指定Redis监听端口，默认端口为6379,为什么选用6379作为默认端口,因为6379在手机按键上MERZ对应的号码，而MERZ取自意大利歌女Alessia Merz的名字"></a>指定Redis监听端口，默认端口为6379,为什么选用6379作为默认端口,因为6379在手机按键上MERZ对应的号码，而MERZ取自意大利歌女Alessia Merz的名字</h1><p>port 6379</p>
+<h1 id="redis3-2版本后新增protected-mode配置，默认是yes，即开启。设置外部网络连接redis服务"><a href="#redis3-2版本后新增protected-mode配置，默认是yes，即开启。设置外部网络连接redis服务" class="headerlink" title="redis3.2版本后新增protected-mode配置，默认是yes，即开启。设置外部网络连接redis服务"></a>redis3.2版本后新增protected-mode配置，默认是yes，即开启。设置外部网络连接redis服务</h1><p>protected-mode no</p>
+<h1 id="当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能"><a href="#当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能" class="headerlink" title="当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能"></a>当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能</h1><p>timeout 300</p>
+<h1 id="Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程"><a href="#Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程" class="headerlink" title="Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程"></a>Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程</h1><p>daemonize yes</p>
+<h1 id="当运行多个-redis-服务时，需要指定不同的-pid-文件和端口"><a href="#当运行多个-redis-服务时，需要指定不同的-pid-文件和端口" class="headerlink" title="当运行多个 redis 服务时，需要指定不同的 pid 文件和端口"></a>当运行多个 redis 服务时，需要指定不同的 pid 文件和端口</h1><p>pidfile /var/run/redis_6379.pid</p>
+<h1 id="指定日志记录级别，Redis总共支持四个级别：debug、verbose、notice、warning，默认为verbose"><a href="#指定日志记录级别，Redis总共支持四个级别：debug、verbose、notice、warning，默认为verbose" class="headerlink" title="指定日志记录级别，Redis总共支持四个级别：debug、verbose、notice、warning，默认为verbose"></a>指定日志记录级别，Redis总共支持四个级别：debug、verbose、notice、warning，默认为verbose</h1><p>loglevel notice</p>
+<h1 id="设置数据库的数量，默认数据库为0，可以使用SELECT-命令在连接上指定数据库id"><a href="#设置数据库的数量，默认数据库为0，可以使用SELECT-命令在连接上指定数据库id" class="headerlink" title="设置数据库的数量，默认数据库为0，可以使用SELECT 命令在连接上指定数据库id"></a>设置数据库的数量，默认数据库为0，可以使用SELECT <dbid>命令在连接上指定数据库id</dbid></h1><p>databases 16</p>
+<h1 id="设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH-命令提供密码，默认关闭"><a href="#设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH-命令提供密码，默认关闭" class="headerlink" title="设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH 命令提供密码，默认关闭"></a>设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH <password>命令提供密码，默认关闭</password></h1><p>requirepass AW6exN@pVw0mxcB4</p>
+<h1 id="设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，"><a href="#设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，" class="headerlink" title="设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，"></a>设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，</h1><h1 id="如果设置-maxclients-0，表示不作限制。当客户端连接数到达限制时，Redis会关闭新的连接并向客户端"><a href="#如果设置-maxclients-0，表示不作限制。当客户端连接数到达限制时，Redis会关闭新的连接并向客户端" class="headerlink" title="如果设置 maxclients 0，表示不作限制。当客户端连接数到达限制时，Redis会关闭新的连接并向客户端"></a>如果设置 maxclients 0，表示不作限制。当客户端连接数到达限制时，Redis会关闭新的连接并向客户端</h1><h1 id="返回max-number-of-clients-reached错误信息"><a href="#返回max-number-of-clients-reached错误信息" class="headerlink" title="返回max number of clients reached错误信息"></a>返回max number of clients reached错误信息</h1><p>maxclients 128</p>
+<h1 id="指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key，"><a href="#指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key，" class="headerlink" title="指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key，"></a>指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key，</h1><h1 id="当此方法处理-后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。Redis新的vm机制，会把Key存放内存，"><a href="#当此方法处理-后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。Redis新的vm机制，会把Key存放内存，" class="headerlink" title="当此方法处理 后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。Redis新的vm机制，会把Key存放内存，"></a>当此方法处理 后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。Redis新的vm机制，会把Key存放内存，</h1><h1 id="Value会存放在swap区"><a href="#Value会存放在swap区" class="headerlink" title="Value会存放在swap区"></a>Value会存放在swap区</h1><h1 id="一般推荐Redis设置内存为最大物理内存的四分之三"><a href="#一般推荐Redis设置内存为最大物理内存的四分之三" class="headerlink" title="一般推荐Redis设置内存为最大物理内存的四分之三"></a>一般推荐Redis设置内存为最大物理内存的四分之三</h1><p>maxmemory 751619276</p>
+<h1 id="指定是否在每次更新操作后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。"><a href="#指定是否在每次更新操作后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。" class="headerlink" title="指定是否在每次更新操作后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。"></a>指定是否在每次更新操作后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。</h1><h1 id="因为-redis本身同步数据文件是按上面save条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为no"><a href="#因为-redis本身同步数据文件是按上面save条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为no" class="headerlink" title="因为 redis本身同步数据文件是按上面save条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为no"></a>因为 redis本身同步数据文件是按上面save条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为no</h1><p>appendonly no<br>````</p>
+</li>
+</ol>
 
-# 默认启动
-$ cd src
-$ ./redis-server &amp;
-# 携带配置启动
-$ ./redis-server ../redis.conf
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">3.启动服务进程后，可以使用测试客户端redis-cli和redis服务交互</span><br></pre></td></tr></table></figure>
-
-$ ./redis-cli
-redis&gt; set foo bar
-OK
-redis&gt; get foo
-&quot;bar&quot;
-redis&gt; exit
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">4.设置redis为系统服务</span><br></pre></td></tr></table></figure>
-
-#/lib/systemd/system/redis.service
-[Unit]
-Description=Redis Server
-After=network.target
-
-[Service]
-Type=forking
-PIDFile=/var/run/redis_6379.pid
-ExecStart=/khgo/volume/service/redis-5.0.5/src/redis-server /khgo/volume/service/redis-5.0.5/redis.conf
-ExecReload=/bin/kill -s HUP $MAINPID
-ExecStop=/bin/kill -s QUIT $MAINPID
-PrivateTmp=true
-
-[Install]
-WantedBy=mutli-user.target
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">5.重新载入服务</span><br></pre></td></tr></table></figure>
-
-#重新载入 systemctl 并启动服务
-systemctl daemon-reload
-systemctl start redis.service
-#查看状态
-systemctl status redis.service
-#关闭
-systemctl stop redis.service
-#开机自启
-systemctl enable redis.service
-#是否开机自启
-systemctl is-enabled redis.service
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">6.redis配置</span><br></pre></td></tr></table></figure>
-
-# 绑定的主机地址
-#bind 127.0.0.1
-# 指定Redis监听端口，默认端口为6379,为什么选用6379作为默认端口,因为6379在手机按键上MERZ对应的号码，而MERZ取自意大利歌女Alessia Merz的名字
-port 6379
-# redis3.2版本后新增protected-mode配置，默认是yes，即开启。设置外部网络连接redis服务
-protected-mode no
-# 当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能
-timeout 300
-# Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程
-daemonize yes
-# 当运行多个 redis 服务时，需要指定不同的 pid 文件和端口
-pidfile /var/run/redis_6379.pid
-# 指定日志记录级别，Redis总共支持四个级别：debug、verbose、notice、warning，默认为verbose
-loglevel notice
-# 设置数据库的数量，默认数据库为0，可以使用SELECT &lt;dbid&gt;命令在连接上指定数据库id
-databases 16
-# 设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH &lt;password&gt;命令提供密码，默认关闭
-requirepass AW6exN@pVw0mxcB4
-# 设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，
-# 如果设置 maxclients 0，表示不作限制。当客户端连接数到达限制时，Redis会关闭新的连接并向客户端
-# 返回max number of clients reached错误信息
-maxclients 128
-# 指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key，
-# 当此方法处理 后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。Redis新的vm机制，会把Key存放内存，
-# Value会存放在swap区
-# 一般推荐Redis设置内存为最大物理内存的四分之三
-maxmemory 751619276
-# 指定是否在每次更新操作后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。
-# 因为 redis本身同步数据文件是按上面save条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为no
-appendonly no
-````
-</code></pre>
         </div>
         
         <blockquote class="post-copyright">

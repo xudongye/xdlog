@@ -1,5 +1,5 @@
 ---
-title: Centos7.4安装nginx-mysql
+title: Centos7.4安装nginx-mysql-redis
 date: 2019-12-03 10:38:11
 categories: 
 - Linux
@@ -142,11 +142,11 @@ tags:
             }
     
              # 图片缓存时间设置
-            location ~ .*.(gif|jpg|jpeg|png|bmp|swf)$ {
+            location ~.*.(gif|jpg|jpeg|png|bmp|swf)$ {
                 expires 10d;
             }
             # JS和CSS缓存时间设置
-            location ~ .*.(js|css)?$ {
+            location ~.*.(js|css)?$ {
                 expires 1h;
             }
     
@@ -223,7 +223,7 @@ tags:
 
 ### CentOs7.4安装Mysql8.0.17,[参考文献](https://www.cnblogs.com/yangk1996/p/10700537.html)
 
-1.  [Mysql下载传送门](https://dev.mysql.com/downloads/mysql/)
+1.  [mysql-8.0.18-1.el7.x86_64.rpm-bundle.tar](https://dev.mysql.com/downloads/mysql/)
 2.  卸载Linux自带mariadb[什么是mariadb?](http://www.sohu.com/a/252174706_355140)
     ````
     查看是否存在
@@ -283,6 +283,113 @@ tags:
     最后使用navicat看是否能连接数据库！
     ````
     
+    
+### CentOs7.4安装 redis-5.0.5
+
+1.  下载最稳定个版本[redis-5.0.5.tar.gz](http://www.redis.cn/download.html)
+    ![redis_download](../../images/linux/redis_download.png)
+
+    `````
+    $ wget http://download.redis.io/releases/redis-5.0.5.tar.gz
+    $ tar tar xzf redis-5.0.5.tar.gz
+    $ cd redis-5.0.5
+    $ make
+    `````
+
+2.  make命令结束后，redis-5.0.5目录里面会出现编译后的redis服务程序redis-server,以及测试的客户端程序redis-cli,两个程序都位于src目录下
+    
+    ````
+    # 默认启动
+    $ cd src
+    $ ./redis-server &
+    # 携带配置启动
+    $ ./redis-server ../redis.conf
+    ````
+
+3.  启动服务进程后，可以使用测试客户端redis-cli和redis服务交互
+
+    ```
+    $ ./redis-cli
+    redis> set foo bar
+    OK
+    redis> get foo
+    "bar"
+    redis> exit
+    ```
+
+4.  设置redis为系统服务
+
+    ````
+    #/lib/systemd/system/redis.service
+    [Unit]
+    Description=Redis Server
+    After=network.target
+    
+    [Service]
+    Type=forking
+    PIDFile=/var/run/redis_6379.pid
+    ExecStart=/khgo/volume/service/redis-5.0.5/src/redis-server /khgo/volume/service/redis-5.0.5/redis.conf
+    ExecReload=/bin/kill -s HUP $MAINPID
+    ExecStop=/bin/kill -s QUIT $MAINPID
+    PrivateTmp=true
+    
+    [Install]
+    WantedBy=mutli-user.target
+    ````
+
+5.  重新载入服务
+
+    ```
+    #重新载入 systemctl 并启动服务
+    systemctl daemon-reload
+    systemctl start redis.service
+    #查看状态
+    systemctl status redis.service
+    #关闭
+    systemctl stop redis.service
+    #开机自启
+    systemctl enable redis.service
+    #是否开机自启
+    systemctl is-enabled redis.service
+    ```
+    成功！
+    ![redis_success](../../images/linux/redis_success.png)
+
+6.  redis配置
+
+    ````
+    # 绑定的主机地址
+    #bind 127.0.0.1
+    # 指定Redis监听端口，默认端口为6379,为什么选用6379作为默认端口,因为6379在手机按键上MERZ对应的号码，而MERZ取自意大利歌女Alessia Merz的名字
+    port 6379
+    # redis3.2版本后新增protected-mode配置，默认是yes，即开启。设置外部网络连接redis服务
+    protected-mode no
+    # 当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能
+    timeout 300
+    # Redis默认不是以守护进程的方式运行，可以通过该配置项修改，使用yes启用守护进程
+    daemonize yes
+    # 当运行多个 redis 服务时，需要指定不同的 pid 文件和端口
+    pidfile /var/run/redis_6379.pid
+    # 指定日志记录级别，Redis总共支持四个级别：debug、verbose、notice、warning，默认为verbose
+    loglevel notice
+    # 设置数据库的数量，默认数据库为0，可以使用SELECT <dbid>命令在连接上指定数据库id
+    databases 16
+    # 设置Redis连接密码，如果配置了连接密码，客户端在连接Redis时需要通过AUTH <password>命令提供密码，默认关闭
+    requirepass AW6exN@pVw0mxcB4
+    # 设置同一时间最大客户端连接数，默认无限制，Redis可以同时打开的客户端连接数为Redis进程可以打开的最大文件描述符数，
+    # 如果设置 maxclients 0，表示不作限制。当客户端连接数到达限制时，Redis会关闭新的连接并向客户端
+    # 返回max number of clients reached错误信息
+    maxclients 128
+    # 指定Redis最大内存限制，Redis在启动时会把数据加载到内存中，达到最大内存后，Redis会先尝试清除已到期或即将到期的Key，
+    # 当此方法处理 后，仍然到达最大内存设置，将无法再进行写入操作，但仍然可以进行读取操作。Redis新的vm机制，会把Key存放内存，
+    # Value会存放在swap区
+    # 一般推荐Redis设置内存为最大物理内存的四分之三
+    maxmemory 751619276
+    # 指定是否在每次更新操作后进行日志记录，Redis在默认情况下是异步的把数据写入磁盘，如果不开启，可能会在断电时导致一段时间内的数据丢失。
+    # 因为 redis本身同步数据文件是按上面save条件来同步的，所以有的数据会在一段时间内只存在于内存中。默认为no
+    appendonly no
+    ````
+
     
     
 

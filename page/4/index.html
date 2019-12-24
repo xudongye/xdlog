@@ -154,346 +154,6 @@
     <ul class="post-list">
     
         <li class="post-list-item">
-            <article id="post-javascript/单线程的javascript"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-11-30T06:51:49.000Z" itemprop="datePublished" class="post-time">
-  2016-11-30
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Javascript/">Javascript</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/javascript/单线程的javascript/">单线程的javascript</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        单线程的javascript一个有趣的死循环bug在略去这个bug所有的外围细节后，我试图还原一个最小化的场景：
-现在需要使用js将一个图片列表依次动态添加到页面上，但是有一个限定条件，在前一张图片没有加载完成之前，后一张图片不得抢先加载，必须等待前一张load事件触发。
-这有何难：
-1234567891011121314// 引入jQuery// imgs 是图片数组for (var i ...
-    
-    
-        <a href="/xdlog/javascript/单线程的javascript/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/Javascript/">Javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/多线程/">多线程</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-lebooks/利用浏览器优化排版算法的方案"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-11-29T03:19:40.000Z" itemprop="datePublished" class="post-time">
-  2016-11-29
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/lebooks/利用浏览器优化排版算法的方案/">利用浏览器优化排版算法的方案</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        利用浏览器优化排版算法的方案问题分析无论是犁书项目之前的将社交网络的简单文本与图片列表信息整理排版，还是将富文本内容排版成册，其本质是两件事：
-
-将原有的数据按照我们的样式规则进行排列，如果是带有样式的富文本，那么将原有样式与模板样式相结合
-根据DOM元素的高度除以页的高度进行断页(break page)
-
-那么对于排版算法，尤其是富文本的排版，其最大的难点与工作量在于：
-
-解析各种html...
-    
-    
-        <a href="/xdlog/lebooks/利用浏览器优化排版算法的方案/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/lebooks-private/">lebooks-private</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/phantomjs/">phantomjs</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-design/基于angular与nginx的SPA的SEO方案"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-11-24T02:38:24.000Z" itemprop="datePublished" class="post-time">
-  2016-11-24
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/design/基于angular与nginx的SPA的SEO方案/">基于angular与nginx的SPA的SEO方案</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        基于angular与nginx的SPA的SEO方案问题背景出于动静分离的考虑，喵书项目选择了SPA(Single Page Application)，并且也从中尝到了很大的甜头：
-
-用户体验好，响应速度快
-前后分离，各司其职，并行开发
-减轻服务器压力，主要输出数据
-同一套后台代码可用于Web与app
-
-同时，对于一个以生产内容为主的SPA，就面临了一个十分严峻的问题：SEO(search e...
-    
-    
-        <a href="/xdlog/design/基于angular与nginx的SPA的SEO方案/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/SEO/">SEO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/SPA/">SPA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/nginx/">nginx</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-lebooks/诗歌社区架构设计"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-11-17T02:29:07.000Z" itemprop="datePublished" class="post-time">
-  2016-11-17
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/lebooks/诗歌社区架构设计/">诗歌社区架构设计</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        诗歌社区架构设计基础架构沿用喵书的用maven管理的垂直水平相结合的分层架构rest-api后端数据接口+angular-SPA前端应用。
-在此基础上，分为以下服务器。
-
-应用服务器承载了主要的业务逻辑，使用Mysql、Redis作为持久层。
-鉴权模块提供身份验证相关的所有服务：
-
-创建token
-删除token
-通过token查询用户及权限，用户可能包括网站用户与管理员
-
-将根据token...
-    
-    
-        <a href="/xdlog/lebooks/诗歌社区架构设计/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/lebooks-private/">lebooks-private</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-lebooks/诗歌社区模块设计"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-11-16T08:12:08.000Z" itemprop="datePublished" class="post-time">
-  2016-11-16
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/lebooks/诗歌社区模块设计/">诗歌社区模块设计</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        诗歌社区模块设计根据产品原型，初步划分出以下功能模块。
-用户数据：
-
-User：所有用户，并且设置一个所有人都默认关注的乐书小秘书
-
-行为：CRUD
-登录、注册数据：
-
-Token：登录令牌，保存在Redis中
-
-行为：
-
-登录相关的对token的CRUD
-第三方登录
-
-邀请数据：
-
-Invitation：用户(user_id reference User.id)与邀请码(invitatio...
-    
-    
-        <a href="/xdlog/lebooks/诗歌社区模块设计/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/lebooks-private/">lebooks-private</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-java/tomcat/深入剖析tomcat学习笔记/14Server和Service"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-11-15T10:11:01.000Z" itemprop="datePublished" class="post-time">
-  2016-11-15
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/14Server和Service/">Server和Service</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        Server和ServiceServer接口Server接口的实例，表示Catalina整个servlet容器，囊括了所有组件。
-服务器组件提供了一种非常优雅的方法来启动/关闭整个系统，不再对连接器和容器分别操作：当启动服务器组件时，它会启动其中所有的组件，然后就无限期地等待关闭命令；如果需要关闭服务器组件，向指定端口发送一条关闭命令，服务器组件接收到关闭命令后，就会关闭其中的所有组件。
-1...
-    
-    
-        <a href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/14Server和Service/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
             <article id="post-design/电商系统运费计算模块设计"
   class="article-card article-type-post" itemprop="blogPost">
      
@@ -690,6 +350,317 @@ StandardContext实例invoke()方法调用其管道实例的invoke()方法，Stan
     
     
         <a href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/11StandardWrapper/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-java/tomcat/深入剖析tomcat学习笔记/9Session管理"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-09T06:17:12.000Z" itemprop="datePublished" class="post-time">
+  2016-11-09
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/9Session管理/">Session管理</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        Session管理Catalina通过一个称为Session管理器的组件来管理建立Session对象，当请求到来时，要可以返回一个有效的session对象。
+Session对象这里还是一个老生常谈的外观模式，JEE要求的Session接口是javax.servlet.http.HttpSession，Catalina内部的外观接口是Session，标准实现是StandardSession，用...
+    
+    
+        <a href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/9Session管理/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-design/http缓存机制及nginx相关配置"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-08T12:11:37.000Z" itemprop="datePublished" class="post-time">
+  2016-11-08
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/design/http缓存机制及nginx相关配置/">http缓存机制及nginx相关配置</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        http缓存机制及nginx相关配置浏览器http缓存，既是网页静态资源服务性能优化的一把利器，也是无数web开发者在工作之初谈之色变的一大难题。在开发过程中我们极力避免缓存，但在生产环境中，我们又在想尽办法利用缓存。所以了解浏览器缓存的机制，是一个优秀开发者绕不开的重要基础知识。
+各种缓存的命中与否，说到底不过是几个与之相关的http header数据的匹配与校验。如果了解了每个相关hea...
+    
+    
+        <a href="/xdlog/design/http缓存机制及nginx相关配置/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/nginx/">nginx</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-java/tomcat/深入剖析tomcat学习笔记/8载入器"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-08T06:14:35.000Z" itemprop="datePublished" class="post-time">
+  2016-11-08
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/8载入器/">载入器</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        载入器载入器是Catalina最重要的组件，servlet容器需要实现一个自定义的类载入器，出于以下原因：
+
+将WEB-INF/classes目录下的应用类与更高级别的容器类用不同的classloader隔离开来
+根据classes文件是否发生变化实现类的自动重新装载
+
+Java的类加载器类加载器的双亲委托模型
+Loader接口Loader接口指的是Web应用程序载入器，而不仅仅是类载入器。...
+    
+    
+        <a href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/8载入器/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-java/tomcat/深入剖析tomcat学习笔记/7日志记录器"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-08T03:02:49.000Z" itemprop="datePublished" class="post-time">
+  2016-11-08
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/7日志记录器/">日志记录器</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        日志记录器日志记录器作为任何一个系统最重要的组件，可以说没有一套完善的日志组件的系统，是无法投入使用的。tomcat开发者也对其做出了一个相当优雅的设计实现。
+Logger接口org.apache.catalina.Logger接口描述了一个通用的信息与异常的Logger，理论上logger能被用在任何container上，但是实际的典型应用中，Logger只会用在Context或更高的级别...
+    
+    
+        <a href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/7日志记录器/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-java/tomcat/深入剖析tomcat学习笔记/6生命周期"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-07T12:07:39.000Z" itemprop="datePublished" class="post-time">
+  2016-11-07
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/6生命周期/">生命周期</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        生命周期tomcat开发者将Catalina中的各种组件的启动、关闭行为，都抽象为一个接口org.apache.catalina.Lifecycle，进而可以在管理生命周期相关行为时面向接口编程。通过实现Lifecycle接口完成单一启动/关闭机制，并且以一种优雅的方式（观察者模式）向其他组件发送事件消息。
+Lifecycle接口Catalina在设计上允许一个组件包含其他组件，父级组件负责...
+    
+    
+        <a href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/6生命周期/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-java/tomcat/深入剖析tomcat学习笔记/5servlet容器"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-04T08:51:41.000Z" itemprop="datePublished" class="post-time">
+  2016-11-04
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/5servlet容器/">servlet容器</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        servlet容器Container接口Catalina中的servlet容器，共有4种类型：
+
+Engine： 表示整个Catalina servlet引擎
+Host： 表示包含多个Context容器的虚拟主机
+Context： 表示一个包含多个wrapper的web应用程序
+Wrapper： 表示一个独立的servlet
+
+可以看出，“容器”这个命名还是比较通俗的，因为每个容器都在盛装东...
+    
+    
+        <a href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/5servlet容器/" class="post-more waves-effect waves-button">
             阅读全文...
         </a>
     </div>

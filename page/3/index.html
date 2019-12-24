@@ -154,328 +154,6 @@
     <ul class="post-list">
     
         <li class="post-list-item">
-            <article id="post-java/concurrency/Java并发编程实战学习笔记/4对象的组合"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2017-07-30T16:00:00.000Z" itemprop="datePublished" class="post-time">
-  2017-07-31
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/java/concurrency/Java并发编程实战学习笔记/4对象的组合/">对象的组合</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        对象的组合本章将介绍一些组合模式，将一些现有的线程安全组件组合为更大规模的组件或程序，并且在维护这些类时，不会无意中破坏线程安全性保证。
-设计线程安全的类设计线程安全的类需要考虑以下三个基本要素：
-
-找出构成对象状态的所有变量
-找出约束状态变量的不变性条件
-建立对象状态的并发访问管理策略
-
-收集同步需求依赖状态的操作状态的所有权实例封闭当一个对象被封装到另一个对象时，能够访问被封装对象的所有...
-    
-    
-        <a href="/xdlog/java/concurrency/Java并发编程实战学习笔记/4对象的组合/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-java/concurrency/Java并发编程实战学习笔记/3对象的共享"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2017-07-26T16:00:00.000Z" itemprop="datePublished" class="post-time">
-  2017-07-27
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/java/concurrency/Java并发编程实战学习笔记/3对象的共享/">对象的共享</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        对象的共享上一章《线程安全性》介绍了如何通过同步来避免多个线程同时访问相同的数据，本章将介绍如何共享和发布对象，从而使之能够安全地有多个线程访问。
-可见性当多个线程在没有同步机制的情况下共享数据，可能出现读线程不能按照预期地读取到写线程对共享数据的修改。
-重排序：在没有同步的情况下，编译期、处理器以及运行时等，都可能对操作的顺序进行一些意想不到的调整。在缺乏足够同步的多线程程序中，想要对内存...
-    
-    
-        <a href="/xdlog/java/concurrency/Java并发编程实战学习笔记/3对象的共享/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-java/concurrency/Java并发编程实战学习笔记/2线程安全性"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2017-07-25T16:00:00.000Z" itemprop="datePublished" class="post-time">
-  2017-07-26
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/java/concurrency/Java并发编程实战学习笔记/2线程安全性/">线程安全性</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        线程安全性Java中主要的同步机制：
-
-synchronized关键字
-volatile类型变量
-显式锁
-原子变量
-
-面向对象的程序状态的封装性越好，访问某个变量的代码越少，就越容易确保对变量的所有访问实现正确同步，同时也更容易找出变量在哪些条件下被访问，也就越容易实现线程安全性。
-什么是线程安全性正确性：某个类的行为与其规范完全一致。
-线程安全性：当多个线程访问某个类时，不管运行时环境运用...
-    
-    
-        <a href="/xdlog/java/concurrency/Java并发编程实战学习笔记/2线程安全性/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-interview/2017年面试题"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2017-07-07T06:58:21.000Z" itemprop="datePublished" class="post-time">
-  2017-07-07
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/java/">java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/interview/2017年面试题/">2017面试题记录</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        2017面试题记录2017-06-30 美团点评DB
-数据库索引类型？
-
-normal：普通索引。
-unique：唯一索引，不允许重复。
-full text：全文索引，长文章搜索。
-
-
-数据库索引的数据结构？适用范围？
-
-Hash索引：一次定位，效率高，但是由于经过了Hash运算，只能满足等值过滤，如”=”/“!=”/“IN”查询，无法范围查询，非排序索引，遇到大量hash值相等的情况时性能...
-    
-    
-        <a href="/xdlog/interview/2017年面试题/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/mysql/">mysql</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-design/请停止误用http-patch"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2017-04-13T16:00:00.000Z" itemprop="datePublished" class="post-time">
-  2017-04-14
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/design/请停止误用http-patch/">请停止误用http-patch</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        请停止误用http-patch  修改http资源不是什么新鲜的话题。绝大多数现有的http或REST api都提供了修改资源的方式。他们通常通过对资源使用PUT动词来提供这样的特性，要求客户端发送整个资源实体被更新后的值。但是那就需要先对这个资源发一个GET请求，并且需要一种可以保证在这次GET调用与PUT调用之间不丢失任何更新的方法。（译者注：如果在GET调用之后，其他的客户端修改了这个...
-    
-    
-        <a href="/xdlog/design/请停止误用http-patch/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/http/">http</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/翻译/">翻译</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-javascript/特殊字符u2028造成的javascript错误"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2017-04-11T16:00:00.000Z" itemprop="datePublished" class="post-time">
-  2017-04-12
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Javascript/">Javascript</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/javascript/特殊字符u2028造成的javascript错误/">特殊字符u2028造成的javascript错误</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        特殊字符u2028造成的javascript错误症状运用selenium RemoteWebDriver驱动phantomjs执行javascript脚本时，phantomjs抛出异常：123456789101112[ERROR - 2017-04-12T03:36:45.349Z] Session [feec3570-1f2a-11e7-8c8f-2d5cfc43fe3a] - page....
-    
-    
-        <a href="/xdlog/javascript/特殊字符u2028造成的javascript错误/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/Javascript/">Javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/编码/">编码</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
             <article id="post-java/spring/spring源代码学习笔记/1IOC容器之根接口BeanFactory"
   class="article-card article-type-post" itemprop="blogPost">
      
@@ -694,6 +372,346 @@ mock框架模拟未完成的rest api ：Swagger
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/lebooks-private/">lebooks-private</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/解耦/">解耦</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/重构/">重构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/面向对象/">面向对象</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-javascript/单线程的javascript"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-30T06:51:49.000Z" itemprop="datePublished" class="post-time">
+  2016-11-30
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Javascript/">Javascript</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/javascript/单线程的javascript/">单线程的javascript</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        单线程的javascript一个有趣的死循环bug在略去这个bug所有的外围细节后，我试图还原一个最小化的场景：
+现在需要使用js将一个图片列表依次动态添加到页面上，但是有一个限定条件，在前一张图片没有加载完成之前，后一张图片不得抢先加载，必须等待前一张load事件触发。
+这有何难：
+1234567891011121314// 引入jQuery// imgs 是图片数组for (var i ...
+    
+    
+        <a href="/xdlog/javascript/单线程的javascript/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/Javascript/">Javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/多线程/">多线程</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-lebooks/利用浏览器优化排版算法的方案"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-29T03:19:40.000Z" itemprop="datePublished" class="post-time">
+  2016-11-29
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/lebooks/利用浏览器优化排版算法的方案/">利用浏览器优化排版算法的方案</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        利用浏览器优化排版算法的方案问题分析无论是犁书项目之前的将社交网络的简单文本与图片列表信息整理排版，还是将富文本内容排版成册，其本质是两件事：
+
+将原有的数据按照我们的样式规则进行排列，如果是带有样式的富文本，那么将原有样式与模板样式相结合
+根据DOM元素的高度除以页的高度进行断页(break page)
+
+那么对于排版算法，尤其是富文本的排版，其最大的难点与工作量在于：
+
+解析各种html...
+    
+    
+        <a href="/xdlog/lebooks/利用浏览器优化排版算法的方案/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/lebooks-private/">lebooks-private</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/phantomjs/">phantomjs</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-design/基于angular与nginx的SPA的SEO方案"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-24T02:38:24.000Z" itemprop="datePublished" class="post-time">
+  2016-11-24
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/design/基于angular与nginx的SPA的SEO方案/">基于angular与nginx的SPA的SEO方案</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        基于angular与nginx的SPA的SEO方案问题背景出于动静分离的考虑，喵书项目选择了SPA(Single Page Application)，并且也从中尝到了很大的甜头：
+
+用户体验好，响应速度快
+前后分离，各司其职，并行开发
+减轻服务器压力，主要输出数据
+同一套后台代码可用于Web与app
+
+同时，对于一个以生产内容为主的SPA，就面临了一个十分严峻的问题：SEO(search e...
+    
+    
+        <a href="/xdlog/design/基于angular与nginx的SPA的SEO方案/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/SEO/">SEO</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/SPA/">SPA</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/nginx/">nginx</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-lebooks/诗歌社区架构设计"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-17T02:29:07.000Z" itemprop="datePublished" class="post-time">
+  2016-11-17
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/lebooks/诗歌社区架构设计/">诗歌社区架构设计</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        诗歌社区架构设计基础架构沿用喵书的用maven管理的垂直水平相结合的分层架构rest-api后端数据接口+angular-SPA前端应用。
+在此基础上，分为以下服务器。
+
+应用服务器承载了主要的业务逻辑，使用Mysql、Redis作为持久层。
+鉴权模块提供身份验证相关的所有服务：
+
+创建token
+删除token
+通过token查询用户及权限，用户可能包括网站用户与管理员
+
+将根据token...
+    
+    
+        <a href="/xdlog/lebooks/诗歌社区架构设计/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/lebooks-private/">lebooks-private</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-lebooks/诗歌社区模块设计"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-16T08:12:08.000Z" itemprop="datePublished" class="post-time">
+  2016-11-16
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/lebooks/诗歌社区模块设计/">诗歌社区模块设计</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        诗歌社区模块设计根据产品原型，初步划分出以下功能模块。
+用户数据：
+
+User：所有用户，并且设置一个所有人都默认关注的乐书小秘书
+
+行为：CRUD
+登录、注册数据：
+
+Token：登录令牌，保存在Redis中
+
+行为：
+
+登录相关的对token的CRUD
+第三方登录
+
+邀请数据：
+
+Invitation：用户(user_id reference User.id)与邀请码(invitatio...
+    
+    
+        <a href="/xdlog/lebooks/诗歌社区模块设计/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/lebooks-private/">lebooks-private</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-java/tomcat/深入剖析tomcat学习笔记/14Server和Service"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-15T10:11:01.000Z" itemprop="datePublished" class="post-time">
+  2016-11-15
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/14Server和Service/">Server和Service</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        Server和ServiceServer接口Server接口的实例，表示Catalina整个servlet容器，囊括了所有组件。
+服务器组件提供了一种非常优雅的方法来启动/关闭整个系统，不再对连接器和容器分别操作：当启动服务器组件时，它会启动其中所有的组件，然后就无限期地等待关闭命令；如果需要关闭服务器组件，向指定端口发送一条关闭命令，服务器组件接收到关闭命令后，就会关闭其中的所有组件。
+1...
+    
+    
+        <a href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/14Server和Service/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
 
     </div>
     

@@ -154,6 +154,57 @@
     <ul class="post-list">
     
         <li class="post-list-item">
+            <article id="post-java/tomcat/深入剖析tomcat学习笔记/4tomcat的默认连接器"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-04T05:40:16.000Z" itemprop="datePublished" class="post-time">
+  2016-11-04
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/4tomcat的默认连接器/">tomcat的默认连接器</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        tomcat的默认连接器本章介绍的“默认连接器”是指tomcat的默认连接器，在新的tomcat中已经被弃用，被Coyote取代，但是其中很多优化的思想，仍然是不错的学习工具。
+HTTP1.1新特性主要引入了connection: keep-alive来使用持久连接，用块编码来切断不同请求，服务器不再立即关闭连接，使用同一个连接来下载所有的资源，减少建立/关闭Http连接的系统开销。
+Con...
+    
+    
+        <a href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/4tomcat的默认连接器/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
             <article id="post-java/tomcat/深入剖析tomcat学习笔记/3连接器"
   class="article-card article-type-post" itemprop="blogPost">
      
@@ -606,61 +657,6 @@ java.lang.NoSuchFieldError的出现情...
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/jvm/">jvm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-design/订单合并支付数据表设计"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-10-14T13:16:24.000Z" itemprop="datePublished" class="post-time">
-  2016-10-14
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/design/订单合并支付数据表设计/">订单合并支付数据表设计</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        电商平台接入第三方支付时关于订单合并支付的数据表设计业务背景当引入了商家与购物车的模型后，无可避免地就会出现一下情况：
-
-用户在购物车选择了多个商家的不同商品选择购买后，会创建多条订单。
-多条订单创建完成之后， 不可能需要用户分开支付多次，一定是刷一次卡扫一次二维码输一次密码就支付完成
-用户可能放弃合并支付，然后又选择了支付其中某一笔订单
-
-在此情况下，订单与支付不可能再像没有合并支付功能那...
-    
-    
-        <a href="/xdlog/design/订单合并支付数据表设计/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/数据结构设计/">数据结构设计</a></li></ul>
 
     </div>
     

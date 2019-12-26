@@ -154,6 +154,61 @@
     <ul class="post-list">
     
         <li class="post-list-item">
+            <article id="post-design/订单合并支付数据表设计"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-10-14T13:16:24.000Z" itemprop="datePublished" class="post-time">
+  2016-10-14
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/design/订单合并支付数据表设计/">订单合并支付数据表设计</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        电商平台接入第三方支付时关于订单合并支付的数据表设计业务背景当引入了商家与购物车的模型后，无可避免地就会出现一下情况：
+
+用户在购物车选择了多个商家的不同商品选择购买后，会创建多条订单。
+多条订单创建完成之后， 不可能需要用户分开支付多次，一定是刷一次卡扫一次二维码输一次密码就支付完成
+用户可能放弃合并支付，然后又选择了支付其中某一笔订单
+
+在此情况下，订单与支付不可能再像没有合并支付功能那...
+    
+    
+        <a href="/xdlog/design/订单合并支付数据表设计/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/数据结构设计/">数据结构设计</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
             <article id="post-javascript/angularjs/由一个bug窥探angular双向绑定的秘密"
   class="article-card article-type-post" itemprop="blogPost">
      
@@ -647,57 +702,6 @@ Cookie、Loca...
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/nginx/">nginx</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-java/maven/maven增加本地jar依赖"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-08-13T11:54:24.000Z" itemprop="datePublished" class="post-time">
-  2016-08-13
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/java/maven/maven增加本地jar依赖/">maven增加本地jar包依赖</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        如何为maven增加本地jar包的依赖起因在接入腾讯开放平台过程中，发现腾讯的SDK并没有增加在maven的中央仓库，也没有开放源代码，只是发布了一个jar包。
-所以需要将这个完全本地的jar包加入到maven的dependencies列表中。
-错误的示范简单google之后，试用了这种方案：1234567&lt;dependency&gt;    &lt;groupId&gt;sample...
-    
-    
-        <a href="/xdlog/java/maven/maven增加本地jar依赖/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/maven/">maven</a></li></ul>
 
     </div>
     

@@ -154,6 +154,57 @@
     <ul class="post-list">
     
         <li class="post-list-item">
+            <article id="post-java/tomcat/深入剖析tomcat学习笔记/14Server和Service"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-11-15T10:11:01.000Z" itemprop="datePublished" class="post-time">
+  2016-11-15
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/14Server和Service/">Server和Service</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        Server和ServiceServer接口Server接口的实例，表示Catalina整个servlet容器，囊括了所有组件。
+服务器组件提供了一种非常优雅的方法来启动/关闭整个系统，不再对连接器和容器分别操作：当启动服务器组件时，它会启动其中所有的组件，然后就无限期地等待关闭命令；如果需要关闭服务器组件，向指定端口发送一条关闭命令，服务器组件接收到关闭命令后，就会关闭其中的所有组件。
+1...
+    
+    
+        <a href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/14Server和Service/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
             <article id="post-design/电商系统运费计算模块设计"
   class="article-card article-type-post" itemprop="blogPost">
      
@@ -619,68 +670,12 @@ Lifecycle接口Catalina在设计上允许一个组件包含其他组件，父级
 
         </li>
     
-        <li class="post-list-item">
-            <article id="post-java/tomcat/深入剖析tomcat学习笔记/5servlet容器"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-11-04T08:51:41.000Z" itemprop="datePublished" class="post-time">
-  2016-11-04
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/5servlet容器/">servlet容器</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        servlet容器Container接口Catalina中的servlet容器，共有4种类型：
-
-Engine： 表示整个Catalina servlet引擎
-Host： 表示包含多个Context容器的虚拟主机
-Context： 表示一个包含多个wrapper的web应用程序
-Wrapper： 表示一个独立的servlet
-
-可以看出，“容器”这个命名还是比较通俗的，因为每个容器都在盛装东...
-    
-    
-        <a href="/xdlog/java/tomcat/深入剖析tomcat学习笔记/5servlet容器/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/tomcat/">tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
     </ul>
 
     
 <nav id="page-nav">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/xdlog/page/3/">上一页</a><a class="page-number" href="/xdlog/">1</a><a class="page-number" href="/xdlog/page/2/">2</a><a class="page-number" href="/xdlog/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/xdlog/page/5/">5</a><a class="page-number" href="/xdlog/page/6/">6</a><a class="page-number" href="/xdlog/page/7/">7</a><a class="extend next" rel="next" href="/xdlog/page/5/">下一页</a>
+    <a class="extend prev" rel="prev" href="/xdlog/page/3/">上一页</a><a class="page-number" href="/xdlog/">1</a><a class="page-number" href="/xdlog/page/2/">2</a><a class="page-number" href="/xdlog/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/xdlog/page/5/">5</a><a class="page-number" href="/xdlog/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/xdlog/page/8/">8</a><a class="extend next" rel="next" href="/xdlog/page/5/">下一页</a>
     </div>
 </nav>
 

@@ -256,39 +256,6 @@ tags:
                 return null;
             }
         }
-    
-        /**
-         * 在线图片转为byte数组
-         *
-         * @param path
-         * @return
-         */
-        public static byte[] onlineImage2byte(String path) {
-            byte[] data = null;
-            URL url = null;
-            InputStream input = null;
-            try {
-                url = new URL(path);
-                HttpURLConnection httpUrl = (HttpURLConnection) url.openConnection();
-                httpUrl.connect();
-                httpUrl.getInputStream();
-                input = httpUrl.getInputStream();
-                ByteArrayOutputStream output = new ByteArrayOutputStream();
-                byte[] buf = new byte[1024];
-                int numBytesRead = 0;
-                while ((numBytesRead = input.read(buf)) != -1) {
-                    output.write(buf, 0, numBytesRead);
-                }
-                data = output.toByteArray();
-                output.close();
-                input.close();
-                return data;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
-    
-        }
     }
     ````
     -   调用
@@ -478,6 +445,7 @@ tags:
         }
     }
     ````
-    -   图片链接一定要转成byte[],否则无法显示
+    -   图片属性
     ![](../../images/algorithm/jxls_room_args.png)
+    -   图片链接一定要转成byte[],否则无法显示
     ![](../../images/algorithm/image_2byte.png)

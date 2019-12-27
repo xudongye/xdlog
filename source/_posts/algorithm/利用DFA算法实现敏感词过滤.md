@@ -75,7 +75,6 @@ tags:
          *              } 
          *          } 
          *      } 
-         * @date 2014年4月20日 下午3:04:20 
          * @param keyWordSet  敏感词库 
          * @version 1.0 
          */  
@@ -127,7 +126,6 @@ tags:
     ````java
     /** 
          * 检查文字中是否包含敏感字符，检查规则如下：<br> 
-         * @date 2014年4月20日 下午4:31:03 
          * @param txt 
          * @param beginIndex 
          * @param matchType 

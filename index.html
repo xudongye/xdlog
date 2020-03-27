@@ -95,7 +95,7 @@
 
       <footer class="footer">
   <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
-  <p>Last.Whisper.Diary &copy; 2019</p>
+  <p>Last.Whisper.Diary &copy; 2020</p>
   <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
   <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
   <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
@@ -628,16 +628,16 @@ nginx 的 http 模块使用 pcre 来解析正则表达式，所以需...
         </li>
     
         <li class="post-list-item">
-            <article id="post-java/concurrency/Java并发编程实战学习笔记/13显式锁"
+            <article id="post-aihotel/关于cms权限管理模块设计"
   class="article-card article-type-post" itemprop="blogPost">
      
     <div class="post-meta">
-        <time datetime="2017-08-28T16:00:00.000Z" itemprop="datePublished" class="post-time">
-  2017-08-29
+        <time datetime="2018-05-27T02:44:14.000Z" itemprop="datePublished" class="post-time">
+  2018-05-27
 </time>
 
         
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
 
 
 
@@ -648,7 +648,7 @@ nginx 的 http 模块使用 pcre 来解析正则表达式，所以需...
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/java/concurrency/Java并发编程实战学习笔记/13显式锁/">显式锁</a>
+      <a class="post-title-link" href="/xdlog/aihotel/关于cms权限管理模块设计/">关于cms权限管理模块设计</a>
     </h3>
   
 
@@ -658,17 +658,23 @@ nginx 的 http 模块使用 pcre 来解析正则表达式，所以需...
     <div class="post-content" id="post-content" itemprop="postContent" >
 
     
-        显式锁Lock与ReentrantLock12345678public interface Lock &#123;    void lock();    void lockInterruptibly() throws InterruptedException;    boolean tryLock();    boolean tryLock(long timeout, TimeUnit un...
+        关于cms权限管理模块设计需求分析：
+说到cms系统，权限管理是必不可少的功能，不断完善总有些不尽人意，所以抽个时间思考一下
+如若每个应用系统为了满足不同系统用户需求而重新设计权限，大大降低了代码的重用性，所以就有必要设计一套通用，灵活，方便的权限系统
+
+数据
+ER关系模型
+行为描述：随着系统的日益庞大，为了做到方便管理，针对每个用户授予不同权限，基本的crud操作是不可少的，每一个用户分配...
     
     
-        <a href="/xdlog/java/concurrency/Java并发编程实战学习笔记/13显式锁/" class="post-more waves-effect waves-button">
+        <a href="/xdlog/aihotel/关于cms权限管理模块设计/" class="post-more waves-effect waves-button">
             阅读全文...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/多线程/">多线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/aihotel/">aihotel</a></li></ul>
 
     </div>
     

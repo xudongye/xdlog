@@ -242,7 +242,13 @@ ER关系模型
 咱们先画一个脑图捋一捋
 架构目录展示
 
+说明：
 
+commons模块：组合后台开发所有的公共模块，被业务模块依赖，避免耦合与项目相关的定制化业务逻辑。
+cloud模块：父级模块，依赖管理
+cloud-modules：所有业务模块组合，
+cloud-api：组织最终导出war包模块，主要业务功能由其依赖jar包提高，并且维护一些与应用直接相关的配置项。
+clou...
     
     
         <a href="/xdlog/aihotel/阳淳信息发布系统后端架构设计/" class="post-more waves-effect waves-button">
@@ -697,7 +703,7 @@ Executor...
     
 <nav id="page-nav">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/xdlog/">上一页</a><a class="page-number" href="/xdlog/">1</a><span class="page-number current">2</span><a class="page-number" href="/xdlog/page/3/">3</a><a class="page-number" href="/xdlog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/xdlog/page/8/">8</a><a class="extend next" rel="next" href="/xdlog/page/3/">下一页</a>
+    <a class="extend prev" rel="prev" href="/xdlog/">上一页</a><a class="page-number" href="/xdlog/">1</a><span class="page-number current">2</span><a class="page-number" href="/xdlog/page/3/">3</a><a class="page-number" href="/xdlog/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/xdlog/page/7/">7</a><a class="extend next" rel="next" href="/xdlog/page/3/">下一页</a>
     </div>
 </nav>
 

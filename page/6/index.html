@@ -154,266 +154,6 @@
     <ul class="post-list">
     
         <li class="post-list-item">
-            <article id="post-java/jvm/深入理解jvm学习笔记/7虚拟机类加载机制"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-10-23T03:57:50.000Z" itemprop="datePublished" class="post-time">
-  2016-10-23
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/java/jvm/深入理解jvm学习笔记/7虚拟机类加载机制/">虚拟机类加载机制</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        虚拟机类加载机制概述类加载机制：虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型。
-由于不需要在编译时进行连接，java语言的类型加载、连接和初始化过程都是运行期完成，这样的策略可以提供更高的灵活性：
-
-面向接口的应用程序，在运行期再指定实际的实现类。
-用户通过自定义的类加载器，让一个本地的应用程序可以在运行期从网...
-    
-    
-        <a href="/xdlog/java/jvm/深入理解jvm学习笔记/7虚拟机类加载机制/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/jvm/">jvm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-java/jvm/深入理解jvm学习笔记/6类文件结构"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-10-22T05:43:14.000Z" itemprop="datePublished" class="post-time">
-  2016-10-22
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/java/jvm/深入理解jvm学习笔记/6类文件结构/">类文件结构</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        类文件结构这一章节主要讲述了class数据结构的规范以及一些细节，不可避免的十分枯燥，但这部分也是jvm运行的重要基础，是深入了解jvm不可不接触的知识。
-无关性的基石class字节码实现平台无关性甚至语言无关性（包括除了java之外能运行在jvm上的语言：Clojure、Groovy、JRuby、Jython等）的基石，是一种字节码的存储格式，jvm不与包括Java在内的任何语言绑定，只与...
-    
-    
-        <a href="/xdlog/java/jvm/深入理解jvm学习笔记/6类文件结构/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/jvm/">jvm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-javascript/angularjs/angular-mvc解构web-im"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-10-20T06:16:51.000Z" itemprop="datePublished" class="post-time">
-  2016-10-20
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Javascript/">Javascript</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/javascript/angularjs/angular-mvc解构web-im/">angular-mvc解构web-im</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        angular-mvc解构web-im问题背景之前喵书项目需要一个网页版即时通讯工具，即Web-im，只需要发文字信息跟图片，基本没有产品原型设计。考虑到服务器的分发能力，以及开发成本问题，最终选择了接入第三方即时通讯云服务器的方式，将开发工作的重点放在了前端上。
-平心而论，这个任务其实是并没有什么困难的，无非是组织一下web im SDK的使用，难点都由第三方帮我们搞定了，总结这么一个文章...
-    
-    
-        <a href="/xdlog/javascript/angularjs/angular-mvc解构web-im/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/angularjs/">angularjs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/面向对象/">面向对象</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-java/jvm/深入理解jvm学习笔记/3垃圾收集器与内存分配策略"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-10-16T01:56:24.000Z" itemprop="datePublished" class="post-time">
-  2016-10-16
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/java/jvm/深入理解jvm学习笔记/3垃圾收集器与内存分配策略/">java垃圾回收与内存分配策略</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        java垃圾回收与内存分配策略判断对象是否存活
-引用计数算法
- 无法解决循环引用问题：
- 1234567ReferenceCountingGC objA = new ReferenceCountingGC();ReferenceCountingGC objB = new ReferenceCountingGC();objA.instance = objB;objB.instance = ob...
-    
-    
-        <a href="/xdlog/java/jvm/深入理解jvm学习笔记/3垃圾收集器与内存分配策略/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/jvm/">jvm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/读书笔记/">读书笔记</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-design/订单合并支付数据表设计"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-10-14T13:16:24.000Z" itemprop="datePublished" class="post-time">
-  2016-10-14
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/design/订单合并支付数据表设计/">订单合并支付数据表设计</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        电商平台接入第三方支付时关于订单合并支付的数据表设计业务背景当引入了商家与购物车的模型后，无可避免地就会出现一下情况：
-
-用户在购物车选择了多个商家的不同商品选择购买后，会创建多条订单。
-多条订单创建完成之后， 不可能需要用户分开支付多次，一定是刷一次卡扫一次二维码输一次密码就支付完成
-用户可能放弃合并支付，然后又选择了支付其中某一笔订单
-
-在此情况下，订单与支付不可能再像没有合并支付功能那...
-    
-    
-        <a href="/xdlog/design/订单合并支付数据表设计/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/数据结构设计/">数据结构设计</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
             <article id="post-javascript/angularjs/由一个bug窥探angular双向绑定的秘密"
   class="article-card article-type-post" itemprop="blogPost">
      
@@ -638,12 +378,12 @@ java虚拟机栈(Java Virtual Machine Stacks)
         </li>
     
         <li class="post-list-item">
-            <article id="post-lebooks/瞄星架构设计说明"
+            <article id="post-design/非环形依赖与依赖倒置原则"
   class="article-card article-type-post" itemprop="blogPost">
      
     <div class="post-meta">
-        <time datetime="2016-09-03T13:16:24.000Z" itemprop="datePublished" class="post-time">
-  2016-09-03
+        <time datetime="2016-08-26T15:11:24.000Z" itemprop="datePublished" class="post-time">
+  2016-08-26
 </time>
 
         
@@ -658,7 +398,7 @@ java虚拟机栈(Java Virtual Machine Stacks)
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/lebooks/瞄星架构设计说明/">瞄星架构设计说明</a>
+      <a class="post-title-link" href="/xdlog/design/非环形依赖与依赖倒置原则/">非环形依赖与依赖倒置原则</a>
     </h3>
   
 
@@ -668,23 +408,299 @@ java虚拟机栈(Java Virtual Machine Stacks)
     <div class="post-content" id="post-content" itemprop="postContent" >
 
     
-        瞄星架构设计说明
-关键技术：
-nginxjavatomcat7Restful apimavenspringhibernatemysqlredisnpmangularjsyeomanbower
-grunt动静分离动静分离的优点动静分离是让动态网站里的动态网页根据一定规则把不变的资源（html,css,js,静态文件）和经常变的资源（数据资源）区分开来。
-
-提高静态资源访问速度，后端不用再将模板...
+        一大组痛苦的maven循环依赖引发的重构危机起因将项目的不同模块切分后，发现有些抽象逻辑上并不是紧耦合的模块，由于出现了互相调用，引发了maven的循环依赖。
+例如：
+A模块依赖B模块，B模块同时依赖A。（多个模块同理）
+一般情况下，如果不是使用一些代码分析工具嗅探代码坏味道
+A.java中import B;
+B.java中import A;
+其实十分常见，也不会出现编译错误。
+但是在mav...
     
     
-        <a href="/xdlog/lebooks/瞄星架构设计说明/" class="post-more waves-effect waves-button">
+        <a href="/xdlog/design/非环形依赖与依赖倒置原则/" class="post-more waves-effect waves-button">
             阅读全文...
         </a>
     </div>
     
     <div class="post-footer">
         
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/lebooks-private/">lebooks-private</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/解耦/">解耦</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/面向对象/">面向对象</a></li></ul>
 
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-javascript/angularjs/消除SPA的井号路由前缀"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-08-22T11:59:24.000Z" itemprop="datePublished" class="post-time">
+  2016-08-22
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Javascript/">Javascript</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/javascript/angularjs/消除SPA的井号路由前缀/">消除SPA井号路由前缀</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        消除基于angularjs构建的单页面应用（SPA）路由上的#前缀
+$locationProvider.html5mode(true)
+ $locationProvider.html5mode([mode])
+ mode: 
+ type: Object
+ properties:
+
+enabled-{boolean}-(default: false)，如果为true，会在支持history.p...
+    
+    
+        <a href="/xdlog/javascript/angularjs/消除SPA的井号路由前缀/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/Javascript/">Javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/angularjs/">angularjs</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-linux/nginx配置CORS服务"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-08-16T13:16:24.000Z" itemprop="datePublished" class="post-time">
+  2016-08-16
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Linux/">Linux</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/linux/nginx配置CORS服务/">nginx配置CORS服务</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        nginx配置CORS服务同源策略含义同源策略(same origin policy)是浏览器安全的基石，同源是指三个相同
+
+协议相同(http不能访问https)
+域名相同(miaoshu.me不能访问www.miaoshu.me)
+端口相同(localhost:80不能访问localhost:8080)
+
+目的保证用户信息的安全，防止恶意的网站窃取数据。
+限制范围
+Cookie、Loca...
+    
+    
+        <a href="/xdlog/linux/nginx配置CORS服务/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/nginx/">nginx</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-java/maven/maven增加本地jar依赖"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-08-13T11:54:24.000Z" itemprop="datePublished" class="post-time">
+  2016-08-13
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/java/maven/maven增加本地jar依赖/">maven增加本地jar包依赖</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        如何为maven增加本地jar包的依赖起因在接入腾讯开放平台过程中，发现腾讯的SDK并没有增加在maven的中央仓库，也没有开放源代码，只是发布了一个jar包。
+所以需要将这个完全本地的jar包加入到maven的dependencies列表中。
+错误的示范简单google之后，试用了这种方案：1234567&lt;dependency&gt;    &lt;groupId&gt;sample...
+    
+    
+        <a href="/xdlog/java/maven/maven增加本地jar依赖/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/maven/">maven</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-java/maven/maven-on-windows"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-08-01T06:04:24.000Z" itemprop="datePublished" class="post-time">
+  2016-08-01
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/java/maven/maven-on-windows/">windows安装maven</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        
+安装jdk及配置环境变量
+
+安装maven，并配置PATH
+
+修改本地仓库地址
+ %M2_HOME%\conf\settings.xml搜索localRepository节点
+ 注意：此处File.separator要填入正斜杠，即使是windows系统
+
+修改JDK版本
+ 在profiles节点增加
+ 123456789101112 &lt;profile&gt;            ...
+    
+    
+        <a href="/xdlog/java/maven/maven-on-windows/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/maven/">maven</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-linux/Ubuntu创建sudo组用户"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-07-22T02:36:24.000Z" itemprop="datePublished" class="post-time">
+  2016-07-22
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Linux/">Linux</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/linux/Ubuntu创建sudo组用户/">Ubuntu创建sudo组用户</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        Ubuntu创建sudo组用户
+adduser username
+Enter new Unix password:
+Changing the user information for lebooks此处一路enter全部接受默认设置即可
+Is the information correct?[Y/n]
+
+
+usermod -aG sudo username 将用户加入sudo组，a：appe...
+    
+    
+        <a href="/xdlog/linux/Ubuntu创建sudo组用户/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
     </div>
     
 </article>
@@ -696,7 +712,7 @@ grunt动静分离动静分离的优点动静分离是让动态网站里的动态
     
 <nav id="page-nav">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/xdlog/page/5/">上一页</a><a class="page-number" href="/xdlog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/xdlog/page/4/">4</a><a class="page-number" href="/xdlog/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/xdlog/page/7/">7</a><a class="page-number" href="/xdlog/page/8/">8</a><a class="extend next" rel="next" href="/xdlog/page/7/">下一页</a>
+    <a class="extend prev" rel="prev" href="/xdlog/page/5/">上一页</a><a class="page-number" href="/xdlog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/xdlog/page/4/">4</a><a class="page-number" href="/xdlog/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/xdlog/page/7/">7</a><a class="extend next" rel="next" href="/xdlog/page/7/">下一页</a>
     </div>
 </nav>
 

@@ -12,19 +12,19 @@
   
   
   <meta name="keywords" content="cloud">
-  <meta name="description" content="信发系统RestApi架构设计 咱们先画一个脑图捋一捋 架构目录展示">
+  <meta name="description" content="信发系统RestApi架构设计 咱们先画一个脑图捋一捋 架构目录展示  说明：  commons模块：组合后台开发所有的公共模块，被业务模块依赖，避免耦合与项目相关的定制化业务逻辑。 cloud模块：父级模块，依赖管理 cloud-modules：所有业务模块组合， cloud-api：组织最终导出war包模块，主要业务功能由其依赖jar包提高，并且维护一些与应用直接相关的配置项。 cloud-c">
 <meta name="keywords" content="cloud">
 <meta property="og:type" content="article">
 <meta property="og:title" content="阳淳信息发布系统后端架构设计">
 <meta property="og:url" content="https://xudongye.github.io/xdlog/aihotel/阳淳信息发布系统后端架构设计/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
-<meta property="og:description" content="信发系统RestApi架构设计 咱们先画一个脑图捋一捋 架构目录展示">
+<meta property="og:description" content="信发系统RestApi架构设计 咱们先画一个脑图捋一捋 架构目录展示  说明：  commons模块：组合后台开发所有的公共模块，被业务模块依赖，避免耦合与项目相关的定制化业务逻辑。 cloud模块：父级模块，依赖管理 cloud-modules：所有业务模块组合， cloud-api：组织最终导出war包模块，主要业务功能由其依赖jar包提高，并且维护一些与应用直接相关的配置项。 cloud-c">
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/aihotel/08信发架构.png">
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/aihotel/项目目录结构.png">
-<meta property="og:updated_time" content="2020-03-27T13:54:36.740Z">
+<meta property="og:updated_time" content="2020-03-27T14:45:07.934Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="阳淳信息发布系统后端架构设计">
-<meta name="twitter:description" content="信发系统RestApi架构设计 咱们先画一个脑图捋一捋 架构目录展示">
+<meta name="twitter:description" content="信发系统RestApi架构设计 咱们先画一个脑图捋一捋 架构目录展示  说明：  commons模块：组合后台开发所有的公共模块，被业务模块依赖，避免耦合与项目相关的定制化业务逻辑。 cloud模块：父级模块，依赖管理 cloud-modules：所有业务模块组合， cloud-api：组织最终导出war包模块，主要业务功能由其依赖jar包提高，并且维护一些与应用直接相关的配置项。 cloud-c">
 <meta name="twitter:image" content="https://xudongye.github.io/xdlog/images/aihotel/08信发架构.png">
   
     <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
@@ -176,7 +176,37 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <h2 id="信发系统RestApi架构设计"><a href="#信发系统RestApi架构设计" class="headerlink" title="信发系统RestApi架构设计"></a>信发系统RestApi架构设计</h2><ul>
 <li>咱们先画一个脑图捋一捋<br><img src="../../images/aihotel/08信发架构.png" alt="信息发布架构说明"></li>
-<li>架构目录展示<br><img src="../../images/aihotel/项目目录结构.png" alt="项目目录结构"></li>
+<li><p>架构目录展示<br><img src="../../images/aihotel/项目目录结构.png" alt="项目目录结构"></p>
+</li>
+<li><p>说明：</p>
+<ol>
+<li>commons模块：组合后台开发所有的公共模块，被业务模块依赖，避免耦合与项目相关的定制化业务逻辑。</li>
+<li>cloud模块：父级模块，依赖管理<ol>
+<li>cloud-modules：所有业务模块组合，</li>
+<li>cloud-api：组织最终导出war包模块，主要业务功能由其依赖jar包提高，并且维护一些与应用直接相关的配置项。</li>
+<li>cloud-configuration：动态配置项读取模块，如支付密钥，支付回调地址等配置</li>
+<li>cloud-event：使用activemq异步消息队列服务器，封装事件发布服务，并预定事件消息的数据模型。<br>目的：1.异步处理事务，加快相应速度，提高吞吐量2.消息队列提高访问峰值承载能力<br>3.代码解耦，在不是紧耦合的模块之间传递消息来处理支线流程</li>
+<li>cloud-test：使用spring-test测试组件，MockHttpServletRequest对象对rest-api进行测试，<br>依赖注入来测试供其他业务模块调用的service接口</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>应用服务器<ul>
+<li>承载主要业务模块，使用mysql,redis作为持久层</li>
+</ul>
+</li>
+<li>鉴权模块<ul>
+<li>提高身份验证相关的所有服务：<ul>
+<li>创建token</li>
+<li>删除token</li>
+<li>通过token查询用户权限，用户包括网站用户与管理员以及app用户</li>
+</ul>
+</li>
+<li>根据token验证身份rest api暴露给其他服务器使用</li>
+<li>从mysql中查询用户及权限信息</li>
+<li>利用redis保存token,设置有效时间，将token值作为key以最快查询</li>
+</ul>
+</li>
 </ul>
 
         </div>

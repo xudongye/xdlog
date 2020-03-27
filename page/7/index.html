@@ -154,390 +154,6 @@
     <ul class="post-list">
     
         <li class="post-list-item">
-            <article id="post-lebooks/瞄星RestAPI整体代码设计"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-08-30T12:16:24.000Z" itemprop="datePublished" class="post-time">
-  2016-08-30
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/lebooks/瞄星RestAPI整体代码设计/">瞄星RestAPI整体代码设计</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        瞄星RestAPI整体代码设计
-RestController
-
-Controller类添加@RestController注解（必须Spring4.0以上）
-标注RequestMapping的方法必须返回org.springframework.http.ResponseEntity， 必须增加responseBody和http status code
-可预料的异常与错误，必须返回通俗易懂的re...
-    
-    
-        <a href="/xdlog/lebooks/瞄星RestAPI整体代码设计/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/lebooks-private/">lebooks-private</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-design/非环形依赖与依赖倒置原则"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-08-26T15:11:24.000Z" itemprop="datePublished" class="post-time">
-  2016-08-26
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/design/非环形依赖与依赖倒置原则/">非环形依赖与依赖倒置原则</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        一大组痛苦的maven循环依赖引发的重构危机起因将项目的不同模块切分后，发现有些抽象逻辑上并不是紧耦合的模块，由于出现了互相调用，引发了maven的循环依赖。
-例如：
-A模块依赖B模块，B模块同时依赖A。（多个模块同理）
-一般情况下，如果不是使用一些代码分析工具嗅探代码坏味道
-A.java中import B;
-B.java中import A;
-其实十分常见，也不会出现编译错误。
-但是在mav...
-    
-    
-        <a href="/xdlog/design/非环形依赖与依赖倒置原则/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/解耦/">解耦</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/面向对象/">面向对象</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-javascript/angularjs/消除SPA的井号路由前缀"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-08-22T11:59:24.000Z" itemprop="datePublished" class="post-time">
-  2016-08-22
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Javascript/">Javascript</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/javascript/angularjs/消除SPA的井号路由前缀/">消除SPA井号路由前缀</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        消除基于angularjs构建的单页面应用（SPA）路由上的#前缀
-$locationProvider.html5mode(true)
- $locationProvider.html5mode([mode])
- mode: 
- type: Object
- properties:
-
-enabled-{boolean}-(default: false)，如果为true，会在支持history.p...
-    
-    
-        <a href="/xdlog/javascript/angularjs/消除SPA的井号路由前缀/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/Javascript/">Javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/angularjs/">angularjs</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-linux/nginx配置CORS服务"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-08-16T13:16:24.000Z" itemprop="datePublished" class="post-time">
-  2016-08-16
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Linux/">Linux</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/linux/nginx配置CORS服务/">nginx配置CORS服务</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        nginx配置CORS服务同源策略含义同源策略(same origin policy)是浏览器安全的基石，同源是指三个相同
-
-协议相同(http不能访问https)
-域名相同(miaoshu.me不能访问www.miaoshu.me)
-端口相同(localhost:80不能访问localhost:8080)
-
-目的保证用户信息的安全，防止恶意的网站窃取数据。
-限制范围
-Cookie、Loca...
-    
-    
-        <a href="/xdlog/linux/nginx配置CORS服务/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/nginx/">nginx</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-java/maven/maven增加本地jar依赖"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-08-13T11:54:24.000Z" itemprop="datePublished" class="post-time">
-  2016-08-13
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/java/maven/maven增加本地jar依赖/">maven增加本地jar包依赖</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        如何为maven增加本地jar包的依赖起因在接入腾讯开放平台过程中，发现腾讯的SDK并没有增加在maven的中央仓库，也没有开放源代码，只是发布了一个jar包。
-所以需要将这个完全本地的jar包加入到maven的dependencies列表中。
-错误的示范简单google之后，试用了这种方案：1234567&lt;dependency&gt;    &lt;groupId&gt;sample...
-    
-    
-        <a href="/xdlog/java/maven/maven增加本地jar依赖/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/maven/">maven</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-java/maven/maven-on-windows"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-08-01T06:04:24.000Z" itemprop="datePublished" class="post-time">
-  2016-08-01
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/java/maven/maven-on-windows/">windows安装maven</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        
-安装jdk及配置环境变量
-
-安装maven，并配置PATH
-
-修改本地仓库地址
- %M2_HOME%\conf\settings.xml搜索localRepository节点
- 注意：此处File.separator要填入正斜杠，即使是windows系统
-
-修改JDK版本
- 在profiles节点增加
- 123456789101112 &lt;profile&gt;            ...
-    
-    
-        <a href="/xdlog/java/maven/maven-on-windows/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/maven/">maven</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-linux/Ubuntu创建sudo组用户"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-07-22T02:36:24.000Z" itemprop="datePublished" class="post-time">
-  2016-07-22
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Linux/">Linux</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/linux/Ubuntu创建sudo组用户/">Ubuntu创建sudo组用户</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        Ubuntu创建sudo组用户
-adduser username
-Enter new Unix password:
-Changing the user information for lebooks此处一路enter全部接受默认设置即可
-Is the information correct?[Y/n]
-
-
-usermod -aG sudo username 将用户加入sudo组，a：appe...
-    
-    
-        <a href="/xdlog/linux/Ubuntu创建sudo组用户/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
             <article id="post-linux/Ubuntu-apt-get-source.list-not-found"
   class="article-card article-type-post" itemprop="blogPost">
      
@@ -691,12 +307,233 @@ spring配置文件applicationSettings.xml添加节点
 
         </li>
     
+        <li class="post-list-item">
+            <article id="post-linux/Ubuntu安装tomcat7-nginx-mysql"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-03-04T13:36:24.000Z" itemprop="datePublished" class="post-time">
+  2016-03-04
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Linux/">Linux</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/linux/Ubuntu安装tomcat7-nginx-mysql/">Ubuntu安装tomcat7 nginx mysql等服务</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        Ubuntu运用apt-get install tomcat7 nginx mysql等服务apt-get install tomcat7tomcat7包依赖于JDK，如果没有安装JDK会自动安装OpenJDK123java version &quot;1.7.0_101&quot;OpenJDK Runtime Environment (IcedTea 2.6.6) (7u101-2.6....
+    
+    
+        <a href="/xdlog/linux/Ubuntu安装tomcat7-nginx-mysql/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/部署/">部署</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-mysql/Linux下apt-get安装MySQL"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-03-03T03:36:24.000Z" itemprop="datePublished" class="post-time">
+  2016-03-03
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Linux/">Linux</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/mysql/Linux下apt-get安装MySQL/">Linux下apt-get安装MySQL</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        Linux下apt-get安装MySQL
+apt-get install mysql-server
+
+apt-get install mysql-client
+
+mysql -u root -p进入mysql命令行，用set password命令修改密码
+ 12SET PASSWORD FOR 'root'@'localhost'=PASSWORD(‘localhost login pass...
+    
+    
+        <a href="/xdlog/mysql/Linux下apt-get安装MySQL/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/mysql/">mysql</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-mysql/windows mysql部署指南"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-03-02T09:41:24.000Z" itemprop="datePublished" class="post-time">
+  2016-03-02
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Mysql/">Mysql</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/mysql/windows mysql部署指南/">windows mysql部署指南</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        windows mysql部署指南
+解压MySQL免安装包，令其路径为D:\mysql_home
+
+在my-default.ini旁边复制一个my.ini文件，并根据注释修改相关参数
+
+
+12345678910111213141516[client]   port=3306   default-character-set=utf8   [mysqld]   port=3306   chara...
+    
+    
+        <a href="/xdlog/mysql/windows mysql部署指南/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/windows/">windows</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
+            <article id="post-linux/Ubuntu git server搭建指南"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2015-12-19T11:16:24.000Z" itemprop="datePublished" class="post-time">
+  2015-12-19
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Linux/">Linux</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/linux/Ubuntu git server搭建指南/">Ubuntu git server搭建指南</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        Ubuntu git server搭建指南
+Ubuntu安装git
+
+apt-get update    更新apt-get
+apt-get install git自动安装git
+git –version 检测git安装成功
+
+
+新建一个运行git的Linux用户
+
+adduser git 新建一个名为git的用户（设置密码）
+改变git用户的shell登录行为
+
+vim /etc/pass...
+    
+    
+        <a href="/xdlog/linux/Ubuntu git server搭建指南/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/Ubuntu/">Ubuntu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/vcs/">vcs</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
     </ul>
 
     
 <nav id="page-nav">
     <div class="inner">
-    <a class="extend prev" rel="prev" href="/xdlog/page/6/">上一页</a><a class="page-number" href="/xdlog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/xdlog/page/5/">5</a><a class="page-number" href="/xdlog/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/xdlog/page/8/">8</a><a class="extend next" rel="next" href="/xdlog/page/8/">下一页</a>
+    <a class="extend prev" rel="prev" href="/xdlog/page/6/">上一页</a><a class="page-number" href="/xdlog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/xdlog/page/5/">5</a><a class="page-number" href="/xdlog/page/6/">6</a><span class="page-number current">7</span>
     </div>
 </nav>
 

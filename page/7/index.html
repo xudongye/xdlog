@@ -154,6 +154,62 @@
     <ul class="post-list">
     
         <li class="post-list-item">
+            <article id="post-design/非环形依赖与依赖倒置原则"
+  class="article-card article-type-post" itemprop="blogPost">
+     
+    <div class="post-meta">
+        <time datetime="2016-08-26T15:11:24.000Z" itemprop="datePublished" class="post-time">
+  2016-08-26
+</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/xdlog/design/非环形依赖与依赖倒置原则/">非环形依赖与依赖倒置原则</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent" >
+
+    
+        一大组痛苦的maven循环依赖引发的重构危机起因将项目的不同模块切分后，发现有些抽象逻辑上并不是紧耦合的模块，由于出现了互相调用，引发了maven的循环依赖。
+例如：
+A模块依赖B模块，B模块同时依赖A。（多个模块同理）
+一般情况下，如果不是使用一些代码分析工具嗅探代码坏味道
+A.java中import B;
+B.java中import A;
+其实十分常见，也不会出现编译错误。
+但是在mav...
+    
+    
+        <a href="/xdlog/design/非环形依赖与依赖倒置原则/" class="post-more waves-effect waves-button">
+            阅读全文...
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/解耦/">解耦</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/面向对象/">面向对象</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item">
             <article id="post-javascript/angularjs/消除SPA的井号路由前缀"
   class="article-card article-type-post" itemprop="blogPost">
      
@@ -623,61 +679,6 @@ spring配置文件applicationSettings.xml添加节点
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/部署/">部署</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item">
-            <article id="post-mysql/Linux下apt-get安装MySQL"
-  class="article-card article-type-post" itemprop="blogPost">
-     
-    <div class="post-meta">
-        <time datetime="2016-03-03T03:36:24.000Z" itemprop="datePublished" class="post-time">
-  2016-03-03
-</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Linux/">Linux</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/xdlog/mysql/Linux下apt-get安装MySQL/">Linux下apt-get安装MySQL</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent" >
-
-    
-        Linux下apt-get安装MySQL
-apt-get install mysql-server
-
-apt-get install mysql-client
-
-mysql -u root -p进入mysql命令行，用set password命令修改密码
- 12SET PASSWORD FOR 'root'@'localhost'=PASSWORD(‘localhost login pass...
-    
-    
-        <a href="/xdlog/mysql/Linux下apt-get安装MySQL/" class="post-more waves-effect waves-button">
-            阅读全文...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/mysql/">mysql</a></li></ul>
 
     </div>
     

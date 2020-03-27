@@ -11,20 +11,20 @@
   <meta name="theme-color" content="#3F51B5">
   
   
-  <meta name="keywords" content="aihotel">
-  <meta name="description" content="关于cms权限管理模块设计需求分析： 说到cms系统，权限管理是必不可少的功能，不断完善总有些不尽人意，所以抽个时间思考一下 如若每个应用系统为了满足不同系统用户需求而重新设计权限，大大降低了代码的重用性，所以就有必要设计一套通用，灵活，方便的权限系统  表结构 ER关系模型 行为描述：随着系统的日益庞大，为了做到方便管理，针对每个用户授予不同权限，基本的crud操作是不可少的，每一个用户分配一个">
-<meta name="keywords" content="aihotel">
+  <meta name="keywords" content="aiHotel">
+  <meta name="description" content="关于cms权限管理模块设计需求分析： 说到cms系统，权限管理是必不可少的功能，不断完善总有些不尽人意，所以抽个时间思考一下 如若每个应用系统为了满足不同系统用户需求而重新设计权限，大大降低了代码的重用性，所以就有必要设计一套通用，灵活，方便的权限系统  ER关系模型 行为描述：随着系统的日益庞大，为了做到方便管理，针对每个用户授予不同权限，基本的crud操作是不可少的，每一个用户分配一个角色，角">
+<meta name="keywords" content="aiHotel">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于cms权限管理模块设计">
 <meta property="og:url" content="https://xudongye.github.io/xdlog/aihotel/关于cms权限管理模块设计/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
-<meta property="og:description" content="关于cms权限管理模块设计需求分析： 说到cms系统，权限管理是必不可少的功能，不断完善总有些不尽人意，所以抽个时间思考一下 如若每个应用系统为了满足不同系统用户需求而重新设计权限，大大降低了代码的重用性，所以就有必要设计一套通用，灵活，方便的权限系统  表结构 ER关系模型 行为描述：随着系统的日益庞大，为了做到方便管理，针对每个用户授予不同权限，基本的crud操作是不可少的，每一个用户分配一个">
+<meta property="og:description" content="关于cms权限管理模块设计需求分析： 说到cms系统，权限管理是必不可少的功能，不断完善总有些不尽人意，所以抽个时间思考一下 如若每个应用系统为了满足不同系统用户需求而重新设计权限，大大降低了代码的重用性，所以就有必要设计一套通用，灵活，方便的权限系统  ER关系模型 行为描述：随着系统的日益庞大，为了做到方便管理，针对每个用户授予不同权限，基本的crud操作是不可少的，每一个用户分配一个角色，角">
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/aihotel/权限系统.png">
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/aihotel/权限分配.png">
-<meta property="og:updated_time" content="2020-03-27T06:01:39.056Z">
+<meta property="og:updated_time" content="2020-03-27T06:34:17.986Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于cms权限管理模块设计">
-<meta name="twitter:description" content="关于cms权限管理模块设计需求分析： 说到cms系统，权限管理是必不可少的功能，不断完善总有些不尽人意，所以抽个时间思考一下 如若每个应用系统为了满足不同系统用户需求而重新设计权限，大大降低了代码的重用性，所以就有必要设计一套通用，灵活，方便的权限系统  表结构 ER关系模型 行为描述：随着系统的日益庞大，为了做到方便管理，针对每个用户授予不同权限，基本的crud操作是不可少的，每一个用户分配一个">
+<meta name="twitter:description" content="关于cms权限管理模块设计需求分析： 说到cms系统，权限管理是必不可少的功能，不断完善总有些不尽人意，所以抽个时间思考一下 如若每个应用系统为了满足不同系统用户需求而重新设计权限，大大降低了代码的重用性，所以就有必要设计一套通用，灵活，方便的权限系统  ER关系模型 行为描述：随着系统的日益庞大，为了做到方便管理，针对每个用户授予不同权限，基本的crud操作是不可少的，每一个用户分配一个角色，角">
 <meta name="twitter:image" content="https://xudongye.github.io/xdlog/images/aihotel/权限系统.png">
   
     <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
@@ -153,7 +153,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关于cms权限管理模块设计"><span class="post-toc-number">1.</span> <span class="post-toc-text">关于cms权限管理模块设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需求分析："><span class="post-toc-number">1.1.</span> <span class="post-toc-text">需求分析：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#表结构"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">表结构</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关于cms权限管理模块设计"><span class="post-toc-number">1.</span> <span class="post-toc-text">关于cms权限管理模块设计</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需求分析："><span class="post-toc-number">1.1.</span> <span class="post-toc-text">需求分析：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ER关系模型"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">ER关系模型</span></a></li></ol></li></ol>
         </nav>
     </aside>
     
@@ -178,9 +178,8 @@
 <li>说到cms系统，权限管理是必不可少的功能，不断完善总有些不尽人意，所以抽个时间思考一下</li>
 <li>如若每个应用系统为了满足不同系统用户需求而重新设计权限，大大降低了代码的重用性，所以就有必要设计一套通用，灵活，方便的权限系统</li>
 </ul>
-<h2 id="表结构"><a href="#表结构" class="headerlink" title="表结构"></a>表结构</h2><ul>
-<li>ER关系模型<br><img src="../../images/aihotel/权限系统.png" alt="权限管理"></li>
-<li>行为描述：随着系统的日益庞大，为了做到方便管理，针对每个用户授予不同权限，基本的crud操作是不可少的，每一个用户分配一个角色，角色与权限形成多对多关系，每个角色设置最大分配权限等级，<br>与之对应的就是每个权限所对应的权重等级，这样就可以再分配权限同时做到不会越权分配。为了避免显示业务对权限设计入侵太重，所以就引入了菜单表的设计，关联权限<br>一一对应与之对应的有前端路由即资源分配。权限分为显性权限（即与菜单对应），而隐性权限可以理解为接口的读写权限不用分配菜单</li>
+<h2 id="ER关系模型"><a href="#ER关系模型" class="headerlink" title="ER关系模型"></a>ER关系模型</h2><ul>
+<li>行为描述：随着系统的日益庞大，为了做到方便管理，针对每个用户授予不同权限，基本的crud操作是不可少的，每一个用户分配一个角色，角色与权限形成多对多关系，每个角色设置最大分配权限等级，<br>与之对应的就是每个权限所对应的权重等级，这样就可以再分配权限同时做到不会越权分配。为了避免显示业务对权限设计入侵太重，所以就引入了菜单表的设计，关联权限<br>一一对应与之对应的有前端路由即资源分配。权限分为显性权限（即与菜单对应），而隐性权限可以理解为接口的读写权限不用分配菜单<br><img src="../../images/aihotel/权限系统.png" alt="权限管理"></li>
 <li>授权示例<br><img src="../../images/aihotel/权限分配.png" alt="权限分配"></li>
 </ul>
 
@@ -206,7 +205,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/aihotel/">aihotel</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/aiHotel/">aiHotel</a></li></ul>
 
 
             

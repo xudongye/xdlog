@@ -5,7 +5,7 @@
   
   
   
-  <title>利用浏览器优化排版算法的方案 | Last.Whisper.Diary | 水货开发者的鱼塘遨游日志</title>
+  <title>利用浏览器优化排版算法的方案 | Last.Whisper.Diary | 学而不思则罔，思而不学则怠</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="theme-color" content="#3F51B5">
@@ -19,13 +19,13 @@
 <meta property="og:url" content="https://xudongye.github.io/xdlog/algorithm/利用浏览器优化排版算法的方案/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
 <meta property="og:description" content="利用浏览器优化排版算法的方案问题分析无论是犁书项目之前的将社交网络的简单文本与图片列表信息整理排版，还是将富文本内容排版成册，其本质是两件事：  将原有的数据按照我们的样式规则进行排列，如果是带有样式的富文本，那么将原有样式与模板样式相结合 根据DOM元素的高度除以页的高度进行断页(break page)  那么对于排版算法，尤其是富文本的排版，其最大的难点与工作量在于：  解析各种html标签与">
-<meta property="og:image" content="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8E%92%E7%89%88%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
-<meta property="og:image" content="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E7%8A%81%E4%B9%A6%E4%BD%9C%E5%93%81%E8%A1%A8%E7%BB%93%E6%9E%84ER%E5%9B%BE11191659.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/">
 <meta property="og:updated_time" content="2019-09-26T09:04:29.839Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用浏览器优化排版算法的方案">
 <meta name="twitter:description" content="利用浏览器优化排版算法的方案问题分析无论是犁书项目之前的将社交网络的简单文本与图片列表信息整理排版，还是将富文本内容排版成册，其本质是两件事：  将原有的数据按照我们的样式规则进行排列，如果是带有样式的富文本，那么将原有样式与模板样式相结合 根据DOM元素的高度除以页的高度进行断页(break page)  那么对于排版算法，尤其是富文本的排版，其最大的难点与工作量在于：  解析各种html标签与">
-<meta name="twitter:image" content="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8E%92%E7%89%88%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta name="twitter:image" content="https://xudongye.github.io/xdlog/">
   
     <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
   
@@ -187,7 +187,7 @@
 <h2 id="浏览器计算元素高度"><a href="#浏览器计算元素高度" class="headerlink" title="浏览器计算元素高度"></a>浏览器计算元素高度</h2><p>对于解析html标签、样式来说，如果不拘泥于现在的用java代码的Font库逐步计算每个字符的宽高、何时换行这种造轮子的方式，<br>很容易想到，最简单直接的方法，就是利用浏览器的渲染引擎以及javascript代码来获取dom元素的高度。</p>
 <p>那么问题就在于，谁来打开这个浏览器，谁来输入这样的url进行访问，谁来向服务器报告dom元素的高度？<br>很显然，不可能是用户，用户的浏览器千差万别，把数据交由一个情况不明的用户浏览器来创造肯定是不符合常理的。</p>
 <p>于是希望尝试使用“服务端无图形界面虚拟浏览器”————phantomjs来担此重任。</p>
-<h2 id="排版步骤"><a href="#排版步骤" class="headerlink" title="排版步骤"></a>排版步骤</h2><p><img src="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8E%92%E7%89%88%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="流程图"></p>
+<h2 id="排版步骤"><a href="#排版步骤" class="headerlink" title="排版步骤"></a>排版步骤</h2><p><img src="/xdlog/" class="lazyload" data-src="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8E%92%E7%89%88%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png"  alt="流程图"></p>
 <ol>
 <li>服务器获取内容数据</li>
 <li>提供一个查询内容数据的Rest API接口</li>
@@ -208,7 +208,7 @@
 <li>将排版情况数据发送到服务器进行保存</li>
 <li>网页利用事件通知phantomjs结束线程</li>
 </ol>
-<h2 id="模型设计"><a href="#模型设计" class="headerlink" title="模型设计"></a>模型设计</h2><p><img src="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E7%8A%81%E4%B9%A6%E4%BD%9C%E5%93%81%E8%A1%A8%E7%BB%93%E6%9E%84ER%E5%9B%BE11191659.png" alt="ER图"></p>
+<h2 id="模型设计"><a href="#模型设计" class="headerlink" title="模型设计"></a>模型设计</h2><p><img src="/xdlog/" class="lazyload" data-src="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E7%8A%81%E4%B9%A6%E4%BD%9C%E5%93%81%E8%A1%A8%E7%BB%93%E6%9E%84ER%E5%9B%BE11191659.png"  alt="ER图"></p>
 <ul>
 <li><p>TableOfContents</p>
 <p>  保存目录结构</p>

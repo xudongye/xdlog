@@ -5,7 +5,7 @@
   
   
   
-  <title>单线程的javascript | Last.Whisper.Diary | 水货开发者的鱼塘遨游日志</title>
+  <title>单线程的javascript | Last.Whisper.Diary | 学而不思则罔，思而不学则怠</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="theme-color" content="#3F51B5">
@@ -19,14 +19,14 @@
 <meta property="og:url" content="https://xudongye.github.io/xdlog/javascript/单线程的javascript/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
 <meta property="og:description" content="单线程的javascript一个有趣的死循环bug在略去这个bug所有的外围细节后，我试图还原一个最小化的场景： 现在需要使用js将一个图片列表依次动态添加到页面上，但是有一个限定条件，在前一张图片没有加载完成之前，后一张图片不得抢先加载，必须等待前一张load事件触发。 这有何难： 1234567891011121314// 引入jQuery// imgs 是图片数组for (var i = 0">
-<meta property="og:image" content="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E5%A4%9A%E7%BA%BF%E7%A8%8Bjavascript%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
-<meta property="og:image" content="http://image.beekka.com/blog/2014/bg2014100801.jpg">
-<meta property="og:image" content="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E5%8D%95%E7%BA%BF%E7%A8%8Bjavascript%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/">
 <meta property="og:updated_time" content="2019-09-26T09:04:29.838Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="单线程的javascript">
 <meta name="twitter:description" content="单线程的javascript一个有趣的死循环bug在略去这个bug所有的外围细节后，我试图还原一个最小化的场景： 现在需要使用js将一个图片列表依次动态添加到页面上，但是有一个限定条件，在前一张图片没有加载完成之前，后一张图片不得抢先加载，必须等待前一张load事件触发。 这有何难： 1234567891011121314// 引入jQuery// imgs 是图片数组for (var i = 0">
-<meta name="twitter:image" content="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E5%A4%9A%E7%BA%BF%E7%A8%8Bjavascript%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta name="twitter:image" content="https://xudongye.github.io/xdlog/">
   
     <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
   
@@ -180,7 +180,7 @@
 <p>这有何难：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入jQuery</span></span><br><span class="line"><span class="comment">// imgs 是图片数组</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = imgs.length; i &lt; len; i ++)&#123;</span><br><span class="line">    <span class="keyword">var</span> img = imgs[i];</span><br><span class="line">    $(<span class="built_in">document</span>.body).append(img);</span><br><span class="line">    <span class="keyword">var</span> imgLoadSuccess = <span class="literal">false</span>;</span><br><span class="line">    img.on(<span class="string">'load'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      imgLoadSuccess = <span class="literal">true</span>;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'img '</span> + img.attr(<span class="string">'src'</span>) + <span class="string">' load success.ready to load the next one.'</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">while</span>(!imgLoadSuccess) &#123;</span><br><span class="line">        <span class="comment">// wait until im load success</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>从一个java开发者看来，这里的流程是这样的：</p>
-<p><img src="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E5%A4%9A%E7%BA%BF%E7%A8%8Bjavascript%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="多线程的javascript流程图"></p>
+<p><img src="/xdlog/" class="lazyload" data-src="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E5%A4%9A%E7%BA%BF%E7%A8%8Bjavascript%E6%B5%81%E7%A8%8B%E5%9B%BE.png"  alt="多线程的javascript流程图"></p>
 <p>然而结果是，浏览器的javascript进入了一个可耻的死循环，并且图片也没有添加成功，load事件的回调方法也从来没有执行过。</p>
 <h2 id="javascript为什么是单线程的"><a href="#javascript为什么是单线程的" class="headerlink" title="javascript为什么是单线程的"></a>javascript为什么是单线程的</h2><p>很多javascript开发者在接触js的第一天就会看到一句话：JavaScript是单线程运行的。</p>
 <p>结合javascript语言作为浏览器脚本语言的最初用途，其实这个设定还是比较容易被接受的：<br>作为浏览器脚本语言，javascript的主要用途，就是与用户互动以及操作DOM元素，很明显如果多线程操作dom元素，将会大大提高问题的复杂度。</p>
@@ -195,9 +195,9 @@
 <li>一旦“执行栈”中所有同步任务执行完毕，执行引擎就会去读取“任务队列”，将其队头的异步任务加入执行栈，开始执行</li>
 <li>主线程不停重复以上三步</li>
 </ol>
-<p><img src="http://image.beekka.com/blog/2014/bg2014100801.jpg" alt="单线程js的异步运行机制"></p>
+<p><img src="/xdlog/" class="lazyload" data-src="http://image.beekka.com/blog/2014/bg2014100801.jpg"  alt="单线程js的异步运行机制"></p>
 <p>所以，上面那个死循环的代码其实是这样运行的：</p>
-<p><img src="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E5%8D%95%E7%BA%BF%E7%A8%8Bjavascript%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="单线程的javascript流程图"></p>
+<p><img src="/xdlog/" class="lazyload" data-src="http://oh4zi4x28.bkt.clouddn.com//images/github-io/lebooks/%E5%8D%95%E7%BA%BF%E7%A8%8Bjavascript%E6%B5%81%E7%A8%8B%E5%9B%BE.png"  alt="单线程的javascript流程图"></p>
 <h2 id="利用事件机制实现异步编程"><a href="#利用事件机制实现异步编程" class="headerlink" title="利用事件机制实现异步编程"></a>利用事件机制实现异步编程</h2><p>俗话说，在什么山上唱什么歌。<br>在单线程、使用任务队列的javascript语境下，就不应该再使用多线程同步的思维，类似于java中Object#await()/notifyAll()方法来锁住/唤醒线程，<br>而应该也运用事件机制，将某些需要唤醒的进程任务，用事件来触发。</p>
 <p>为了不让数组中的图片在主线程中一次性全部添加进页面，将每个添加单张图片的行为封装成一个函数，并且利用图片加载事件来触发。<br>为了保存待添加图片的数组下标，必须将这个参数保存在函数之外的内存区域。</p>
 <p>重构后的伪代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> imgIndex = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">appendImg</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (imgIndex &gt;= imgs.length) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> img = imgs[imgIndex];</span><br><span class="line">    $(<span class="built_in">document</span>.body).append(img);</span><br><span class="line">    img.on(<span class="string">'load'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'img '</span> + img.attr(<span class="string">'src'</span>) + <span class="string">' load success.ready to load the next one.'</span>);</span><br><span class="line">        imgIndex ++;</span><br><span class="line">        appendImg();</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'img '</span> + img.attr(<span class="string">'src'</span>) + <span class="string">' append to document. wait util loaded.'</span>);</span><br><span class="line">&#125;</span><br><span class="line">appendImg();</span><br></pre></td></tr></table></figure></p>

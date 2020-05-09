@@ -5,7 +5,7 @@
   
   
   
-  <title>支付宝多租户模式下支付功能实现 | Last.Whisper.Diary | 水货开发者的鱼塘遨游日志</title>
+  <title>支付宝多租户模式下支付功能实现 | Last.Whisper.Diary | 学而不思则罔，思而不学则怠</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="theme-color" content="#3F51B5">
@@ -19,13 +19,13 @@
 <meta property="og:url" content="https://xudongye.github.io/xdlog/aihotel/支付宝多租户模式下支付功能实现/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
 <meta property="og:description" content="多账户支付系统该如何实现？需求分析 由于智能酒店业务不断更新，随之而来的需求迭代不断增加。自从酒店商城项目上线之后，吸引了很多酒店热情入驻，既然是酒店那么支付是必不可少的功能，原来的单机模式显然已经无法满足各个酒店方需求。单机模式下商城扫码支付，收款方都是阳淳账户代收，然后再打款到各个酒店平台，对账-开发票各种流程。财务麻烦，领导嫌弃，那么就做成多租户模式吧。为酒店配置各自收款账户，商品捆绑酒店编">
-<meta property="og:image" content="https://xudongye.github.io/xdlog/images/aihotel/支付系统.png">
-<meta property="og:image" content="https://xudongye.github.io/xdlog/images/aihotel/多租户支付系统.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/">
 <meta property="og:updated_time" content="2020-03-27T07:55:25.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="支付宝多租户模式下支付功能实现">
 <meta name="twitter:description" content="多账户支付系统该如何实现？需求分析 由于智能酒店业务不断更新，随之而来的需求迭代不断增加。自从酒店商城项目上线之后，吸引了很多酒店热情入驻，既然是酒店那么支付是必不可少的功能，原来的单机模式显然已经无法满足各个酒店方需求。单机模式下商城扫码支付，收款方都是阳淳账户代收，然后再打款到各个酒店平台，对账-开发票各种流程。财务麻烦，领导嫌弃，那么就做成多租户模式吧。为酒店配置各自收款账户，商品捆绑酒店编">
-<meta name="twitter:image" content="https://xudongye.github.io/xdlog/images/aihotel/支付系统.png">
+<meta name="twitter:image" content="https://xudongye.github.io/xdlog/">
   
     <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
   
@@ -177,13 +177,13 @@
             <h2 id="多账户支付系统该如何实现？"><a href="#多账户支付系统该如何实现？" class="headerlink" title="多账户支付系统该如何实现？"></a>多账户支付系统该如何实现？</h2><h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><ul>
 <li>由于智能酒店业务不断更新，随之而来的需求迭代不断增加。自从酒店商城项目上线之后，吸引了很多酒店热情入驻，既然是酒店那么支付是必不可少的功能，原来的单机模式<br>显然已经无法满足各个酒店方需求。单机模式下商城扫码支付，收款方都是阳淳账户代收，然后再打款到各个酒店平台，对账-开发票各种流程。财务麻烦，领导嫌弃，那么就做成多<br>租户模式吧。为酒店配置各自收款账户，商品捆绑酒店编码（唯一标识）下单到支付即可指定对应收款参数，生成收款码进行扫码支付，若未设置，则默认阳淳。典型的Software-as-a-Service系统。</li>
 </ul>
-<h2 id="er模型"><a href="#er模型" class="headerlink" title="er模型"></a>er模型</h2><p><img src="../../images/aihotel/支付系统.png" alt="支付系统"></p>
+<h2 id="er模型"><a href="#er模型" class="headerlink" title="er模型"></a>er模型</h2><p><img src="/xdlog/" class="lazyload" data-src="../../images/aihotel/支付系统.png"  alt="支付系统"></p>
 <ul>
 <li>order为订单表，关联商品good_id，酒店org_id。</li>
 <li>accountPayOrder为内部订单表，关联orderNo（businessId）,支付回调支付结果存储，已经支付网关，支付方式等信息（支付方式：alipay,wxpay，pointpay）</li>
 <li>accountAliPay为支付账户参数表， 存放各个酒店设置支付宝收款账户配置信息。</li>
 </ul>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p><img src="../../images/aihotel/多租户支付系统.png" alt="支付流程"></p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p><img src="/xdlog/" class="lazyload" data-src="../../images/aihotel/多租户支付系统.png"  alt="支付流程"></p>
 <ul>
 <li>支付结果回调就不赘述了,通过预下单产生的outTradeNo查询对应订单所在PayAccount</li>
 </ul>

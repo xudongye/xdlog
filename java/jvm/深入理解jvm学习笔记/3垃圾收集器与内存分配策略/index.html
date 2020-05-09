@@ -5,7 +5,7 @@
   
   
   
-  <title>java垃圾回收与内存分配策略 | Last.Whisper.Diary | 水货开发者的鱼塘遨游日志</title>
+  <title>java垃圾回收与内存分配策略 | Last.Whisper.Diary | 学而不思则罔，思而不学则怠</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="theme-color" content="#3F51B5">
@@ -19,12 +19,12 @@
 <meta property="og:url" content="https://xudongye.github.io/xdlog/java/jvm/深入理解jvm学习笔记/3垃圾收集器与内存分配策略/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
 <meta property="og:description" content="java垃圾回收与内存分配策略判断对象是否存活 引用计数算法  无法解决循环引用问题：  1234567ReferenceCountingGC objA = new ReferenceCountingGC();ReferenceCountingGC objB = new ReferenceCountingGC();objA.instance = objB;objB.instance = objA;">
-<meta property="og:image" content="https://xudongye.github.io/dev-log/images/java/Collectors.jpg">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/">
 <meta property="og:updated_time" content="2019-09-26T09:04:29.822Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java垃圾回收与内存分配策略">
 <meta name="twitter:description" content="java垃圾回收与内存分配策略判断对象是否存活 引用计数算法  无法解决循环引用问题：  1234567ReferenceCountingGC objA = new ReferenceCountingGC();ReferenceCountingGC objB = new ReferenceCountingGC();objA.instance = objB;objB.instance = objA;">
-<meta name="twitter:image" content="https://xudongye.github.io/dev-log/images/java/Collectors.jpg">
+<meta name="twitter:image" content="https://xudongye.github.io/xdlog/">
   
     <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
   
@@ -268,7 +268,7 @@
 <p> Safe Region: 在一段代码片段中，引用关系不会发生变化，在此区域的GC都是安全的。Safe Region是对SafePoint的一种扩展。</p>
 </li>
 </ol>
-<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><p><img src="/dev-log/images/java/Collectors.jpg" alt="Collectors"></p>
+<h2 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h2><p><img src="/xdlog/" class="lazyload" data-src="/dev-log/images/java/Collectors.jpg"  alt="Collectors"></p>
 <ol>
 <li><p>Serial收集器</p>
 <ul>

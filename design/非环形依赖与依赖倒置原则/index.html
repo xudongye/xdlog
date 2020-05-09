@@ -5,7 +5,7 @@
   
   
   
-  <title>非环形依赖与依赖倒置原则 | Last.Whisper.Diary | 水货开发者的鱼塘遨游日志</title>
+  <title>非环形依赖与依赖倒置原则 | Last.Whisper.Diary | 学而不思则罔，思而不学则怠</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="theme-color" content="#3F51B5">
@@ -19,13 +19,13 @@
 <meta property="og:url" content="https://xudongye.github.io/xdlog/design/非环形依赖与依赖倒置原则/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
 <meta property="og:description" content="一大组痛苦的maven循环依赖引发的重构危机起因将项目的不同模块切分后，发现有些抽象逻辑上并不是紧耦合的模块，由于出现了互相调用，引发了maven的循环依赖。 例如： A模块依赖B模块，B模块同时依赖A。（多个模块同理） 一般情况下，如果不是使用一些代码分析工具嗅探代码坏味道 A.java中import B; B.java中import A; 其实十分常见，也不会出现编译错误。 但是在maven中">
-<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/4/42/Traditional_Layers_Pattern.png">
-<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/8/8d/DIPLayersPattern.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/">
 <meta property="og:updated_time" content="2019-09-26T09:04:29.811Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="非环形依赖与依赖倒置原则">
 <meta name="twitter:description" content="一大组痛苦的maven循环依赖引发的重构危机起因将项目的不同模块切分后，发现有些抽象逻辑上并不是紧耦合的模块，由于出现了互相调用，引发了maven的循环依赖。 例如： A模块依赖B模块，B模块同时依赖A。（多个模块同理） 一般情况下，如果不是使用一些代码分析工具嗅探代码坏味道 A.java中import B; B.java中import A; 其实十分常见，也不会出现编译错误。 但是在maven中">
-<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/4/42/Traditional_Layers_Pattern.png">
+<meta name="twitter:image" content="https://xudongye.github.io/xdlog/">
   
     <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
   
@@ -213,8 +213,8 @@ B.java中import A;
 <li>抽象不应依赖细节，而是细节依赖抽象。</li>
 </ul>
 <p>在传统的应用架构中，在系统的复杂性不断增长中，低级模块按照被高级模块使用的目的来设计。在这种组合下，高级模块直接依赖于低级模块。这个对低级组件的依赖，大大限制了高级组件的可复用性。</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Traditional_Layers_Pattern.png" alt="traditional layers pattern"></p>
-<h3 id="控制翻转"><a href="#控制翻转" class="headerlink" title="控制翻转"></a>控制翻转</h3><p><img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/DIPLayersPattern.png" alt="DIP layer pattern"></p>
+<p><img src="/xdlog/" class="lazyload" data-src="https://upload.wikimedia.org/wikipedia/commons/4/42/Traditional_Layers_Pattern.png"  alt="traditional layers pattern"></p>
+<h3 id="控制翻转"><a href="#控制翻转" class="headerlink" title="控制翻转"></a>控制翻转</h3><p><img src="/xdlog/" class="lazyload" data-src="https://upload.wikimedia.org/wikipedia/commons/8/8d/DIPLayersPattern.png"  alt="DIP layer pattern"></p>
 <p>增加了抽象层后，高级组件和低级组件都避免了传统的从顶到底的直接依赖。而是每层都依赖于高级组件根据需求所绘制的行为蓝图的抽象。</p>
 <p>这里很容易让人想到一个设计模式————适配器模式。</p>
 <h3 id="抽象依赖"><a href="#抽象依赖" class="headerlink" title="抽象依赖"></a>抽象依赖</h3><p>在面向对象编程过程中，通常有如下手段满足依赖倒置原则：</p>

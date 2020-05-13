@@ -19,17 +19,17 @@
 <meta property="og:url" content="https://xudongye.github.io/xdlog/algorithm/利用DFA算法实现敏感词过滤/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
 <meta property="og:description" content="DFA算法简介  敏感词过滤是一个网站必不可少的功能，那么如何设计一个科学并且高效过滤算法是非要有必要的。一般的开发人员首先考虑的肯定是简单的匹配规则，可以实现，但是效率很低。再高级一点的就是正则表达式，但终究都不可取。 DFA全称(Deterministic Finite Automaton)，即确定有穷自动机。  特征：有一个有序集集合和一些从一个状态通向另一个状态的边，每条边上标记一个符号">
-<meta property="og:image" content="https://xudongye.github.io/xdlog/">
-<meta property="og:image" content="https://xudongye.github.io/xdlog/">
-<meta property="og:image" content="https://xudongye.github.io/xdlog/">
-<meta property="og:image" content="https://xudongye.github.io/xdlog/">
-<meta property="og:image" content="https://xudongye.github.io/xdlog/">
-<meta property="og:image" content="https://xudongye.github.io/xdlog/">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/dfa.jpg">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/java_dfa.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/dfa_exam1.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/dfa_exam2.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/dfa_exam3.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/dfa_exam4.png">
 <meta property="og:updated_time" content="2019-12-26T09:49:08.007Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用DFA算法实现敏感词过滤">
 <meta name="twitter:description" content="DFA算法简介  敏感词过滤是一个网站必不可少的功能，那么如何设计一个科学并且高效过滤算法是非要有必要的。一般的开发人员首先考虑的肯定是简单的匹配规则，可以实现，但是效率很低。再高级一点的就是正则表达式，但终究都不可取。 DFA全称(Deterministic Finite Automaton)，即确定有穷自动机。  特征：有一个有序集集合和一些从一个状态通向另一个状态的边，每条边上标记一个符号">
-<meta name="twitter:image" content="https://xudongye.github.io/xdlog/">
+<meta name="twitter:image" content="https://xudongye.github.io/xdlog/images/algorithm/dfa.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
   
@@ -180,7 +180,7 @@
 <li><p>特征：有一个有序集集合和一些从一个状态通向另一个状态的边，每条边上标记一个符号，其中状态有初态和终态。</p>
 </li>
 <li>区别：不同于不确定的有限自动机，DFA中不会从同一状态出发的两边标志有相同的符号。</li>
-<li>实现：通过event和当前state得到下一个state，即event+state=nextstate<br><img src="/xdlog/" class="lazyload" data-src="../../images/algorithm/dfa.jpg"  alt="dfa"></li>
+<li>实现：通过event和当前state得到下一个state，即event+state=nextstate<br><img src="../../images/algorithm/dfa.jpg" alt="dfa"></li>
 <li>（S、U、V、Q）都是状态，小写字母a、b为动作</li>
 <li><p>关系如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">            a b b </span><br><span class="line">S -----&gt; U S -----&gt; V U -----&gt; V</span><br></pre></td></tr></table></figure>
@@ -189,11 +189,11 @@
 </li>
 </ul>
 </li>
-<li><p>Java实现DFA算法实现敏感词过滤<br><img src="/xdlog/" class="lazyload" data-src="../../images/algorithm/java_dfa.png"  alt=""></p>
+<li><p>Java实现DFA算法实现敏感词过滤<br><img src="../../images/algorithm/java_dfa.png" alt=""></p>
 <ul>
 <li>我们可以认为，通过S query U、V，通过U query V、P，通过V query U P。通过这样的转变我们可以将状态的转换转变为使用Java集合的查找。</li>
 <li>举个栗子：假设我们的敏感词库里面有日本人，日本鬼子，毛.泽.东</li>
-<li>首先：query 日 —&gt; {本}、query 本 —&gt;{人、鬼子}、query 人 —&gt;{null}、query 鬼 —&gt; {子}。形如下结构:<br><img src="/xdlog/" class="lazyload" data-src="../../images/algorithm/dfa_exam1.png"  alt=""><br><img src="/xdlog/" class="lazyload" data-src="../../images/algorithm/dfa_exam2.png"  alt=""><br><img src="/xdlog/" class="lazyload" data-src="../../images/algorithm/dfa_exam3.png"  alt=""></li>
+<li>首先：query 日 —&gt; {本}、query 本 —&gt;{人、鬼子}、query 人 —&gt;{null}、query 鬼 —&gt; {子}。形如下结构:<br><img src="../../images/algorithm/dfa_exam1.png" alt=""><br><img src="../../images/algorithm/dfa_exam2.png" alt=""><br><img src="../../images/algorithm/dfa_exam3.png" alt=""></li>
 <li>这样我们就将我们的敏感词库构建成了一个类似与一颗一颗的树，这样我们判断一个词是否为敏感词时就大大减少了检索的匹配范围。比如我们要判断日本人，根据第一个字我们就可以确认需要检索的是那棵树，然后再在这棵树中进行检索。</li>
 <li>但是如何来判断一个敏感词已经结束了呢？利用标识位来判断。所以对于这个关键是如何来构建一棵棵这样的敏感词树。下面我已Java中的HashMap为例来实现DFA算法。具体过程如下：</li>
 <li><p>日本人，日本鬼子为例</p>
@@ -203,7 +203,7 @@
 <li><p>2、如果在hashMap中查找到了，表明存在以“日”开头的敏感词，设置hashMap = hashMap.get(“日”)，跳至1，依次匹配“本”、“人”。</p>
 </li>
 <li><p>3、判断该字是否为该词中的最后一个字。若是表示敏感词结束，设置标志位isEnd = 1，否则设置标志位isEnd = 0；</p>
-<p><img src="/xdlog/" class="lazyload" data-src="../../images/algorithm/dfa_exam4.png"  alt=""></p>
+<p><img src="../../images/algorithm/dfa_exam4.png" alt=""></p>
 </li>
 </ul>
 </li>

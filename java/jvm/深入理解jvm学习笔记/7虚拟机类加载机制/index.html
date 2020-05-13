@@ -19,12 +19,12 @@
 <meta property="og:url" content="https://xudongye.github.io/xdlog/java/jvm/深入理解jvm学习笔记/7虚拟机类加载机制/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
 <meta property="og:description" content="虚拟机类加载机制概述类加载机制：虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型。 由于不需要在编译时进行连接，java语言的类型加载、连接和初始化过程都是运行期完成，这样的策略可以提供更高的灵活性：  面向接口的应用程序，在运行期再指定实际的实现类。 用户通过自定义的类加载器，让一个本地的应用程序可以在运行期从网络或者">
-<meta property="og:image" content="https://xudongye.github.io/xdlog/">
+<meta property="og:image" content="https://xudongye.github.io/dev-log/images/java/ParentsDelegationModel.png">
 <meta property="og:updated_time" content="2019-09-26T09:04:29.823Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟机类加载机制">
 <meta name="twitter:description" content="虚拟机类加载机制概述类加载机制：虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型。 由于不需要在编译时进行连接，java语言的类型加载、连接和初始化过程都是运行期完成，这样的策略可以提供更高的灵活性：  面向接口的应用程序，在运行期再指定实际的实现类。 用户通过自定义的类加载器，让一个本地的应用程序可以在运行期从网络或者">
-<meta name="twitter:image" content="https://xudongye.github.io/xdlog/">
+<meta name="twitter:image" content="https://xudongye.github.io/dev-log/images/java/ParentsDelegationModel.png">
   
     <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
   
@@ -334,7 +334,7 @@
 <li><p>应用程序类加载器(Application ClassLoader)</p>
 <p>  加载用户ClassPath上指定的类库</p>
 <p>类加载器的双亲委派模型(Parents Delegation Model)</p>
-<p><img src="/xdlog/" class="lazyload" data-src="/dev-log/images/java/ParentsDelegationModel.png"  alt="ParentsDelegationModel"></p>
+<p><img src="/dev-log/images/java/ParentsDelegationModel.png" alt="ParentsDelegationModel"></p>
 <p>使用组合而不是继承来复用父类加载器的代码。</p>
 <p>保证了一种带有优先级的层次关系。</p>
 <p>实现代码：</p>

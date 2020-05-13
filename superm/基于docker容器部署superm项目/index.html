@@ -5,7 +5,7 @@
   
   
   
-  <title>&#39;基于docker容器部署superm项目&#39; | Last.Whisper.Diary | 学而不思则罔，思而不学则怠</title>
+  <title>基于docker容器部署superm项目 | Last.Whisper.Diary | 学而不思则罔，思而不学则怠</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   <meta name="theme-color" content="#3F51B5">
@@ -15,7 +15,7 @@
   <meta name="description" content="####Docker环境安装  安装yum-utils: 1yum install -y yum-utils device-mapper-persistent-data lvm2  为yum源添加docker仓库位置： 1yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  安装">
 <meta name="keywords" content="商城后台">
 <meta property="og:type" content="article">
-<meta property="og:title" content="&#39;基于docker容器部署superm项目&#39;">
+<meta property="og:title" content="基于docker容器部署superm项目">
 <meta property="og:url" content="https://xudongye.github.io/xdlog/superm/基于docker容器部署superm项目/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
 <meta property="og:description" content="####Docker环境安装  安装yum-utils: 1yum install -y yum-utils device-mapper-persistent-data lvm2  为yum源添加docker仓库位置： 1yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  安装">
@@ -31,9 +31,12 @@
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/eshome.png">
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/kibana.png">
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/dockerenv.png">
-<meta property="og:updated_time" content="2020-05-13T03:39:29.886Z">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/dockerhost.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/dockerpackage.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/dockerimages.png">
+<meta property="og:updated_time" content="2020-05-13T04:20:21.835Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="&#39;基于docker容器部署superm项目&#39;">
+<meta name="twitter:title" content="基于docker容器部署superm项目">
 <meta name="twitter:description" content="####Docker环境安装  安装yum-utils: 1yum install -y yum-utils device-mapper-persistent-data lvm2  为yum源添加docker仓库位置： 1yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  安装">
 <meta name="twitter:image" content="https://xudongye.github.io/xdlog/images/superm/refer_screen_74.png">
   
@@ -125,7 +128,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">&#39;基于docker容器部署superm项目&#39;</div>
+        <div class="flex-col header-title ellipsis">基于docker容器部署superm项目</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -147,7 +150,7 @@
 <header class="content-header post-header">
 
     <div class="container">
-        <h1 class="title">&#39;基于docker容器部署superm项目&#39;</h1>
+        <h1 class="title">基于docker容器部署superm项目</h1>
         
         
 
@@ -164,7 +167,7 @@
   class="post-article article-type-post" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">'基于docker容器部署superm项目'</h1>
+        <h1 class="post-card-title">基于docker容器部署superm项目</h1>
         <div class="post-meta">
             <time datetime="2020-05-13T02:43:42.000Z" itemprop="datePublished" class="post-time">
   2020-05-13
@@ -305,7 +308,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w vm.max_map_count=262144</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使用docker命令启动：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 9200:9200 -p 9300:9300 --name elasticsearch \</span><br><span class="line">-e &quot;discovery.type=single-node&quot; \</span><br><span class="line">-e &quot;cluster.name=elasticsearch&quot; \</span><br><span class="line">-v /mydata/elasticsearch/plugins:/usr/share/elasticsearch/plugins \</span><br><span class="line">-v /mydata/elasticsearch/data:/usr/share/elasticsearch/data \</span><br><span class="line">-d elasticsearch:6.4.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 9200:9200 -p 9300:9300 --name elasticsearch \</span><br><span class="line">-e &quot;ES_JAVA_OPTS=-Xms256m -Xmx256m&quot; \</span><br><span class="line">-e &quot;discovery.type=single-node&quot; \</span><br><span class="line">-e &quot;cluster.name=elasticsearch&quot; \</span><br><span class="line">-v /mydata/elasticsearch/plugins:/usr/share/elasticsearch/plugins \</span><br><span class="line">-v /mydata/elasticsearch/data:/usr/share/elasticsearch/data \</span><br><span class="line">-d elasticsearch:6.4.0</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动时会发现/usr/share/elasticsearch/data目录没有访问权限，只需要修改/mydata/elasticsearch/data目录的权限，再重新启动。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 /mydata/elasticsearch/data/</span><br></pre></td></tr></table></figure>
@@ -325,7 +328,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull kibana:6.4.0</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使用docker命令启动：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run --name kibana -p 5601:5601 \</span><br><span class="line">--link elasticsearch:es \</span><br><span class="line">-e &quot;elasticsearch.hosts=http://es:9200&quot; \</span><br><span class="line">-d kibana:6.4.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run --name kibana -p 5601:5601 \</span><br><span class="line">--link elasticsearch:es \</span><br><span class="line">-e &quot;elasticsearch.hosts=http://106.14.146.164:9200&quot; \</span><br><span class="line">-d kibana:6.4.0</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>开启防火墙：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=5601/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
@@ -343,6 +346,19 @@
 </li>
 </ul>
 <p>####至此docker全部环境安装完成<br><img src="../../images/superm/dockerenv.png" alt=""></p>
+<p>####使用docker-maven-plugin插件构建docker镜像</p>
+<ul>
+<li><p>Dockerfile方式构建</p>
+<ol>
+<li>配置本机DOCKER_HOST环境变量<br><img src="../../images/superm/dockerhost.png" alt=""></li>
+<li>pom配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">        &lt;plugins&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;com.spotify&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;docker-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;$&#123;docker.maven.plugin.version&#125;&lt;/version&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;id&gt;build-image&lt;/id&gt;</span><br><span class="line">                        &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;build&lt;/goal&gt;</span><br><span class="line">                        &lt;/goals&gt;</span><br><span class="line">                    &lt;/execution&gt;</span><br><span class="line">                &lt;/executions&gt;</span><br><span class="line">                &lt;configuration&gt;</span><br><span class="line">                    &lt;imageName&gt;superm/$&#123;project.artifactId&#125;:$&#123;project.version&#125;&lt;/imageName&gt;</span><br><span class="line">                    &lt;dockerHost&gt;$&#123;docker.host&#125;&lt;/dockerHost&gt;</span><br><span class="line">                    &lt;dockerDirectory&gt;$&#123;project.basedir&#125;/src/main/docker&lt;/dockerDirectory&gt;</span><br><span class="line">                    &lt;resources&gt;</span><br><span class="line">                        &lt;resource&gt;</span><br><span class="line">                            &lt;targetPath&gt;/&lt;/targetPath&gt;</span><br><span class="line">                            &lt;directory&gt;$&#123;project.build.directory&#125;&lt;/directory&gt;</span><br><span class="line">                            &lt;include&gt;$&#123;project.build.finalName&#125;.jar&lt;/include&gt;</span><br><span class="line">                        &lt;/resource&gt;</span><br><span class="line">                    &lt;/resources&gt;</span><br><span class="line">                &lt;/configuration&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">        &lt;/plugins&gt;</span><br><span class="line">    &lt;/build&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>3.Dockerfile配置</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 该镜像需要依赖的基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> java:<span class="number">8</span></span><br><span class="line"><span class="comment"># 将当前目录下的jar包复制到docker容器的/目录下</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> superm-admin-1.0-SNAPSHOT.jar /superm-admin.jar</span></span><br><span class="line"><span class="bash"><span class="comment"># 运行过程中创建一个superm-admin.jar文件</span></span></span><br><span class="line"><span class="bash">RUN bash -c <span class="string">'touch /superm-admin.jar'</span></span></span><br><span class="line"><span class="bash"><span class="comment"># 声明服务运行在8080端口</span></span></span><br><span class="line"><span class="bash">EXPOSE 8080</span></span><br><span class="line"><span class="bash"><span class="comment"># 指定docker容器启动时运行jar包</span></span></span><br><span class="line"><span class="bash">ENTRYPOINT [<span class="string">"java"</span>, <span class="string">"-jar"</span>,<span class="string">"/superm-admin.jar"</span>]</span></span><br><span class="line"><span class="bash"><span class="comment"># 指定维护者的名字</span></span></span><br><span class="line"><span class="bash">MAINTAINER xudongye</span></span><br></pre></td></tr></table></figure>
+<p>4.运行mvn打包指令<br><img src="../../images/superm/dockerpackage.png" alt=""><br>5.查看docker镜像<br><img src="../../images/superm/dockerimages.png" alt=""><br>5.运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 8080:8080 \</span><br><span class="line">--name superm-admin \</span><br><span class="line">--link mysql:106.14.146.164 \</span><br><span class="line">--link redis:106.14.146.164 \</span><br><span class="line">-v /etc/localtime:/etc/localtime \</span><br><span class="line">-v /mydata/app/admin/logs:/var/logs \</span><br><span class="line">-d superm/superm-admin:1.0-SNAPSHOT</span><br></pre></td></tr></table></figure></li>
+</ul>
 
         </div>
         
@@ -470,7 +486,7 @@
 
 <script>var BLOG = { ROOT: '/xdlog/' };
 BLOG.SHARE = {
-title: "'基于docker容器部署superm项目'",
+title: "基于docker容器部署superm项目",
 pic: "/xdlog/img/logo.jpg",
 summary: document.getElementsByName('summary')[0].content,
 url: "https://xudongye.github.io/xdlog/superm/基于docker容器部署superm项目/" }

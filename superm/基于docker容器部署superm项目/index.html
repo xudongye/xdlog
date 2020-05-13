@@ -12,13 +12,13 @@
   
   
   <meta name="keywords" content="商城后台">
-  <meta name="description" content="####Docker环境安装  安装yum-utils: 1yum install -y yum-utils device-mapper-persistent-data lvm2  为yum源添加docker仓库位置： 1yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  安装">
+  <meta name="description" content="###Docker环境安装  安装yum-utils: 1yum install -y yum-utils device-mapper-persistent-data lvm2  为yum源添加docker仓库位置： 1yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  安装d">
 <meta name="keywords" content="商城后台">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于docker容器部署superm项目">
 <meta property="og:url" content="https://xudongye.github.io/xdlog/superm/基于docker容器部署superm项目/index.html">
 <meta property="og:site_name" content="Last.Whisper.Diary">
-<meta property="og:description" content="####Docker环境安装  安装yum-utils: 1yum install -y yum-utils device-mapper-persistent-data lvm2  为yum源添加docker仓库位置： 1yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  安装">
+<meta property="og:description" content="###Docker环境安装  安装yum-utils: 1yum install -y yum-utils device-mapper-persistent-data lvm2  为yum源添加docker仓库位置： 1yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  安装d">
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/refer_screen_74.png">
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/nginxdir.png">
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/nginxdir2.png">
@@ -34,10 +34,10 @@
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/dockerhost.png">
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/dockerpackage.png">
 <meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/dockerimages.png">
-<meta property="og:updated_time" content="2020-05-13T04:20:21.835Z">
+<meta property="og:updated_time" content="2020-05-13T04:22:38.129Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于docker容器部署superm项目">
-<meta name="twitter:description" content="####Docker环境安装  安装yum-utils: 1yum install -y yum-utils device-mapper-persistent-data lvm2  为yum源添加docker仓库位置： 1yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  安装">
+<meta name="twitter:description" content="###Docker环境安装  安装yum-utils: 1yum install -y yum-utils device-mapper-persistent-data lvm2  为yum源添加docker仓库位置： 1yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  安装d">
 <meta name="twitter:image" content="https://xudongye.github.io/xdlog/images/superm/refer_screen_74.png">
   
     <link rel="alternative" href="/atom.xml" title="Last.Whisper.Diary" type="application/atom+xml">
@@ -180,7 +180,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <p>####Docker环境安装</p>
+            <p>###Docker环境安装</p>
 <ul>
 <li><p>安装yum-utils:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
@@ -195,7 +195,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>####Mysql安装</p>
+<p>###Mysql安装</p>
 <ul>
 <li><p>下载mysql5.7的docker镜像：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.7</span><br></pre></td></tr></table></figure>
@@ -234,7 +234,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all privileges on *.* to &apos;reader&apos; @&apos;%&apos; identified by &apos;123456&apos;;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>####Redis安装</p>
+<p>###Redis安装</p>
 <ul>
 <li><p>下载redis3.2的docker镜像：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis:3.2</span><br></pre></td></tr></table></figure>
@@ -247,7 +247,7 @@
 </li>
 </ul>
 <p><img src="../../images/superm/refer_screen_74.png" alt=""></p>
-<p>####Nginx安装</p>
+<p>###Nginx安装</p>
 <ul>
 <li><p>下载nginx1.10的docker镜像：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx:1.10</span><br></pre></td></tr></table></figure>
@@ -272,7 +272,7 @@
 </ul>
 </li>
 <li><p>使用docker命令启动：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 80:80 --name nginx \</span><br><span class="line">-v /mydata/nginx/html:/usr/share/nginx/html \</span><br><span class="line">-v /mydata/nginx/logs:/var/log/nginx  \</span><br><span class="line">-v /mydata/nginx/conf:/etc/nginx \</span><br><span class="line">-d nginx:1.10</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">####RabbitMQ安装</span><br><span class="line"></span><br><span class="line">*   下载rabbitmq3.7.15的docker镜像：</span><br><span class="line">```text</span><br><span class="line">docker pull rabbitmq:3.7.15</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 80:80 --name nginx \</span><br><span class="line">-v /mydata/nginx/html:/usr/share/nginx/html \</span><br><span class="line">-v /mydata/nginx/logs:/var/log/nginx  \</span><br><span class="line">-v /mydata/nginx/conf:/etc/nginx \</span><br><span class="line">-d nginx:1.10</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">###RabbitMQ安装</span><br><span class="line"></span><br><span class="line">*   下载rabbitmq3.7.15的docker镜像：</span><br><span class="line">```text</span><br><span class="line">docker pull rabbitmq:3.7.15</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使用docker命令启动：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name rabbitmq \</span><br><span class="line">--publish 5671:5671 --publish 5672:5672 --publish 4369:4369 \</span><br><span class="line">--publish 25672:25672 --publish 15671:15671 --publish 15672:15672 \</span><br><span class="line">rabbitmq:3.7.15</span><br></pre></td></tr></table></figure>
@@ -299,7 +299,7 @@
 <li><p>给mall用户配置该虚拟host的权限<br><img src="../../images/superm/refer_screen_80.png" alt=""> </p>
 </li>
 </ul>
-<p>####Elasticsearch安装</p>
+<p>###Elasticsearch安装</p>
 <ul>
 <li><p>下载elasticsearch6.4.0的docker镜像：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull elasticsearch:6.4.0</span><br></pre></td></tr></table></figure>
@@ -322,7 +322,7 @@
 <li><p>访问<a href="http://106.14.146.164:9200/" target="_blank" rel="noopener">http://106.14.146.164:9200/</a><br><img src="../../images/superm/eshome.png" alt=""></p>
 </li>
 </ul>
-<p>####kibana安装</p>
+<p>###kibana安装</p>
 <ul>
 <li><p>下载kibana6.4.0的docker镜像：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull kibana:6.4.0</span><br></pre></td></tr></table></figure>
@@ -336,7 +336,7 @@
 <li><p>访问<a href="http://106.14.146.164:5601/" target="_blank" rel="noopener">http://106.14.146.164:5601/</a><br><img src="../../images/superm/kibana.png" alt=""></p>
 </li>
 </ul>
-<p>####Mongodb安装</p>
+<p>###Mongodb安装</p>
 <ul>
 <li><p>下载mongo3.2的docker镜像：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mongo:3.2</span><br></pre></td></tr></table></figure>
@@ -345,8 +345,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 27017:27017 --name mongo \</span><br><span class="line">-v /mydata/mongo/db:/data/db \</span><br><span class="line">-d mongo:3.2</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>####至此docker全部环境安装完成<br><img src="../../images/superm/dockerenv.png" alt=""></p>
-<p>####使用docker-maven-plugin插件构建docker镜像</p>
+<p>###至此docker全部环境安装完成<br><img src="../../images/superm/dockerenv.png" alt=""></p>
+<p>###使用docker-maven-plugin插件构建docker镜像</p>
 <ul>
 <li><p>Dockerfile方式构建</p>
 <ol>

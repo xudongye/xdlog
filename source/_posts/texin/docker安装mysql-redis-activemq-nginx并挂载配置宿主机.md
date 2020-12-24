@@ -17,7 +17,7 @@ docker pull mysql
 docker run --name mysql -p 4148:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql
 
 #注意：my.cnf得从docker mysql容器中复制一份到/texin/volume/mysql/conf中
-docker cp mysql:/etc/my.cnf /texin/volume/mysql/conf
+docker cp mysql:/etc/mysql/my.cnf /texin/volume/mysql/conf
 
 #成功后关闭mysql
 #重新启动
@@ -65,6 +65,20 @@ docker run -p 4149:6379 --name redis \
 -d redis redis-server --appendonly yes --requirepass 'weilian2020'
 ````
 
+### mongo
+```text
+#安装mongo默认lasted版本
+docker pull mongo
+#启动并挂载
+docker run \
+--name mongo \
+-p 4147:27017 \
+-e MONGO_INITDB_ROOT_USERNAME='weilian' -e MONGO_INITDB_ROOT_PASSWORD='weilian2020' \
+-v /texin/volume/mongo/data:/data/db \
+-v /texin/volume/mongo/configdb:/data/configdb/ \
+-d  mongo
+```
+
 ### activemq
 ````text
 #搜索activemq版本列表
@@ -73,6 +87,24 @@ docker search activemq
 docker pull webcenter/activemq
 #启动指定对外端口61617和8167
 docker run -d --name activemq -p 61617:61616 -p 8162:8161 webcenter/activemq
+
+#挂载宿主机
+#第一步：用临时方式启动一个activemq 容器
+docker run --user root --privileged=true --rm -ti \
+  -v  /texin/volume/activemq/conf:/mnt/conf \
+  -v  /texin/volume/activemq/data:/mnt/data \
+  webcenter/activemq /bin/sh
+#第二步：将容器中的配置目录和数据目录拷贝出去并退出
+chown activemq:activemq /mnt/conf
+chown activemq:activemq /mnt/data
+cp -a /opt/activemq/conf/* /mnt/conf/
+cp -a /opt/activemq/data/* /mnt/data/
+#第三步：运行activemq
+docker run -d --name activemq -p 61617:61616 -p 8162:8161 \
+-v /texin/volume/activemq/conf:/opt/activemq/conf \
+-v /texin/volume/activemq/data:/opt/activemq/data \
+-v /texin/volume/activemq/log:/var/log/activemq \
+webcenter/activemq
 ````
 
 ### nginx
@@ -86,14 +118,11 @@ docker run -p 80:80 --name nginx \
 -v /texin/volume/nginx/logs:/var/log/nginx  \
 -d nginx
 
-#在宿主机texin/volume/nginx/conf目录下新建redis.conf
+#在宿主机texin/volume/nginx/conf目录下新建nginx.conf
 #内容(这是最终配置) 前后端分离资源访问
-
-
-}
 ````
 
-### redis.conf
+### nginx.conf
 
 ````text
 #user  nobody;
@@ -130,8 +159,19 @@ http {
     #gzip  on;
 
     server {
-        listen       80;
-        server_name  47.94.90.143;
+        listen      80;
+        listen 443 ssl;
+        server_name  dev.ruixuelong.com;
+
+        ssl_certificate      cert/4670445_dev.ruixuelong.com.pem;
+        ssl_certificate_key  cert/4670445_dev.ruixuelong.com.key;
+
+        ssl_session_cache    shared:SSL:1m;
+        ssl_session_timeout  5m;
+
+        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_prefer_server_ciphers  on;
 
         #charset koi8-r;
 
@@ -139,15 +179,22 @@ http {
 
         location / {
             root   html;
-            try_files $uri $uri/ @router;
-            #index  index.html index.htm;
+         try_files $uri $uri/ @router;
+          
         }
 
-        location /manage/ {
+        location /payment/ {
+            root html;
+            try_files $uri $uri/ /payment/@router;
+            #index index.html index.htm;
+        }
+
+	location /manage/ {
             root html;
             try_files $uri $uri/ /manage/@router;
             #index index.html index.htm;
         }
+
 
         location @router {
             rewrite ^.*$ /index.html last;
@@ -155,7 +202,7 @@ http {
 
         location /admin/ {
         set $cors '';
-        if ($http_origin ~* 'https?://(localhost(:8090)?|47.94.90.143)') {
+        if ($http_origin ~* 'https?://(localhost(:8090)?|dev\.ruixuelong\.com|ruixuelong\.com)') {
          set $cors 'true';
          }
 
@@ -174,6 +221,52 @@ http {
         proxy_set_header X-Forwarded-Server $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_pass http://47.94.90.143:8080/admin/;
+        }
+
+        location /taxi/ {
+        set $cors '';
+        if ($http_origin ~* 'https?://(localhost(:8090)?|dev\.ruixuelong\.com|ruixuelong\.com)') {
+         set $cors 'true';
+         }
+
+        if ($cors = 'true') {
+        add_header 'Access-Control-Allow-Origin' "$http_origin" always;
+        add_header 'Access-Control-Allow-Credentials' 'true' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With' always;
+        }
+
+        if ($request_method = 'OPTIONS') {
+        return 204;
+        }
+
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://47.94.90.143:8081/taxi/;
+        }
+
+        location /texin/ {
+        set $cors '';
+        if ($http_origin ~* 'https?://(localhost(:8090)?|dev\.ruixuelong\.com|ruixuelong\.com)') {
+         set $cors 'true';
+         }
+
+        if ($cors = 'true') {
+        add_header 'Access-Control-Allow-Origin' "$http_origin" always;
+        add_header 'Access-Control-Allow-Credentials' 'true' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS' always;
+        add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With' always;
+        }
+
+        if ($request_method = 'OPTIONS') {
+        return 204;
+        }
+
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-Server $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://47.94.90.143:8082/texin/;
         }
 
         #error_page  404              /404.html;
@@ -244,6 +337,8 @@ http {
     #        index  index.html index.htm;
     #    }
     #}
+
+}
 ````
 
 ###注：所有端口记得要在aliyun安全规则添加规则并开放防火墙端口 

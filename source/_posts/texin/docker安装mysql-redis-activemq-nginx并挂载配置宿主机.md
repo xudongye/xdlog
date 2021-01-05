@@ -109,13 +109,15 @@ webcenter/activemq
 
 ### nginx
 ````text
-#安装nginx
+#安装nginx 并配置https
 docker pull nginx
 #启动
-docker run -p 80:80 --name nginx \
+
+docker run -p 80:80 -p 443:443 --name nginx \
 -v /texin/volume/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
 -v /texin/volume/front:/etc/nginx/html \
 -v /texin/volume/nginx/logs:/var/log/nginx  \
+-v /texin/volume/nginx/conf/cert:/etc/nginx/cert  \
 -d nginx
 
 #在宿主机texin/volume/nginx/conf目录下新建nginx.conf
@@ -123,8 +125,7 @@ docker run -p 80:80 --name nginx \
 ````
 
 ### nginx.conf
-
-````text
+```text
 #user  nobody;
 worker_processes  1;
 
@@ -143,12 +144,12 @@ events {
 http {
     include       mime.types;
     default_type  application/octet-stream;
+    charset utf-8,gbk;
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
 
-    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-    #                  '$status $body_bytes_sent "$http_referer" '
-    #                  '"$http_user_agent" "$http_x_forwarded_for"';
-
-    #access_log  logs/access.log  main;
+    access_log  /var/log/nginx/access.log  main;
 
     sendfile        on;
     #tcp_nopush     on;
@@ -163,8 +164,8 @@ http {
         listen 443 ssl;
         server_name  dev.ruixuelong.com;
 
-        ssl_certificate      cert/4670445_dev.ruixuelong.com.pem;
-        ssl_certificate_key  cert/4670445_dev.ruixuelong.com.key;
+        ssl_certificate      /etc/nginx/cert/4670445_dev.ruixuelong.com.pem;
+        ssl_certificate_key  /etc/nginx/cert/4670445_dev.ruixuelong.com.key;
 
         ssl_session_cache    shared:SSL:1m;
         ssl_session_timeout  5m;
@@ -173,13 +174,13 @@ http {
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_prefer_server_ciphers  on;
 
-        #charset koi8-r;
+        charset koi8-r;
 
         #access_log  logs/host.access.log  main;
 
         location / {
             root   html;
-         try_files $uri $uri/ @router;
+            try_files $uri $uri/ @router;
           
         }
 
@@ -189,7 +190,7 @@ http {
             #index index.html index.htm;
         }
 
-	location /manage/ {
+	   location /manage/ {
             root html;
             try_files $uri $uri/ /manage/@router;
             #index index.html index.htm;
@@ -220,7 +221,7 @@ http {
         proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-Forwarded-Server $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://47.94.90.143:8080/admin/;
+        proxy_pass http://39.99.150.17:8080/admin/;
         }
 
         location /taxi/ {
@@ -243,7 +244,7 @@ http {
         proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-Forwarded-Server $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://47.94.90.143:8081/taxi/;
+        proxy_pass http://39.99.150.17:8081/taxi/;
         }
 
         location /texin/ {
@@ -266,7 +267,7 @@ http {
         proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-Forwarded-Server $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_pass http://47.94.90.143:8082/texin/;
+        proxy_pass http://39.99.150.17:8082/texin/;
         }
 
         #error_page  404              /404.html;
@@ -339,6 +340,6 @@ http {
     #}
 
 }
-````
+```
 
 ###注：所有端口记得要在aliyun安全规则添加规则并开放防火墙端口 

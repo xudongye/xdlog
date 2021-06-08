@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <title>centos7.4 docker安装 | lessinthemore | 大道至简</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="微联电召">
+  <meta name="description" content="Docker环境安装Docker三个基本概念:  仓库（Repository） 镜像（Image） 容器(Container）安装docker1.root账户登录，查看内核版本如下123[root@localhost ~]# uname -aLinux localhost.localdomain 3.10.0-957.el7.x86_64 #1 SMP Thu Nov 8 23:39:32 UTC">
+<meta name="keywords" content="微联电召">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos7.4 docker安装">
+<meta property="og:url" content="https://xudongye.github.io/xdlog/texin/centos7.4 docker安装/index.html">
+<meta property="og:site_name" content="lessinthemore">
+<meta property="og:description" content="Docker环境安装Docker三个基本概念:  仓库（Repository） 镜像（Image） 容器(Container）安装docker1.root账户登录，查看内核版本如下123[root@localhost ~]# uname -aLinux localhost.localdomain 3.10.0-957.el7.x86_64 #1 SMP Thu Nov 8 23:39:32 UTC">
+<meta property="og:updated_time" content="2020-12-18T02:51:05.441Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="centos7.4 docker安装">
+<meta name="twitter:description" content="Docker环境安装Docker三个基本概念:  仓库（Repository） 镜像（Image） 容器(Container）安装docker1.root账户登录，查看内核版本如下123[root@localhost ~]# uname -aLinux localhost.localdomain 3.10.0-957.el7.x86_64 #1 SMP Thu Nov 8 23:39:32 UTC">
+  
+    <link rel="alternative" href="/atom.xml" title="lessinthemore" type="application/atom+xml">
+  
+  <meta name="summary" content="没有人可以和生活讨价还价。——《风雨哈佛路》">
+  <link rel="shortcut icon" href="/xdlog/favicon.ico">
+  <link rel="stylesheet" href="/xdlog/css/style.css?v=1.1.7">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar"><img src="/xdlog/img/logo.jpg"></a>
+        <hgroup class="introduce">
+          <h5 class="nickname">大雷小宇</h5>
+          <a href="mailto:irememberu_0924@163.com" title="irememberu_0924@163.com" class="mail">irememberu_0924@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/xudongye" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/thanks"  >
+                <i class="icon icon-lg icon-link"></i>
+                致谢
+              </a>
+            </li>
+        
+      </ul>
+
+      <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>lessinthemore &copy; 2021</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+    </div>
+  </div>
+</aside>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">centos7.4 docker安装</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container">
+        <h1 class="title">centos7.4 docker安装</h1>
+        
+        
+
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Docker环境安装"><span class="post-toc-number">1.</span> <span class="post-toc-text">Docker环境安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装docker"><span class="post-toc-number">1.0.1.</span> <span class="post-toc-text">安装docker</span></a></li></ol></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-texin/centos7.4 docker安装" 
+  class="post-article article-type-post" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">centos7.4 docker安装</h1>
+        <div class="post-meta">
+            <time datetime="2020-09-10T06:21:07.000Z" itemprop="datePublished" class="post-time">
+  2020-09-10
+</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
+
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="Docker环境安装"><a href="#Docker环境安装" class="headerlink" title="Docker环境安装"></a>Docker环境安装</h2><p>Docker三个基本概念:</p>
+<ul>
+<li>仓库（Repository）</li>
+<li>镜像（Image）</li>
+<li>容器(Container）<h4 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h4>1.root账户登录，查看内核版本如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# uname -a</span><br><span class="line">Linux localhost.localdomain 3.10.0-957.el7.x86_64 #1 SMP Thu Nov 8 23:39:32 UTC 2018 </span><br><span class="line">x86_64 x86_64 x86_64 GNU/Linux</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>2.把yum包更新到最新<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum update</span><br><span class="line">已加载插件：fastestmirror</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: centos.ustc.edu.cn</span><br><span class="line"> * extras: mirrors.aliyun.com</span><br><span class="line"> * updates: mirrors.cn99.com</span><br><span class="line">base                                                                                                  | 3.6 kB  00:00:00     </span><br><span class="line">extras                                                                                                | 3.4 kB  00:00:00     </span><br><span class="line">updates                                                                                               | 3.4 kB  00:00:00     </span><br><span class="line">正在解决依赖关系</span><br><span class="line">--&gt; 正在检查事务</span><br><span class="line">---&gt; 软件包 NetworkManager.x86_64.1.1.12.0-6.el7 将被 升级</span><br><span class="line">---&gt; 软件包 NetworkManager.x86_64.1.1.12.0-10.el7_6 将被 更新</span><br></pre></td></tr></table></figure></p>
+<p>3.安装需要的软件包， yum-util 提供yum-config-manager功能，另外两个是devicemapper驱动依赖的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install -y yum-utils device-mapper-persistent-data lvm2</span><br><span class="line">已加载插件：fastestmirror</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: centos.ustc.edu.cn</span><br><span class="line"> * extras: mirrors.aliyun.com</span><br><span class="line"> * updates: mirrors.cn99.com</span><br><span class="line">软件包 device-mapper-persistent-data-0.7.3-3.el7.x86_64 已安装并且是最新版本</span><br><span class="line">软件包 7:lvm2-2.02.180-10.el7_6.8.x86_64 已安装并且是最新版本</span><br><span class="line">正在解决依赖关系</span><br><span class="line">--&gt; 正在检查事务</span><br><span class="line">---&gt; 软件包 yum-utils.noarch.0.1.1.31-50.el7 将被 安装</span><br><span class="line">--&gt; 正在处理依赖关系 python-kitchen，它被软件包 yum-utils-1.1.31-50.el7.noarch 需要</span><br><span class="line">...</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>4.设置yum源（选择其中一个）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.repo（中央仓库）</span><br><span class="line">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo（阿里仓库）</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum-config-manager --add-repo </span><br><span class="line">https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">已加载插件：fastestmirror</span><br><span class="line">adding repo from: https://download.docker.com/linux/centos/docker-ce.repo</span><br><span class="line">grabbing file https://download.docker.com/linux/centos/docker-ce.repo to </span><br><span class="line">/etc/yum.repos.d/docker-ce.repo</span><br><span class="line">repo saved to /etc/yum.repos.d/docker-ce.repo</span><br></pre></td></tr></table></figure>
+<p>5.可以查看所有仓库中所有docker版本，并选择特定版本安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum list docker-ce --showduplicates | sort -r</span><br><span class="line">已加载插件：fastestmirror</span><br><span class="line">可安装的软件包</span><br><span class="line"> * updates: mirrors.cn99.com</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * extras: mirrors.aliyun.com</span><br><span class="line">docker-ce.x86_64            3:19.03.2-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:19.03.1-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:19.03.0-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.8-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.7-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.6-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.5-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.4-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.3-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.2-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.1-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            3:18.09.0-3.el7                     docker-ce-stable</span><br><span class="line">docker-ce.x86_64            18.06.3.ce-3.el7                    docker-ce-stable</span><br><span class="line">docker-ce.x86_64            18.06.2.ce-3.el7                    docker-ce-stable</span><br><span class="line">docker-ce.x86_64            18.06.1.ce-3.el7                    docker-ce-stable</span><br><span class="line">docker-ce.x86_64            18.06.0.ce-3.el7                    docker-ce-stable</span><br><span class="line">docker-ce.x86_64            18.03.1.ce-1.el7.centos             docker-ce-stable</span><br><span class="line">docker-ce.x86_64            18.03.0.ce-1.el7.centos             docker-ce-stable</span><br><span class="line">docker-ce.x86_64            17.12.1.ce-1.el7.centos             docker-ce-stable</span><br></pre></td></tr></table></figure></p>
+<p>6.安装Docker，命令：yum install docker-ce-版本号，我选的是docker-ce-18.03.1.ce，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# yum install docker-ce-18.03.1.ce</span><br><span class="line">已加载插件：fastestmirror</span><br><span class="line">Loading mirror speeds from cached hostfile</span><br><span class="line"> * base: centos.ustc.edu.cn</span><br><span class="line"> * extras: mirrors.aliyun.com</span><br><span class="line"> * updates: mirrors.cn99.com</span><br><span class="line">正在解决依赖关系</span><br><span class="line">--&gt; 正在检查事务</span><br><span class="line">---&gt; 软件包 docker-ce.x86_64.0.18.03.1.ce-1.el7.centos 将被 安装</span><br></pre></td></tr></table></figure></p>
+<p>7.启动Docker，命令：systemctl start docker，然后加入开机启动，如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl start docker</span><br><span class="line">[root@localhost ~]# systemctl enable  docker</span><br><span class="line">Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /usr/lib/systemd/system/docker.service.</span><br><span class="line">[root@localhost ~]# docker version</span><br><span class="line">Client:</span><br><span class="line"> Version:      18.03.1-ce</span><br><span class="line"> API version:  1.37</span><br><span class="line"> Go version:   go1.9.5</span><br><span class="line"> Git commit:   9ee9f40</span><br><span class="line"> Built:        Thu Apr 26 07:20:16 2018</span><br><span class="line"> OS/Arch:      linux/amd64</span><br><span class="line"> Experimental: false</span><br><span class="line"> Orchestrator: swarm</span><br><span class="line"> </span><br><span class="line">Server:</span><br><span class="line"> Engine:</span><br><span class="line">  Version:      18.03.1-ce</span><br><span class="line">  API version:  1.37 (minimum version 1.12)</span><br><span class="line">  Go version:   go1.9.5</span><br><span class="line">  Git commit:   9ee9f40</span><br><span class="line">  Built:        Thu Apr 26 07:23:58 2018</span><br><span class="line">  OS/Arch:      linux/amd64</span><br><span class="line">  Experimental: false</span><br></pre></td></tr></table></figure></p>
+<p>8.常用Docker命令，更多命令详解，请访问：<a href="http://www.docker.org.cn/dockerppt/106.html" target="_blank" rel="noopener">http://www.docker.org.cn/dockerppt/106.html</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1. docker ps 查看当前正在运行的容器</span><br><span class="line">2. docker ps -a 查看所有容器的状态</span><br><span class="line">3. docker start/stop id/name 启动/停止某个容器</span><br><span class="line">4. docker attach id 进入某个容器(使用exit退出后容器也跟着停止运行)</span><br><span class="line">5. docker exec -ti id 启动一个伪终端以交互式的方式进入某个容器（使用exit退出后容器不停止运行）</span><br><span class="line">6. docker images 查看本地镜像</span><br><span class="line">7. docker rm id/name 删除某个容器</span><br><span class="line">8. docker rmi id/name 删除某个镜像</span><br></pre></td></tr></table></figure></p>
+
+        </div>
+        
+        <blockquote class="post-copyright">
+            <div class="content">
+               原创作品，允许转载，转载时务必以链接形式标明文章出处、作者信息以及本声明，否则将追究法律责任。<a href="/xdlog/texin/centos7.4 docker安装/" target="_blank" rel="external">https://xudongye.github.io/xdlog/texin/centos7.4 docker安装/</a>
+            </div>
+            <footer>
+                <a href="https://xudongye.github.io/xdlog">
+                    <img src="/xdlog/img/logo.jpg" alt="大雷小宇">
+                    大雷小宇
+                </a>
+            </footer>
+        </blockquote>
+
+        
+        <div class="post-reward">
+            <a id="rewardBtn" href="javascript:;" class="post-reward-btn waves-effect waves-circle waves-light">赏</a>
+        </div>
+        
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/微联电召/">微联电召</a></li></ul>
+
+
+            
+            <div class="post-share-wrap">
+                <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+                <a href="javascript:;" id="share-fab" class="post-share-fab waves-effect waves-circle">
+                    <i class="icon icon-share-alt icon-lg"></i>
+                </a>
+            </div>
+            
+
+        </div>
+    </div>   
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/xdlog/mianshi/Java深拷贝与浅拷贝区别/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Java深拷贝与浅拷贝区别</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/xdlog/texin/docker安装mysql-redis-activemq-nginx并挂载配置宿主机/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">centos7.4 部署 docker，nginx, mysql,redis,activemq</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+    
+
+
+
+</article>
+
+<div id="reward" class="reward-lay">
+    <a class="reward-off" id="rewardOff" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/xdlog/images/reward/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/xdlog/images/reward/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+</div>
+  </main>
+  <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>var BLOG = { ROOT: '/xdlog/' };
+BLOG.SHARE = {
+title: "centos7.4 docker安装",
+pic: "/xdlog/img/logo.jpg",
+summary: document.getElementsByName('summary')[0].content,
+url: "https://xudongye.github.io/xdlog/texin/centos7.4 docker安装/" }
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+  <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script src="/xdlog/js/main.min.js?v=1.1.7"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/xdlog/js/search.min.js?v=1.1.7"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

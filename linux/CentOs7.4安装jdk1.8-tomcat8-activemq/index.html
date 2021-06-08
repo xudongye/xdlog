@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <title>CentOs7.4安装jdk1.8-tomcat8-activemq | lessinthemore | 大道至简</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="系统服务,CentOs7.4,JDK8,Tomcat8,Activemq">
+  <meta name="description" content="安装JDK8 jdk-8u211-linux-x64.tar.tar.gz 选择与自己系统相匹配版本，我的是centOs7 64位，选择的是以tar.gz结尾 通过FTP工具将下载好的jdk-8u211-linux-x64.tar.gz传输到/khgo/volume/service 解压   1tar -zxvf jdk-8u211-linux-x64.tar.tar.gz  编辑/etc/pro">
+<meta name="keywords" content="系统服务,CentOs7.4,JDK8,Tomcat8,Activemq">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOs7.4安装jdk1.8-tomcat8-activemq">
+<meta property="og:url" content="https://xudongye.github.io/xdlog/linux/CentOs7.4安装jdk1.8-tomcat8-activemq/index.html">
+<meta property="og:site_name" content="lessinthemore">
+<meta property="og:description" content="安装JDK8 jdk-8u211-linux-x64.tar.tar.gz 选择与自己系统相匹配版本，我的是centOs7 64位，选择的是以tar.gz结尾 通过FTP工具将下载好的jdk-8u211-linux-x64.tar.gz传输到/khgo/volume/service 解压   1tar -zxvf jdk-8u211-linux-x64.tar.tar.gz  编辑/etc/pro">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/linux/jdk8_download.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/linux/jdk_vim_profile.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/linux/jdk_version.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/linux/tomcat8_setup.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/linux/tomcat8_success.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/linux/tomcat8_optimize.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/linux/activemq_success.png">
+<meta property="og:updated_time" content="2020-12-18T02:51:05.441Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CentOs7.4安装jdk1.8-tomcat8-activemq">
+<meta name="twitter:description" content="安装JDK8 jdk-8u211-linux-x64.tar.tar.gz 选择与自己系统相匹配版本，我的是centOs7 64位，选择的是以tar.gz结尾 通过FTP工具将下载好的jdk-8u211-linux-x64.tar.gz传输到/khgo/volume/service 解压   1tar -zxvf jdk-8u211-linux-x64.tar.tar.gz  编辑/etc/pro">
+<meta name="twitter:image" content="https://xudongye.github.io/xdlog/images/linux/jdk8_download.png">
+  
+    <link rel="alternative" href="/atom.xml" title="lessinthemore" type="application/atom+xml">
+  
+  <meta name="summary" content="没有人可以和生活讨价还价。——《风雨哈佛路》">
+  <link rel="shortcut icon" href="/xdlog/favicon.ico">
+  <link rel="stylesheet" href="/xdlog/css/style.css?v=1.1.7">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar"><img src="/xdlog/img/logo.jpg"></a>
+        <hgroup class="introduce">
+          <h5 class="nickname">大雷小宇</h5>
+          <a href="mailto:irememberu_0924@163.com" title="irememberu_0924@163.com" class="mail">irememberu_0924@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/xudongye" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/thanks"  >
+                <i class="icon icon-lg icon-link"></i>
+                致谢
+              </a>
+            </li>
+        
+      </ul>
+
+      <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>lessinthemore &copy; 2021</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+    </div>
+  </div>
+</aside>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">CentOs7.4安装jdk1.8-tomcat8-activemq</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container">
+        <h1 class="title">CentOs7.4安装jdk1.8-tomcat8-activemq</h1>
+        
+        
+
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装JDK8"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装JDK8</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装Tomcat8"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装Tomcat8</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装activemq"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装activemq</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-linux/CentOs7.4安装jdk1.8-tomcat8-activemq" 
+  class="post-article article-type-post" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CentOs7.4安装jdk1.8-tomcat8-activemq</h1>
+        <div class="post-meta">
+            <time datetime="2019-12-05T07:31:25.000Z" itemprop="datePublished" class="post-time">
+  2019-12-05
+</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/Linux/">Linux</a></li></ul>
+
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="安装JDK8"><a href="#安装JDK8" class="headerlink" title="安装JDK8"></a>安装JDK8</h3><ul>
+<li><a href="https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase8u211-later-5573849.html" target="_blank" rel="noopener">jdk-8u211-linux-x64.tar.tar.gz</a></li>
+<li>选择与自己系统相匹配版本，我的是centOs7 64位，选择的是以tar.gz结尾<br><img src="../../images/linux/jdk8_download.png" alt="jdk_download"></li>
+<li>通过FTP工具将下载好的jdk-8u211-linux-x64.tar.gz传输到/khgo/volume/service</li>
+<li><p>解压</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf jdk-8u211-linux-x64.tar.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑/etc/profile<br><img src="../../images/linux/jdk_vim_profile.png" alt="jdk_environment"></p>
+</li>
+<li><p>生效命令：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试命令</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+<p> <img src="../../images/linux/jdk_version.png" alt="jdk_version"></p>
+</li>
+<li>出现上面的信息,说明安装成功！</li>
+</ul>
+<h3 id="安装Tomcat8"><a href="#安装Tomcat8" class="headerlink" title="安装Tomcat8"></a>安装Tomcat8</h3><ul>
+<li><p><a href="https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.47/bin/apache-tomcat-8.5.47.tar.gz" target="_blank" rel="noopener">apache-tomcat-8.5.47.tar.gz</a></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /khgo/volume/service/</span><br><span class="line">wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.47/bin/apache-tomcat-8.5.47.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压安装包</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf apache-tomcat-8.5.47.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置为系统服务</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># tomcat8080.service</span><br><span class="line"># vim /lib/systemd/system/tomcat8080.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=Tomcat</span><br><span class="line">After=syslog.target network.target remote-fs.target nss-lookup.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=oneshot</span><br><span class="line">ExecStart=/khgo/volume/service/apache-tomcat-8.5.47/bin/startup.sh</span><br><span class="line">ExecStop=/khgo/volume/service/apache-tomcat-8.5.47/bin/shutdown.sh</span><br><span class="line">ExecReload=/bin/kill -s HUP $MAINPID</span><br><span class="line">RemainAfterExit=yes</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑catalina.sh，由于Tomcat默认情况下会用系统的环境变量中找到JAVA_HOME和JRE_HOME。但是有的时候我们需要不同版本的JDK共存。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/khgo/volume/service/jdk1.8.0_231;</span><br><span class="line">#或用的全一点如下设置（用上面只设置一个JAVA_HOME足够了）：</span><br><span class="line">export JAVA_HOME=/usr/local/java/jdk1.8.0_231</span><br><span class="line">export JRE_HOME=/usr/local/java/jdk1.8.0_231/jre</span><br><span class="line">export PATH=$PATH:/usr/local/java/jdk1.8.0_231/bin</span><br><span class="line">export CLASSPATH=/usr/local/java/jdk1.8.0_231/lib:/usr/local/java/jdk1.8.0_231/jre/lib</span><br></pre></td></tr></table></figure>
+<p>  如图：<br>  <img src="../../images/linux/tomcat8_setup.png" alt="tomcat8_setup"></p>
+</li>
+<li><p>添加完即可</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable|status|start|restart|stop tomcat8080.service</span><br></pre></td></tr></table></figure>
+<p>  安装成功！<br>  <img src="../../images/linux/tomcat8_success.png" alt="tomcat8_success"></p>
+</li>
+<li>Tomcat8优化<br>  <img src="../../images/linux/tomcat8_optimize.png" alt="tomcat8_optimize"><br>  元素属性：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;Executor </span><br><span class="line">    name=&quot;tomcatThreadPool&quot;        &lt;!--线程名称--&gt;</span><br><span class="line">    namePrefix=&quot;catalina-exec-&quot; </span><br><span class="line">    maxThreads=&quot;150&quot;               &lt;!--最大处理连接数线程--&gt;</span><br><span class="line">    minSpareThreads=&quot;4&quot; /&gt;         &lt;!--保留最少线程数--&gt;</span><br><span class="line">&lt;!-- 将原有的Connector 替换为带有线程池的Connector如下,其实servlet.xml已经有了,只要打开就可以了,将原来的去掉   --&gt;</span><br><span class="line">&lt;Connector </span><br><span class="line">    port=&quot;8080&quot;                     &lt;!-- Connector创建server socket并等待连接的TCP端口号。操作系统在特定的IP地址上只允许一个服务器应用程序监听特定的端口 --&gt;</span><br><span class="line">    maxThreads=&quot;10000&quot;              &lt;!-- 该线程池可以容纳的最大线程数、默认值：200 --&gt;</span><br><span class="line">    executor=&quot;tomcatThreadPool&quot;     </span><br><span class="line">    protocol=&quot;org.apache.coyote.http11.Http11Nio2Protocol&quot;  &lt;!-- 为了使用HTTP处理器，该属性值必须为HTTP/1.1（缺省值） --&gt;</span><br><span class="line">    connectionTimeout=&quot;20000&quot;</span><br><span class="line">    redirectPort=&quot;8443&quot;             &lt;!-- 如果Connector支持非SSL请求，在收到一个要求使用SSL传输的请求以后，Catalina会自动将该请求重定向到这里指定的端口号 --&gt;</span><br><span class="line">    maxConnections=&quot;900&quot;</span><br><span class="line">    enableLookups=&quot;false&quot;           &lt;!-- 如果希望调用request.getRemoteHost()进行DNS查询，以返回远程客户的实际主机名，将enableLookups设为true。如果希望忽略DNS查询，仅仅返回IP地址，设为false（这样提高了性能）。缺省情况下，DNS查询是使能的 --&gt;</span><br><span class="line">    acceptCount=&quot;700&quot;               &lt;!-- 接受最大并发数量 ,超过这个数量就会返回连接被拒绝 --&gt;</span><br><span class="line">    maxPostSize=&quot;10485760&quot;</span><br><span class="line">    disableUploadTimeout=&quot;true&quot;</span><br><span class="line">    compression=&quot;on&quot;</span><br><span class="line">    compressionMinSize=&quot;2048&quot;</span><br><span class="line">    maxProcessors=&quot;1000&quot;            &lt;!-- 同时处理请求的最大数 --&gt;</span><br><span class="line">    minProcessors=&quot;5&quot;               &lt;!-- 同时处理请求的最小数 --&gt;</span><br><span class="line">    maxHttpHeaderSize=&quot;81920&quot;        </span><br><span class="line">    compressableMimeType=&quot;text/html,text/xml,text/plain,text/css,text/javascript,application/javascript&quot;</span><br><span class="line">    URIEncoding=&quot;UTF-8&quot; /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="安装activemq"><a href="#安装activemq" class="headerlink" title="安装activemq"></a>安装activemq</h3><ol>
+<li>下载<a href="http://archive.apache.org/dist/activemq/5.15.10/apache-activemq-5.15.10-bin.tar.gz" target="_blank" rel="noopener">apache-activemq-5.15.10-bin.tar.gz</a></li>
+<li><p>解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf apache-activemq-5.15.10-bin.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>防火墙的设置添加8161和61616端口号</p>
+</li>
+<li><p>配置系统服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#/lib/systemd/system/activemq.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=Activemq</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/khgo/volume/service/apache-activemq-5.15.10/data/activemq.pid</span><br><span class="line">ExecStart=/khgo/volume/service/apache-activemq-5.15.10/bin/activemq start</span><br><span class="line">ExecReload=/khgo/volume/service/apache-activemq-5.15.10/bin/activemq restart</span><br><span class="line">ExecStop=/khgo/volume/service/apache-activemq-5.15.10/bin/activemq stop</span><br><span class="line"></span><br><span class="line">PrivateTmp=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=mutli-user.target</span><br></pre></td></tr></table></figure>
+<p>报错：ERROR: Configuration variable JAVA_HOME or JAVACMD is not defined correctly<br>解决：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim bin/activemq</span><br><span class="line">#在第2行加入</span><br><span class="line">export JAVA_HOME=/khgo/volume/service/jdk1.8.0_231;</span><br><span class="line">#成功启动</span><br><span class="line">systemctl start activemq.service</span><br></pre></td></tr></table></figure>
+<p>成功！<br><img src="../../images/linux/activemq_success.png" alt="activemq_success"></p>
+</li>
+</ol>
+
+        </div>
+        
+        <blockquote class="post-copyright">
+            <div class="content">
+               原创作品，允许转载，转载时务必以链接形式标明文章出处、作者信息以及本声明，否则将追究法律责任。<a href="/xdlog/linux/CentOs7.4安装jdk1.8-tomcat8-activemq/" target="_blank" rel="external">https://xudongye.github.io/xdlog/linux/CentOs7.4安装jdk1.8-tomcat8-activemq/</a>
+            </div>
+            <footer>
+                <a href="https://xudongye.github.io/xdlog">
+                    <img src="/xdlog/img/logo.jpg" alt="大雷小宇">
+                    大雷小宇
+                </a>
+            </footer>
+        </blockquote>
+
+        
+        <div class="post-reward">
+            <a id="rewardBtn" href="javascript:;" class="post-reward-btn waves-effect waves-circle waves-light">赏</a>
+        </div>
+        
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/Activemq/">Activemq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/CentOs7-4/">CentOs7.4</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/JDK8/">JDK8</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/Tomcat8/">Tomcat8</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/系统服务/">系统服务</a></li></ul>
+
+
+            
+            <div class="post-share-wrap">
+                <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+                <a href="javascript:;" id="share-fab" class="post-share-fab waves-effect waves-circle">
+                    <i class="icon icon-share-alt icon-lg"></i>
+                </a>
+            </div>
+            
+
+        </div>
+    </div>   
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/xdlog/algorithm/利用DFA算法实现敏感词过滤/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">利用DFA算法实现敏感词过滤</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/xdlog/linux/CentOs7.4安装nginx-mysql-redis/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Centos7.4安装nginx-mysql-redis</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+    
+
+
+
+</article>
+
+<div id="reward" class="reward-lay">
+    <a class="reward-off" id="rewardOff" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/xdlog/images/reward/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/xdlog/images/reward/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+</div>
+  </main>
+  <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>var BLOG = { ROOT: '/xdlog/' };
+BLOG.SHARE = {
+title: "CentOs7.4安装jdk1.8-tomcat8-activemq",
+pic: "/xdlog/img/logo.jpg",
+summary: document.getElementsByName('summary')[0].content,
+url: "https://xudongye.github.io/xdlog/linux/CentOs7.4安装jdk1.8-tomcat8-activemq/" }
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+  <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script src="/xdlog/js/main.min.js?v=1.1.7"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/xdlog/js/search.min.js?v=1.1.7"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

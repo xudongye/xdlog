@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <title>支付宝多租户模式下支付功能实现 | lessinthemore | 大道至简</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="aiHotel">
+  <meta name="description" content="多账户支付系统该如何实现？需求分析 由于智能酒店业务不断更新，随之而来的需求迭代不断增加。自从酒店商城项目上线之后，吸引了很多酒店热情入驻，既然是酒店那么支付是必不可少的功能，原来的单机模式显然已经无法满足各个酒店方需求。单机模式下商城扫码支付，收款方都是阳淳账户代收，然后再打款到各个酒店平台，对账-开发票各种流程。财务麻烦，领导嫌弃，那么就做成多租户模式吧。为酒店配置各自收款账户，商品捆绑酒店编">
+<meta name="keywords" content="aiHotel">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支付宝多租户模式下支付功能实现">
+<meta property="og:url" content="https://xudongye.github.io/xdlog/aihotel/支付宝多租户模式下支付功能实现/index.html">
+<meta property="og:site_name" content="lessinthemore">
+<meta property="og:description" content="多账户支付系统该如何实现？需求分析 由于智能酒店业务不断更新，随之而来的需求迭代不断增加。自从酒店商城项目上线之后，吸引了很多酒店热情入驻，既然是酒店那么支付是必不可少的功能，原来的单机模式显然已经无法满足各个酒店方需求。单机模式下商城扫码支付，收款方都是阳淳账户代收，然后再打款到各个酒店平台，对账-开发票各种流程。财务麻烦，领导嫌弃，那么就做成多租户模式吧。为酒店配置各自收款账户，商品捆绑酒店编">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/aihotel/支付系统.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/aihotel/多租户支付系统.png">
+<meta property="og:updated_time" content="2020-12-18T02:51:05.409Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="支付宝多租户模式下支付功能实现">
+<meta name="twitter:description" content="多账户支付系统该如何实现？需求分析 由于智能酒店业务不断更新，随之而来的需求迭代不断增加。自从酒店商城项目上线之后，吸引了很多酒店热情入驻，既然是酒店那么支付是必不可少的功能，原来的单机模式显然已经无法满足各个酒店方需求。单机模式下商城扫码支付，收款方都是阳淳账户代收，然后再打款到各个酒店平台，对账-开发票各种流程。财务麻烦，领导嫌弃，那么就做成多租户模式吧。为酒店配置各自收款账户，商品捆绑酒店编">
+<meta name="twitter:image" content="https://xudongye.github.io/xdlog/images/aihotel/支付系统.png">
+  
+    <link rel="alternative" href="/atom.xml" title="lessinthemore" type="application/atom+xml">
+  
+  <meta name="summary" content="没有人可以和生活讨价还价。——《风雨哈佛路》">
+  <link rel="shortcut icon" href="/xdlog/favicon.ico">
+  <link rel="stylesheet" href="/xdlog/css/style.css?v=1.1.7">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar"><img src="/xdlog/img/logo.jpg"></a>
+        <hgroup class="introduce">
+          <h5 class="nickname">大雷小宇</h5>
+          <a href="mailto:irememberu_0924@163.com" title="irememberu_0924@163.com" class="mail">irememberu_0924@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/xudongye" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/thanks"  >
+                <i class="icon icon-lg icon-link"></i>
+                致谢
+              </a>
+            </li>
+        
+      </ul>
+
+      <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>lessinthemore &copy; 2021</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+    </div>
+  </div>
+</aside>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">支付宝多租户模式下支付功能实现</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container">
+        <h1 class="title">支付宝多租户模式下支付功能实现</h1>
+        
+        
+
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#多账户支付系统该如何实现？"><span class="post-toc-number">1.</span> <span class="post-toc-text">多账户支付系统该如何实现？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需求分析"><span class="post-toc-number">2.</span> <span class="post-toc-text">需求分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#er模型"><span class="post-toc-number">3.</span> <span class="post-toc-text">er模型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#流程"><span class="post-toc-number">4.</span> <span class="post-toc-text">流程</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-aihotel/支付宝多租户模式下支付功能实现" 
+  class="post-article article-type-post" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">支付宝多租户模式下支付功能实现</h1>
+        <div class="post-meta">
+            <time datetime="2020-01-08T06:07:56.000Z" itemprop="datePublished" class="post-time">
+  2020-01-08
+</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/支付系统/">支付系统</a></li></ul>
+
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="多账户支付系统该如何实现？"><a href="#多账户支付系统该如何实现？" class="headerlink" title="多账户支付系统该如何实现？"></a>多账户支付系统该如何实现？</h2><h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><ul>
+<li>由于智能酒店业务不断更新，随之而来的需求迭代不断增加。自从酒店商城项目上线之后，吸引了很多酒店热情入驻，既然是酒店那么支付是必不可少的功能，原来的单机模式<br>显然已经无法满足各个酒店方需求。单机模式下商城扫码支付，收款方都是阳淳账户代收，然后再打款到各个酒店平台，对账-开发票各种流程。财务麻烦，领导嫌弃，那么就做成多<br>租户模式吧。为酒店配置各自收款账户，商品捆绑酒店编码（唯一标识）下单到支付即可指定对应收款参数，生成收款码进行扫码支付，若未设置，则默认阳淳。典型的Software-as-a-Service系统。</li>
+</ul>
+<h2 id="er模型"><a href="#er模型" class="headerlink" title="er模型"></a>er模型</h2><p><img src="../../images/aihotel/支付系统.png" alt="支付系统"></p>
+<ul>
+<li>order为订单表，关联商品good_id，酒店org_id。</li>
+<li>accountPayOrder为内部订单表，关联orderNo（businessId）,支付回调支付结果存储，已经支付网关，支付方式等信息（支付方式：alipay,wxpay，pointpay）</li>
+<li>accountAliPay为支付账户参数表， 存放各个酒店设置支付宝收款账户配置信息。</li>
+</ul>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><p><img src="../../images/aihotel/多租户支付系统.png" alt="支付流程"></p>
+<ul>
+<li>支付结果回调就不赘述了,通过预下单产生的outTradeNo查询对应订单所在PayAccount</li>
+</ul>
+
+        </div>
+        
+        <blockquote class="post-copyright">
+            <div class="content">
+               原创作品，允许转载，转载时务必以链接形式标明文章出处、作者信息以及本声明，否则将追究法律责任。<a href="/xdlog/aihotel/支付宝多租户模式下支付功能实现/" target="_blank" rel="external">https://xudongye.github.io/xdlog/aihotel/支付宝多租户模式下支付功能实现/</a>
+            </div>
+            <footer>
+                <a href="https://xudongye.github.io/xdlog">
+                    <img src="/xdlog/img/logo.jpg" alt="大雷小宇">
+                    大雷小宇
+                </a>
+            </footer>
+        </blockquote>
+
+        
+        <div class="post-reward">
+            <a id="rewardBtn" href="javascript:;" class="post-reward-btn waves-effect waves-circle waves-light">赏</a>
+        </div>
+        
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/aiHotel/">aiHotel</a></li></ul>
+
+
+            
+            <div class="post-share-wrap">
+                <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+                <a href="javascript:;" id="share-fab" class="post-share-fab waves-effect waves-circle">
+                    <i class="icon icon-share-alt icon-lg"></i>
+                </a>
+            </div>
+            
+
+        </div>
+    </div>   
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/xdlog/superm/基于docker容器部署superm项目/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">基于docker容器部署superm项目</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/xdlog/design/利用JXLS2-4实现exel导出/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">利用JXLS2.4实现exel导出</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+    
+
+
+
+</article>
+
+<div id="reward" class="reward-lay">
+    <a class="reward-off" id="rewardOff" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/xdlog/images/reward/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/xdlog/images/reward/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+</div>
+  </main>
+  <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>var BLOG = { ROOT: '/xdlog/' };
+BLOG.SHARE = {
+title: "支付宝多租户模式下支付功能实现",
+pic: "/xdlog/img/logo.jpg",
+summary: document.getElementsByName('summary')[0].content,
+url: "https://xudongye.github.io/xdlog/aihotel/支付宝多租户模式下支付功能实现/" }
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+  <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script src="/xdlog/js/main.min.js?v=1.1.7"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/xdlog/js/search.min.js?v=1.1.7"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

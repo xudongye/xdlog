@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <title>利用DFA算法实现敏感词过滤 | lessinthemore | 大道至简</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="数据结构">
+  <meta name="description" content="DFA算法简介  敏感词过滤是一个网站必不可少的功能，那么如何设计一个科学并且高效过滤算法是非要有必要的。一般的开发人员首先考虑的肯定是简单的匹配规则，可以实现，但是效率很低。再高级一点的就是正则表达式，但终究都不可取。 DFA全称(Deterministic Finite Automaton)，即确定有穷自动机。  特征：有一个有序集集合和一些从一个状态通向另一个状态的边，每条边上标记一个符号">
+<meta name="keywords" content="数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用DFA算法实现敏感词过滤">
+<meta property="og:url" content="https://xudongye.github.io/xdlog/algorithm/利用DFA算法实现敏感词过滤/index.html">
+<meta property="og:site_name" content="lessinthemore">
+<meta property="og:description" content="DFA算法简介  敏感词过滤是一个网站必不可少的功能，那么如何设计一个科学并且高效过滤算法是非要有必要的。一般的开发人员首先考虑的肯定是简单的匹配规则，可以实现，但是效率很低。再高级一点的就是正则表达式，但终究都不可取。 DFA全称(Deterministic Finite Automaton)，即确定有穷自动机。  特征：有一个有序集集合和一些从一个状态通向另一个状态的边，每条边上标记一个符号">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/dfa.jpg">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/java_dfa.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/dfa_exam1.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/dfa_exam2.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/dfa_exam3.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/dfa_exam4.png">
+<meta property="og:updated_time" content="2020-12-18T02:51:05.409Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用DFA算法实现敏感词过滤">
+<meta name="twitter:description" content="DFA算法简介  敏感词过滤是一个网站必不可少的功能，那么如何设计一个科学并且高效过滤算法是非要有必要的。一般的开发人员首先考虑的肯定是简单的匹配规则，可以实现，但是效率很低。再高级一点的就是正则表达式，但终究都不可取。 DFA全称(Deterministic Finite Automaton)，即确定有穷自动机。  特征：有一个有序集集合和一些从一个状态通向另一个状态的边，每条边上标记一个符号">
+<meta name="twitter:image" content="https://xudongye.github.io/xdlog/images/algorithm/dfa.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="lessinthemore" type="application/atom+xml">
+  
+  <meta name="summary" content="没有人可以和生活讨价还价。——《风雨哈佛路》">
+  <link rel="shortcut icon" href="/xdlog/favicon.ico">
+  <link rel="stylesheet" href="/xdlog/css/style.css?v=1.1.7">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar"><img src="/xdlog/img/logo.jpg"></a>
+        <hgroup class="introduce">
+          <h5 class="nickname">大雷小宇</h5>
+          <a href="mailto:irememberu_0924@163.com" title="irememberu_0924@163.com" class="mail">irememberu_0924@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/xudongye" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/thanks"  >
+                <i class="icon icon-lg icon-link"></i>
+                致谢
+              </a>
+            </li>
+        
+      </ul>
+
+      <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>lessinthemore &copy; 2021</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+    </div>
+  </div>
+</aside>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">利用DFA算法实现敏感词过滤</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container">
+        <h1 class="title">利用DFA算法实现敏感词过滤</h1>
+        
+        
+
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-algorithm/利用DFA算法实现敏感词过滤" 
+  class="post-article article-type-post" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">利用DFA算法实现敏感词过滤</h1>
+        <div class="post-meta">
+            <time datetime="2019-12-26T06:58:19.000Z" itemprop="datePublished" class="post-time">
+  2019-12-26
+</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/算法/">算法</a></li></ul>
+
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <ul>
+<li><p>DFA算法简介</p>
+<ul>
+<li>敏感词过滤是一个网站必不可少的功能，那么如何设计一个科学并且高效过滤算法是非要有必要的。一般的开发人员首先考虑的肯定是简单的匹配规则，可以实现，但是效率很低。再高级一点的就是正则表达式，但终究都不可取。</li>
+<li><p>DFA全称(Deterministic Finite Automaton)，即确定有穷自动机。</p>
+</li>
+<li><p>特征：有一个有序集集合和一些从一个状态通向另一个状态的边，每条边上标记一个符号，其中状态有初态和终态。</p>
+</li>
+<li>区别：不同于不确定的有限自动机，DFA中不会从同一状态出发的两边标志有相同的符号。</li>
+<li>实现：通过event和当前state得到下一个state，即event+state=nextstate<br><img src="../../images/algorithm/dfa.jpg" alt="dfa"></li>
+<li>（S、U、V、Q）都是状态，小写字母a、b为动作</li>
+<li><p>关系如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">            a b b </span><br><span class="line">S -----&gt; U S -----&gt; V U -----&gt; V</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在DFA算法里面几乎没有什么计算</p>
+</li>
+</ul>
+</li>
+<li><p>Java实现DFA算法实现敏感词过滤<br><img src="../../images/algorithm/java_dfa.png" alt=""></p>
+<ul>
+<li>我们可以认为，通过S query U、V，通过U query V、P，通过V query U P。通过这样的转变我们可以将状态的转换转变为使用Java集合的查找。</li>
+<li>举个栗子：假设我们的敏感词库里面有日本人，日本鬼子，毛.泽.东</li>
+<li>首先：query 日 —&gt; {本}、query 本 —&gt;{人、鬼子}、query 人 —&gt;{null}、query 鬼 —&gt; {子}。形如下结构:<br><img src="../../images/algorithm/dfa_exam1.png" alt=""><br><img src="../../images/algorithm/dfa_exam2.png" alt=""><br><img src="../../images/algorithm/dfa_exam3.png" alt=""></li>
+<li>这样我们就将我们的敏感词库构建成了一个类似与一颗一颗的树，这样我们判断一个词是否为敏感词时就大大减少了检索的匹配范围。比如我们要判断日本人，根据第一个字我们就可以确认需要检索的是那棵树，然后再在这棵树中进行检索。</li>
+<li>但是如何来判断一个敏感词已经结束了呢？利用标识位来判断。所以对于这个关键是如何来构建一棵棵这样的敏感词树。下面我已Java中的HashMap为例来实现DFA算法。具体过程如下：</li>
+<li><p>日本人，日本鬼子为例</p>
+<ul>
+<li><p>1、在hashMap中查询“日”看其是否在hashMap中存在，如果不存在，则证明已“日”开头的敏感词还不存在，则我们直接构建这样的一棵树。跳至3。</p>
+</li>
+<li><p>2、如果在hashMap中查找到了，表明存在以“日”开头的敏感词，设置hashMap = hashMap.get(“日”)，跳至1，依次匹配“本”、“人”。</p>
+</li>
+<li><p>3、判断该字是否为该词中的最后一个字。若是表示敏感词结束，设置标志位isEnd = 1，否则设置标志位isEnd = 0；</p>
+<p><img src="../../images/algorithm/dfa_exam4.png" alt=""></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>程序如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 读取敏感词库，将敏感词放入HashSet中，构建一个DFA算法模型：&lt;br&gt; </span></span><br><span class="line"><span class="comment">     * 中 = &#123; </span></span><br><span class="line"><span class="comment">     *      isEnd = 0 </span></span><br><span class="line"><span class="comment">     *      国 = &#123;&lt;br&gt; </span></span><br><span class="line"><span class="comment">     *           isEnd = 1 </span></span><br><span class="line"><span class="comment">     *           人 = &#123;isEnd = 0 </span></span><br><span class="line"><span class="comment">     *                民 = &#123;isEnd = 1&#125; </span></span><br><span class="line"><span class="comment">     *                &#125; </span></span><br><span class="line"><span class="comment">     *           男  = &#123; </span></span><br><span class="line"><span class="comment">     *                  isEnd = 0 </span></span><br><span class="line"><span class="comment">     *                   人 = &#123; </span></span><br><span class="line"><span class="comment">     *                        isEnd = 1 </span></span><br><span class="line"><span class="comment">     *                       &#125; </span></span><br><span class="line"><span class="comment">     *               &#125; </span></span><br><span class="line"><span class="comment">     *           &#125; </span></span><br><span class="line"><span class="comment">     *      &#125; </span></span><br><span class="line"><span class="comment">     *  五 = &#123; </span></span><br><span class="line"><span class="comment">     *      isEnd = 0 </span></span><br><span class="line"><span class="comment">     *      星 = &#123; </span></span><br><span class="line"><span class="comment">     *          isEnd = 0 </span></span><br><span class="line"><span class="comment">     *          红 = &#123; </span></span><br><span class="line"><span class="comment">     *              isEnd = 0 </span></span><br><span class="line"><span class="comment">     *              旗 = &#123; </span></span><br><span class="line"><span class="comment">     *                   isEnd = 1 </span></span><br><span class="line"><span class="comment">     *                  &#125; </span></span><br><span class="line"><span class="comment">     *              &#125; </span></span><br><span class="line"><span class="comment">     *          &#125; </span></span><br><span class="line"><span class="comment">     *      &#125; </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> keyWordSet  敏感词库 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@version</span> 1.0 </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(&#123; <span class="string">"rawtypes"</span>, <span class="string">"unchecked"</span> &#125;)  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">addSensitiveWordToHashMap</span><span class="params">(Set&lt;String&gt; keyWordSet)</span> </span>&#123;  </span><br><span class="line">        sensitiveWordMap = <span class="keyword">new</span> HashMap(keyWordSet.size());     <span class="comment">//初始化敏感词容器，减少扩容操作  </span></span><br><span class="line">        String key = <span class="keyword">null</span>;    </span><br><span class="line">        Map nowMap = <span class="keyword">null</span>;  </span><br><span class="line">        Map&lt;String, String&gt; newWorMap = <span class="keyword">null</span>;  </span><br><span class="line">        <span class="comment">//迭代keyWordSet  </span></span><br><span class="line">        Iterator&lt;String&gt; iterator = keyWordSet.iterator();  </span><br><span class="line">        <span class="keyword">while</span>(iterator.hasNext())&#123;  </span><br><span class="line">            key = iterator.next();    <span class="comment">//关键字  </span></span><br><span class="line">            nowMap = sensitiveWordMap;  </span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span> ; i &lt; key.length() ; i++)&#123;  </span><br><span class="line">                <span class="keyword">char</span> keyChar = key.charAt(i);       <span class="comment">//转换成char型  </span></span><br><span class="line">                Object wordMap = nowMap.get(keyChar);       <span class="comment">//获取  </span></span><br><span class="line">                  </span><br><span class="line">                <span class="keyword">if</span>(wordMap != <span class="keyword">null</span>)&#123;        <span class="comment">//如果存在该key，直接赋值  </span></span><br><span class="line">                    nowMap = (Map) wordMap;  </span><br><span class="line">                &#125;  </span><br><span class="line">                <span class="keyword">else</span>&#123;     <span class="comment">//不存在则，则构建一个map，同时将isEnd设置为0，因为他不是最后一个  </span></span><br><span class="line">                    newWorMap = <span class="keyword">new</span> HashMap&lt;String,String&gt;();  </span><br><span class="line">                    newWorMap.put(<span class="string">"isEnd"</span>, <span class="string">"0"</span>);     <span class="comment">//不是最后一个  </span></span><br><span class="line">                    nowMap.put(keyChar, newWorMap);  </span><br><span class="line">                    nowMap = newWorMap;  </span><br><span class="line">                &#125;  </span><br><span class="line">                  </span><br><span class="line">                <span class="keyword">if</span>(i == key.length() - <span class="number">1</span>)&#123;  </span><br><span class="line">                    nowMap.put(<span class="string">"isEnd"</span>, <span class="string">"1"</span>);    <span class="comment">//最后一个  </span></span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    运行得到的hashMap结构如下：</span><br><span class="line">    &#123;五=&#123;星=&#123;红=&#123;isEnd=<span class="number">0</span>, 旗=&#123;isEnd=<span class="number">1</span>&#125;&#125;, isEnd=<span class="number">0</span>&#125;, isEnd=<span class="number">0</span>&#125;, 中=&#123;isEnd=<span class="number">0</span>, 国=&#123;isEnd=<span class="number">0</span>, 人=&#123;isEnd=<span class="number">1</span>&#125;, 男=&#123;isEnd=<span class="number">0</span>, 人=&#123;isEnd=<span class="number">1</span>&#125;&#125;&#125;&#125;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>如何实现检索：</p>
+<ul>
+<li><p>假设我们检索“中国人民万岁”</p>
+<ul>
+<li>1、第一个字“中”，我们在hashMap中可以找到。得到一个新的map = hashMap.get(“”)。</li>
+<li>2、如果map == null，则不是敏感词。否则跳至3</li>
+<li>3、获取map中的isEnd，通过isEnd是否等于1来判断该词是否为最后一个。如果isEnd == 1表示该词为敏感词，否则跳至1。</li>
+<li>通过这个步骤我们可以判断“中国人民”为敏感词，但是如果我们输入“中国女人”则不是敏感词了。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment">     * 检查文字中是否包含敏感字符，检查规则如下：&lt;br&gt; </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> txt </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> beginIndex </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> matchType </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>，如果存在，则返回敏感词字符的长度，不存在返回0 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@version</span> 1.0 </span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(&#123; <span class="string">"rawtypes"</span>&#125;)  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">CheckSensitiveWord</span><span class="params">(String txt,<span class="keyword">int</span> beginIndex,<span class="keyword">int</span> matchType)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">boolean</span>  flag = <span class="keyword">false</span>;    <span class="comment">//敏感词结束标识位：用于敏感词只有1位的情况  </span></span><br><span class="line">        <span class="keyword">int</span> matchFlag = <span class="number">0</span>;     <span class="comment">//匹配标识数默认为0  </span></span><br><span class="line">        <span class="keyword">char</span> word = <span class="number">0</span>;  </span><br><span class="line">        Map nowMap = sensitiveWordMap;  </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = beginIndex; i &lt; txt.length() ; i++)&#123;  </span><br><span class="line">            word = txt.charAt(i);  </span><br><span class="line">            nowMap = (Map) nowMap.get(word);     <span class="comment">//获取指定key  </span></span><br><span class="line">            <span class="keyword">if</span>(nowMap != <span class="keyword">null</span>)&#123;     <span class="comment">//存在，则判断是否为最后一个  </span></span><br><span class="line">                matchFlag++;     <span class="comment">//找到相应key，匹配标识+1   </span></span><br><span class="line">                <span class="keyword">if</span>(<span class="string">"1"</span>.equals(nowMap.get(<span class="string">"isEnd"</span>)))&#123;       <span class="comment">//如果为最后一个匹配规则,结束循环，返回匹配标识数  </span></span><br><span class="line">                    flag = <span class="keyword">true</span>;       <span class="comment">//结束标志位为true     </span></span><br><span class="line">                    <span class="keyword">if</span>(SensitivewordFilter.minMatchTYpe == matchType)&#123;    <span class="comment">//最小规则，直接返回,最大规则还需继续查找  </span></span><br><span class="line">                        <span class="keyword">break</span>;  </span><br><span class="line">                    &#125;  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">            <span class="keyword">else</span>&#123;     <span class="comment">//不存在，直接返回  </span></span><br><span class="line">                <span class="keyword">break</span>;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">if</span>(matchFlag &lt; <span class="number">2</span> &amp;&amp; !flag)&#123;       </span><br><span class="line">            matchFlag = <span class="number">0</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> matchFlag;  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;  </span><br><span class="line">        SensitivewordFilter filter = <span class="keyword">new</span> SensitivewordFilter();  </span><br><span class="line">        System.out.println(<span class="string">"敏感词的数量："</span> + filter.sensitiveWordMap.size());  </span><br><span class="line">        String string = <span class="string">"太多的伤感情怀也许只局限于饲养基地 荧幕中的情节，主人公尝试着去用某种方式渐渐的很潇洒地释自杀指南怀那些自己经历的伤感。"</span>  </span><br><span class="line">                        + <span class="string">"然后法.轮.功 我们的扮演的角色就是跟随着主人公的喜红客联盟 怒哀乐而过于牵强的把自己的情感也附加于银幕情节中，然后感动就流泪，"</span>  </span><br><span class="line">                        + <span class="string">"难过就躺在某一个人的怀里尽情的阐述心扉或者手机卡复制器一个人一杯红酒一部电影在夜三.级.片 深人静的晚上，关上电话静静的发呆着。"</span>;  </span><br><span class="line">        System.out.println(<span class="string">"待检测语句字数："</span> + string.length());  </span><br><span class="line">        <span class="keyword">long</span> beginTime = System.currentTimeMillis();  </span><br><span class="line">        Set&lt;String&gt; set = filter.getSensitiveWord(string, <span class="number">1</span>);  </span><br><span class="line">        <span class="keyword">long</span> endTime = System.currentTimeMillis();  </span><br><span class="line">        System.out.println(<span class="string">"语句中包含敏感词的个数为："</span> + set.size() + <span class="string">"。包含："</span> + set);  </span><br><span class="line">        System.out.println(<span class="string">"总共消耗时间为："</span> + (endTime - beginTime));  </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="../../static/sensitiveword/dictionary.txt">敏感词库</a></p>
+</li>
+</ul>
+
+        </div>
+        
+        <blockquote class="post-copyright">
+            <div class="content">
+               原创作品，允许转载，转载时务必以链接形式标明文章出处、作者信息以及本声明，否则将追究法律责任。<a href="/xdlog/algorithm/利用DFA算法实现敏感词过滤/" target="_blank" rel="external">https://xudongye.github.io/xdlog/algorithm/利用DFA算法实现敏感词过滤/</a>
+            </div>
+            <footer>
+                <a href="https://xudongye.github.io/xdlog">
+                    <img src="/xdlog/img/logo.jpg" alt="大雷小宇">
+                    大雷小宇
+                </a>
+            </footer>
+        </blockquote>
+
+        
+        <div class="post-reward">
+            <a id="rewardBtn" href="javascript:;" class="post-reward-btn waves-effect waves-circle waves-light">赏</a>
+        </div>
+        
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/数据结构/">数据结构</a></li></ul>
+
+
+            
+            <div class="post-share-wrap">
+                <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+                <a href="javascript:;" id="share-fab" class="post-share-fab waves-effect waves-circle">
+                    <i class="icon icon-share-alt icon-lg"></i>
+                </a>
+            </div>
+            
+
+        </div>
+    </div>   
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/xdlog/design/利用JXLS2-4实现exel导出/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">利用JXLS2.4实现exel导出</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/xdlog/linux/CentOs7.4安装jdk1.8-tomcat8-activemq/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOs7.4安装jdk1.8-tomcat8-activemq</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+    
+
+
+
+</article>
+
+<div id="reward" class="reward-lay">
+    <a class="reward-off" id="rewardOff" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/xdlog/images/reward/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/xdlog/images/reward/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+</div>
+  </main>
+  <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>var BLOG = { ROOT: '/xdlog/' };
+BLOG.SHARE = {
+title: "利用DFA算法实现敏感词过滤",
+pic: "/xdlog/img/logo.jpg",
+summary: document.getElementsByName('summary')[0].content,
+url: "https://xudongye.github.io/xdlog/algorithm/利用DFA算法实现敏感词过滤/" }
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+  <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script src="/xdlog/js/main.min.js?v=1.1.7"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/xdlog/js/search.min.js?v=1.1.7"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

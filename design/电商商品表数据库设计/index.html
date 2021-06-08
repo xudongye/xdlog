@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <title>电商商品表数据库设计 | lessinthemore | 大道至简</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="数据结构设计">
+  <meta name="description" content="一个传统的电商项目，最难的地方也就在于数据库中表的关联，以及多表之间的查询关联，缕清楚表与表之间的关系，才能进行随心所欲的CRUD 第一张表：tb_category 商品类目表  123456789101112131415161718@Id@GeneratedValue(strategy = GenerationType.IDENTITY)private Long id;private Strin">
+<meta name="keywords" content="数据结构设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="电商商品表数据库设计">
+<meta property="og:url" content="https://xudongye.github.io/xdlog/design/电商商品表数据库设计/index.html">
+<meta property="og:site_name" content="lessinthemore">
+<meta property="og:description" content="一个传统的电商项目，最难的地方也就在于数据库中表的关联，以及多表之间的查询关联，缕清楚表与表之间的关系，才能进行随心所欲的CRUD 第一张表：tb_category 商品类目表  123456789101112131415161718@Id@GeneratedValue(strategy = GenerationType.IDENTITY)private Long id;private Strin">
+<meta property="og:updated_time" content="2020-12-18T02:51:05.409Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="电商商品表数据库设计">
+<meta name="twitter:description" content="一个传统的电商项目，最难的地方也就在于数据库中表的关联，以及多表之间的查询关联，缕清楚表与表之间的关系，才能进行随心所欲的CRUD 第一张表：tb_category 商品类目表  123456789101112131415161718@Id@GeneratedValue(strategy = GenerationType.IDENTITY)private Long id;private Strin">
+  
+    <link rel="alternative" href="/atom.xml" title="lessinthemore" type="application/atom+xml">
+  
+  <meta name="summary" content="没有人可以和生活讨价还价。——《风雨哈佛路》">
+  <link rel="shortcut icon" href="/xdlog/favicon.ico">
+  <link rel="stylesheet" href="/xdlog/css/style.css?v=1.1.7">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar"><img src="/xdlog/img/logo.jpg"></a>
+        <hgroup class="introduce">
+          <h5 class="nickname">大雷小宇</h5>
+          <a href="mailto:irememberu_0924@163.com" title="irememberu_0924@163.com" class="mail">irememberu_0924@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/xudongye" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/thanks"  >
+                <i class="icon icon-lg icon-link"></i>
+                致谢
+              </a>
+            </li>
+        
+      </ul>
+
+      <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>lessinthemore &copy; 2021</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+    </div>
+  </div>
+</aside>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">电商商品表数据库设计</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container">
+        <h1 class="title">电商商品表数据库设计</h1>
+        
+        
+
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一个传统的电商项目，最难的地方也就在于数据库中表的关联，以及多表之间的查询关联，缕清楚表与表之间的关系，才能进行随心所欲的CRUD"><span class="post-toc-number">1.</span> <span class="post-toc-text">一个传统的电商项目，最难的地方也就在于数据库中表的关联，以及多表之间的查询关联，缕清楚表与表之间的关系，才能进行随心所欲的CRUD</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-design/电商商品表数据库设计" 
+  class="post-article article-type-post" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">电商商品表数据库设计</h1>
+        <div class="post-meta">
+            <time datetime="2019-11-19T06:09:14.000Z" itemprop="datePublished" class="post-time">
+  2019-11-19
+</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
+
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="一个传统的电商项目，最难的地方也就在于数据库中表的关联，以及多表之间的查询关联，缕清楚表与表之间的关系，才能进行随心所欲的CRUD"><a href="#一个传统的电商项目，最难的地方也就在于数据库中表的关联，以及多表之间的查询关联，缕清楚表与表之间的关系，才能进行随心所欲的CRUD" class="headerlink" title="一个传统的电商项目，最难的地方也就在于数据库中表的关联，以及多表之间的查询关联，缕清楚表与表之间的关系，才能进行随心所欲的CRUD"></a>一个传统的电商项目，最难的地方也就在于数据库中表的关联，以及多表之间的查询关联，缕清楚表与表之间的关系，才能进行随心所欲的CRUD</h3><ul>
+<li>第一张表：tb_category 商品类目表</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@Id</span><br><span class="line">@GeneratedValue(strategy = GenerationType.IDENTITY)</span><br><span class="line">private Long id;</span><br><span class="line">private String name;//硬件设施，母婴哺乳</span><br><span class="line">//排序序号</span><br><span class="line">private Integer sortOrder;</span><br><span class="line">private Boolean deleted;</span><br><span class="line">@Temporal(TemporalType.TIMESTAMP)</span><br><span class="line">private Date createTime;</span><br><span class="line">@Temporal(TemporalType.TIMESTAMP)</span><br><span class="line">private Date modifyTime;</span><br><span class="line">@ManyToOne(fetch = FetchType.LAZY)</span><br><span class="line">@JoinColumn(name = &quot;parent_id&quot;)</span><br><span class="line">private Category parent;</span><br><span class="line">@JoinColumn(name = &quot;parent_id&quot;)</span><br><span class="line">@OneToMany(fetch = FetchType.LAZY)</span><br><span class="line">private List&lt;Category&gt; children;</span><br><span class="line">private String picUrl;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第二张表：tc_product 商品表(spu)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@Id</span><br><span class="line">@GeneratedValue(strategy = GenerationType.IDENTITY)</span><br><span class="line">private Long id;</span><br><span class="line">//产品名称：手机，电脑，零食</span><br><span class="line">private String name;</span><br><span class="line">private String icon;</span><br><span class="line">private Boolean deleted;</span><br><span class="line">@Temporal(TemporalType.TIMESTAMP)</span><br><span class="line">private Date createTime;</span><br><span class="line">@Temporal(TemporalType.TIMESTAMP)</span><br><span class="line">private Date modifyTime;</span><br><span class="line">@ManyToOne(fetch = FetchType.LAZY)</span><br><span class="line">@JoinColumn(name = &quot;category_id&quot;, nullable = false)</span><br><span class="line">private Category category;</span><br><span class="line">private String brandName;</span><br><span class="line">private Double originalPrice;</span><br><span class="line">private Double promotionPrice;</span><br><span class="line">private Long hitCount;</span><br><span class="line">private Long saleCount;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第三张表：tb_propertyItem 商品规格属性表(sku)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Id</span><br><span class="line">@GeneratedValue(strategy = GenerationType.IDENTITY)</span><br><span class="line">private Long id;</span><br><span class="line">private String name;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第四张表：tb_product_property 商品与商品属性中间表</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@Id</span><br><span class="line">@GeneratedValue(strategy = GenerationType.IDENTITY)</span><br><span class="line">private Long id;</span><br><span class="line"></span><br><span class="line">@ManyToOne</span><br><span class="line">private PropertyItem propertyItem;</span><br><span class="line"></span><br><span class="line">@ManyToOne</span><br><span class="line">private Product product;</span><br><span class="line"></span><br><span class="line">@Column(columnDefinition = &quot;tinyint(1) default 0&quot;)</span><br><span class="line">private Boolean enable;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>贴出商品完整json数据</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;code&quot;: 200,</span><br><span class="line">  &quot;data&quot;: &#123;</span><br><span class="line">    &quot;id&quot;: 1,</span><br><span class="line">    &quot;name&quot;: &quot;纯牛奶脱脂&quot;,</span><br><span class="line">    &quot;title&quot;: null,</span><br><span class="line">    &quot;description&quot;: null,</span><br><span class="line">    &quot;deleted&quot;: false,</span><br><span class="line">    &quot;createTime&quot;: 1562225261000,</span><br><span class="line">    &quot;modifyTime&quot;: 1572516206000,</span><br><span class="line">    &quot;productCategory&quot;: &#123;</span><br><span class="line">      &quot;id&quot;: 14,</span><br><span class="line">      &quot;name&quot;: &quot;伊利&quot;,</span><br><span class="line">      &quot;sortOrder&quot;: 0,</span><br><span class="line">      &quot;deleted&quot;: false,</span><br><span class="line">      &quot;createTime&quot;: 1572311829000,</span><br><span class="line">      &quot;modifyTime&quot;: null,</span><br><span class="line">      &quot;parent&quot;: &#123;</span><br><span class="line">        &quot;id&quot;: 1,</span><br><span class="line">        &quot;name&quot;: &quot;牛奶饮品&quot;,</span><br><span class="line">        &quot;sortOrder&quot;: 0,</span><br><span class="line">        &quot;deleted&quot;: false,</span><br><span class="line">        &quot;createTime&quot;: 1560327336000,</span><br><span class="line">        &quot;modifyTime&quot;: null,</span><br><span class="line">        &quot;parent&quot;: null</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;propertyItems&quot;: [</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;propertyId&quot;: 2,</span><br><span class="line">        &quot;property&quot;: &quot;单位&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;袋&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;propertyId&quot;: 3,</span><br><span class="line">        &quot;property&quot;: &quot;净含量&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;250ml&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;propertyId&quot;: 4,</span><br><span class="line">        &quot;property&quot;: &quot;产地&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;中国安徽大草原&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;propertyId&quot;: 5,</span><br><span class="line">        &quot;property&quot;: &quot;生产日期&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;2019-11-01&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;propertyId&quot;: 6,</span><br><span class="line">        &quot;property&quot;: &quot;保质期&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;低于10°3个月&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;propertyId&quot;: 7,</span><br><span class="line">        &quot;property&quot;: &quot;说明&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;开袋即食，不可直接使用微波炉加热&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;propertyId&quot;: 8,</span><br><span class="line">        &quot;property&quot;: &quot;品牌&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;蒙牛&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;propertyId&quot;: 10,</span><br><span class="line">        &quot;property&quot;: &quot;贮藏条件&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;低温冷藏&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;propertyId&quot;: 11,</span><br><span class="line">        &quot;property&quot;: &quot;配料&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;鲜牛奶&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;propertyId&quot;: 12,</span><br><span class="line">        &quot;property&quot;: &quot;电话&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;021-2313456&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        &quot;propertyId&quot;: 13,</span><br><span class="line">        &quot;property&quot;: &quot;传真&quot;,</span><br><span class="line">        &quot;value&quot;: &quot;021-8673453&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+        
+        <blockquote class="post-copyright">
+            <div class="content">
+               原创作品，允许转载，转载时务必以链接形式标明文章出处、作者信息以及本声明，否则将追究法律责任。<a href="/xdlog/design/电商商品表数据库设计/" target="_blank" rel="external">https://xudongye.github.io/xdlog/design/电商商品表数据库设计/</a>
+            </div>
+            <footer>
+                <a href="https://xudongye.github.io/xdlog">
+                    <img src="/xdlog/img/logo.jpg" alt="大雷小宇">
+                    大雷小宇
+                </a>
+            </footer>
+        </blockquote>
+
+        
+        <div class="post-reward">
+            <a id="rewardBtn" href="javascript:;" class="post-reward-btn waves-effect waves-circle waves-light">赏</a>
+        </div>
+        
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/数据结构设计/">数据结构设计</a></li></ul>
+
+
+            
+            <div class="post-share-wrap">
+                <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+                <a href="javascript:;" id="share-fab" class="post-share-fab waves-effect waves-circle">
+                    <i class="icon icon-share-alt icon-lg"></i>
+                </a>
+            </div>
+            
+
+        </div>
+    </div>   
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/xdlog/linux/CentOs7.4安装nginx-mysql-redis/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Centos7.4安装nginx-mysql-redis</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/xdlog/aihotel/Elasticsearch简介与实战/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Elasticsearch简介与实战</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+    
+
+
+
+</article>
+
+<div id="reward" class="reward-lay">
+    <a class="reward-off" id="rewardOff" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/xdlog/images/reward/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/xdlog/images/reward/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+</div>
+  </main>
+  <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>var BLOG = { ROOT: '/xdlog/' };
+BLOG.SHARE = {
+title: "电商商品表数据库设计",
+pic: "/xdlog/img/logo.jpg",
+summary: document.getElementsByName('summary')[0].content,
+url: "https://xudongye.github.io/xdlog/design/电商商品表数据库设计/" }
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+  <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script src="/xdlog/js/main.min.js?v=1.1.7"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/xdlog/js/search.min.js?v=1.1.7"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

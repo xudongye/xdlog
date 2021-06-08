@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <title>基于docker容器部署superm项目 | lessinthemore | 大道至简</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="商城后台">
+  <meta name="description" content="Docker环境安装 安装yum-utils: 1yum install -y yum-utils device-mapper-persistent-data lvm2  为yum源添加docker仓库位置： 1yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  安装docke">
+<meta name="keywords" content="商城后台">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于docker容器部署superm项目">
+<meta property="og:url" content="https://xudongye.github.io/xdlog/superm/基于docker容器部署superm项目/index.html">
+<meta property="og:site_name" content="lessinthemore">
+<meta property="og:description" content="Docker环境安装 安装yum-utils: 1yum install -y yum-utils device-mapper-persistent-data lvm2  为yum源添加docker仓库位置： 1yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  安装docke">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/refer_screen_74.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/nginxdir.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/nginxdir2.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/refer_screen_75.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/refer_screen_76.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/refer_screen_77.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/refer_screen_78.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/refer_screen_79.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/refer_screen_80.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/eshome.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/kibana.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/dockerenv.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/dockerhost.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/dockerpackage.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/superm/dockerimages.png">
+<meta property="og:updated_time" content="2020-12-18T02:51:05.441Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于docker容器部署superm项目">
+<meta name="twitter:description" content="Docker环境安装 安装yum-utils: 1yum install -y yum-utils device-mapper-persistent-data lvm2  为yum源添加docker仓库位置： 1yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo  安装docke">
+<meta name="twitter:image" content="https://xudongye.github.io/xdlog/images/superm/refer_screen_74.png">
+  
+    <link rel="alternative" href="/atom.xml" title="lessinthemore" type="application/atom+xml">
+  
+  <meta name="summary" content="没有人可以和生活讨价还价。——《风雨哈佛路》">
+  <link rel="shortcut icon" href="/xdlog/favicon.ico">
+  <link rel="stylesheet" href="/xdlog/css/style.css?v=1.1.7">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar"><img src="/xdlog/img/logo.jpg"></a>
+        <hgroup class="introduce">
+          <h5 class="nickname">大雷小宇</h5>
+          <a href="mailto:irememberu_0924@163.com" title="irememberu_0924@163.com" class="mail">irememberu_0924@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/xudongye" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/thanks"  >
+                <i class="icon icon-lg icon-link"></i>
+                致谢
+              </a>
+            </li>
+        
+      </ul>
+
+      <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>lessinthemore &copy; 2021</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+    </div>
+  </div>
+</aside>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">基于docker容器部署superm项目</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container">
+        <h1 class="title">基于docker容器部署superm项目</h1>
+        
+        
+
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Docker环境安装"><span class="post-toc-number">1.</span> <span class="post-toc-text">Docker环境安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Mysql安装"><span class="post-toc-number">2.</span> <span class="post-toc-text">Mysql安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Redis安装"><span class="post-toc-number">3.</span> <span class="post-toc-text">Redis安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx安装"><span class="post-toc-number">4.</span> <span class="post-toc-text">Nginx安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Elasticsearch安装"><span class="post-toc-number">5.</span> <span class="post-toc-text">Elasticsearch安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#kibana安装"><span class="post-toc-number">6.</span> <span class="post-toc-text">kibana安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Mongodb安装"><span class="post-toc-number">7.</span> <span class="post-toc-text">Mongodb安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#至此docker全部环境安装完成"><span class="post-toc-number">8.</span> <span class="post-toc-text">至此docker全部环境安装完成</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用docker-maven-plugin插件构建docker镜像"><span class="post-toc-number">9.</span> <span class="post-toc-text">使用docker-maven-plugin插件构建docker镜像</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-superm/基于docker容器部署superm项目" 
+  class="post-article article-type-post" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">基于docker容器部署superm项目</h1>
+        <div class="post-meta">
+            <time datetime="2020-05-13T02:43:42.000Z" itemprop="datePublished" class="post-time">
+  2020-05-13
+</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
+
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="Docker环境安装"><a href="#Docker环境安装" class="headerlink" title="Docker环境安装"></a>Docker环境安装</h2><ul>
+<li><p>安装yum-utils:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils device-mapper-persistent-data lvm2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>为yum源添加docker仓库位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装docker：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install docker-ce</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动docker：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl start docker</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Mysql安装"><a href="#Mysql安装" class="headerlink" title="Mysql安装"></a>Mysql安装</h2><ul>
+<li><p>下载mysql5.7的docker镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.7</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用docker命令启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 3306:3306 --name mysql \</span><br><span class="line">-v /mydata/mysql/log:/var/log/mysql \</span><br><span class="line">-v /mydata/mysql/data:/var/lib/mysql \</span><br><span class="line">-v /mydata/mysql/conf:/etc/mysql \</span><br><span class="line">-e MYSQL_ROOT_PASSWORD=root  \</span><br><span class="line">-d mysql:5.7</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参数说明</p>
+<ul>
+<li>-p 3306:3306：将容器的3306端口映射到主机的3306端口</li>
+<li>-v /mydata/mysql/conf:/etc/mysql：将配置文件夹挂在到主机</li>
+<li>-v /mydata/mysql/log:/var/log/mysql：将日志文件夹挂载到主机</li>
+<li>-v /mydata/mysql/data:/var/lib/mysql/：将数据文件夹挂载到主机</li>
+<li>-e MYSQL_ROOT_PASSWORD=root：初始化root用户的密码</li>
+</ul>
+</li>
+<li><p>进入运行mysql的docker容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql /bin/bash</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用mysql命令打开客户端：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -proot --default-character-set=utf8</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建mall数据库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database mall character set utf8</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装上传下载插件，并将docment/sql/mall.sql上传到Linux服务器上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install lrzsz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将mall.sql文件拷贝到mysql容器的/目录下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp /mydata/mall.sql mysql:/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将sql文件导入到数据库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use mall;</span><br><span class="line">source /mall.sql;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建一个reader帐号并修改权限，使得任何ip都能访问：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grant all privileges on *.* to &apos;reader&apos; @&apos;%&apos; identified by &apos;123456&apos;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="Redis安装"><a href="#Redis安装" class="headerlink" title="Redis安装"></a>Redis安装</h2><ul>
+<li><p>下载redis3.2的docker镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull redis:3.2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用docker命令启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 6379:6379 --name redis \</span><br><span class="line">-v /mydata/redis/data:/data \</span><br><span class="line">-d redis:3.2 redis-server --appendonly yes</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入redis容器使用redis-cli命令进行连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it redis redis-cli</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="../../images/superm/refer_screen_74.png" alt=""></p>
+<h2 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h2><ul>
+<li><p>下载nginx1.10的docker镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx:1.10</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从容器中拷贝nginx配置</p>
+<ul>
+<li><p>先运行一次容器（为了拷贝配置文件）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 80:80 --name nginx \</span><br><span class="line">-v /mydata/nginx/html:/usr/share/nginx/html \</span><br><span class="line">-v /mydata/nginx/logs:/var/log/nginx  \</span><br><span class="line">-d nginx:1.10</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将容器内的配置文件拷贝到指定目录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container cp nginx:/etc/nginx /mydata/nginx/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改文件名称：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv nginx conf</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="../../images/superm/nginxdir.png" alt=""></p>
+<p><img src="../../images/superm/nginxdir2.png" alt=""></p>
+<ul>
+<li>终止并删除容器：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker stop nginx</span><br><span class="line">docker rm nginx</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>使用docker命令启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 80:80 --name nginx \</span><br><span class="line">-v /mydata/nginx/html:/usr/share/nginx/html \</span><br><span class="line">-v /mydata/nginx/logs:/var/log/nginx  \</span><br><span class="line">-v /mydata/nginx/conf:/etc/nginx \</span><br><span class="line">-d nginx:1.10</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">## RabbitMQ安装</span><br><span class="line"></span><br><span class="line">*   下载rabbitmq3.7.15的docker镜像：</span><br><span class="line">```text</span><br><span class="line">docker pull rabbitmq:3.7.15</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用docker命令启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name rabbitmq \</span><br><span class="line">--publish 5671:5671 --publish 5672:5672 --publish 4369:4369 \</span><br><span class="line">--publish 25672:25672 --publish 15671:15671 --publish 15672:15672 \</span><br><span class="line">rabbitmq:3.7.15</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入容器并开启管理功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it rabbitmq /bin/bash</span><br><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="../../images/superm/refer_screen_75.png" alt=""></p>
+<ul>
+<li>开启防火墙：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=15672/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="../../images/superm/refer_screen_76.png" alt=""></p>
+<ul>
+<li>访问地址查看是否安装成功：<a href="http://106.14.146.164:15672/" target="_blank" rel="noopener">http://106.14.146.164:15672/</a> </li>
+<li>输入账号密码并登录：guest guest</li>
+<li><p>创建帐号并设置其角色为管理员：mall mall<br><img src="../../images/superm/refer_screen_77.png" alt="">  </p>
+</li>
+<li><p>创建一个新的虚拟host为：/mall<br><img src="../../images/superm/refer_screen_78.png" alt=""></p>
+</li>
+<li><p>点击mall用户进入用户配置页面<br><img src="../../images/superm/refer_screen_79.png" alt="">  </p>
+</li>
+<li><p>给mall用户配置该虚拟host的权限<br><img src="../../images/superm/refer_screen_80.png" alt=""> </p>
+</li>
+</ul>
+<h2 id="Elasticsearch安装"><a href="#Elasticsearch安装" class="headerlink" title="Elasticsearch安装"></a>Elasticsearch安装</h2><ul>
+<li><p>下载elasticsearch6.4.0的docker镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull elasticsearch:6.4.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改虚拟内存区域大小，否则会因为过小而无法启动:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w vm.max_map_count=262144</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用docker命令启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 9200:9200 -p 9300:9300 --name elasticsearch \</span><br><span class="line">-e &quot;ES_JAVA_OPTS=-Xms256m -Xmx256m&quot; \</span><br><span class="line">-e &quot;discovery.type=single-node&quot; \</span><br><span class="line">-e &quot;cluster.name=elasticsearch&quot; \</span><br><span class="line">-v /mydata/elasticsearch/plugins:/usr/share/elasticsearch/plugins \</span><br><span class="line">-v /mydata/elasticsearch/data:/usr/share/elasticsearch/data \</span><br><span class="line">-d elasticsearch:6.4.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动时会发现/usr/share/elasticsearch/data目录没有访问权限，只需要修改/mydata/elasticsearch/data目录的权限，再重新启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 /mydata/elasticsearch/data/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装中文分词器IKAnalyzer，并重新启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it elasticsearch /bin/bash</span><br><span class="line">#此命令需要在容器中运行</span><br><span class="line">elasticsearch-plugin install https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.4.0/elasticsearch-analysis-ik-6.4.0.zip</span><br><span class="line">docker restart elasticsearch</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启防火墙：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=9200/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>访问<a href="http://106.14.146.164:9200/" target="_blank" rel="noopener">http://106.14.146.164:9200/</a><br><img src="../../images/superm/eshome.png" alt=""></p>
+</li>
+</ul>
+<h2 id="kibana安装"><a href="#kibana安装" class="headerlink" title="kibana安装"></a>kibana安装</h2><ul>
+<li><p>下载kibana6.4.0的docker镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull kibana:6.4.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用docker命令启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run --name kibana -p 5601:5601 \</span><br><span class="line">--link elasticsearch:es \</span><br><span class="line">-e &quot;elasticsearch.hosts=http://106.14.146.164:9200&quot; \</span><br><span class="line">-d kibana:6.4.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开启防火墙：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --zone=public --add-port=5601/tcp --permanent</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>访问<a href="http://106.14.146.164:5601/" target="_blank" rel="noopener">http://106.14.146.164:5601/</a><br><img src="../../images/superm/kibana.png" alt=""></p>
+</li>
+</ul>
+<h2 id="Mongodb安装"><a href="#Mongodb安装" class="headerlink" title="Mongodb安装"></a>Mongodb安装</h2><ul>
+<li><p>下载mongo3.2的docker镜像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mongo:3.2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用docker命令启动：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 27017:27017 --name mongo \</span><br><span class="line">-v /mydata/mongo/db:/data/db \</span><br><span class="line">-d mongo:3.2</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="至此docker全部环境安装完成"><a href="#至此docker全部环境安装完成" class="headerlink" title="至此docker全部环境安装完成"></a>至此docker全部环境安装完成</h2><p><img src="../../images/superm/dockerenv.png" alt=""></p>
+<h2 id="使用docker-maven-plugin插件构建docker镜像"><a href="#使用docker-maven-plugin插件构建docker镜像" class="headerlink" title="使用docker-maven-plugin插件构建docker镜像"></a>使用docker-maven-plugin插件构建docker镜像</h2><ul>
+<li><p>Dockerfile方式构建</p>
+<ol>
+<li>配置本机DOCKER_HOST环境变量<br><img src="../../images/superm/dockerhost.png" alt=""></li>
+<li>pom配置<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">        &lt;plugins&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;com.spotify&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;docker-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;$&#123;docker.maven.plugin.version&#125;&lt;/version&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;id&gt;build-image&lt;/id&gt;</span><br><span class="line">                        &lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;build&lt;/goal&gt;</span><br><span class="line">                        &lt;/goals&gt;</span><br><span class="line">                    &lt;/execution&gt;</span><br><span class="line">                &lt;/executions&gt;</span><br><span class="line">                &lt;configuration&gt;</span><br><span class="line">                    &lt;imageName&gt;superm/$&#123;project.artifactId&#125;:$&#123;project.version&#125;&lt;/imageName&gt;</span><br><span class="line">                    &lt;dockerHost&gt;$&#123;docker.host&#125;&lt;/dockerHost&gt;</span><br><span class="line">                    &lt;dockerDirectory&gt;$&#123;project.basedir&#125;/src/main/docker&lt;/dockerDirectory&gt;</span><br><span class="line">                    &lt;resources&gt;</span><br><span class="line">                        &lt;resource&gt;</span><br><span class="line">                            &lt;targetPath&gt;/&lt;/targetPath&gt;</span><br><span class="line">                            &lt;directory&gt;$&#123;project.build.directory&#125;&lt;/directory&gt;</span><br><span class="line">                            &lt;include&gt;$&#123;project.build.finalName&#125;.jar&lt;/include&gt;</span><br><span class="line">                        &lt;/resource&gt;</span><br><span class="line">                    &lt;/resources&gt;</span><br><span class="line">                &lt;/configuration&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">        &lt;/plugins&gt;</span><br><span class="line">    &lt;/build&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>3.Dockerfile配置</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 该镜像需要依赖的基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> java:<span class="number">8</span></span><br><span class="line"><span class="comment"># 将当前目录下的jar包复制到docker容器的/目录下</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> superm-admin-1.0-SNAPSHOT.jar /superm-admin.jar</span></span><br><span class="line"><span class="bash"><span class="comment"># 运行过程中创建一个superm-admin.jar文件</span></span></span><br><span class="line"><span class="bash">RUN bash -c <span class="string">'touch /superm-admin.jar'</span></span></span><br><span class="line"><span class="bash"><span class="comment"># 声明服务运行在8080端口</span></span></span><br><span class="line"><span class="bash">EXPOSE 8080</span></span><br><span class="line"><span class="bash"><span class="comment"># 指定docker容器启动时运行jar包</span></span></span><br><span class="line"><span class="bash">ENTRYPOINT [<span class="string">"java"</span>, <span class="string">"-jar"</span>,<span class="string">"/superm-admin.jar"</span>]</span></span><br><span class="line"><span class="bash"><span class="comment"># 指定维护者的名字</span></span></span><br><span class="line"><span class="bash">MAINTAINER xudongye</span></span><br></pre></td></tr></table></figure>
+<p>4.运行mvn打包指令<br><img src="../../images/superm/dockerpackage.png" alt=""><br>5.查看docker镜像<br><img src="../../images/superm/dockerimages.png" alt=""><br>5.运行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 8080:8080 \</span><br><span class="line">--name superm-admin \</span><br><span class="line">--link mysql:106.14.146.164 \</span><br><span class="line">--link redis:106.14.146.164 \</span><br><span class="line">-v /etc/localtime:/etc/localtime \</span><br><span class="line">-v /mydata/app/admin/logs:/var/logs \</span><br><span class="line">-d superm/superm-admin:1.0-SNAPSHOT</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+        </div>
+        
+        <blockquote class="post-copyright">
+            <div class="content">
+               原创作品，允许转载，转载时务必以链接形式标明文章出处、作者信息以及本声明，否则将追究法律责任。<a href="/xdlog/superm/基于docker容器部署superm项目/" target="_blank" rel="external">https://xudongye.github.io/xdlog/superm/基于docker容器部署superm项目/</a>
+            </div>
+            <footer>
+                <a href="https://xudongye.github.io/xdlog">
+                    <img src="/xdlog/img/logo.jpg" alt="大雷小宇">
+                    大雷小宇
+                </a>
+            </footer>
+        </blockquote>
+
+        
+        <div class="post-reward">
+            <a id="rewardBtn" href="javascript:;" class="post-reward-btn waves-effect waves-circle waves-light">赏</a>
+        </div>
+        
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/商城后台/">商城后台</a></li></ul>
+
+
+            
+            <div class="post-share-wrap">
+                <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+                <a href="javascript:;" id="share-fab" class="post-share-fab waves-effect waves-circle">
+                    <i class="icon icon-share-alt icon-lg"></i>
+                </a>
+            </div>
+            
+
+        </div>
+    </div>   
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/xdlog/texin/docker安装mysql-redis-activemq-nginx并挂载配置宿主机/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">centos7.4 部署 docker，nginx, mysql,redis,activemq</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/xdlog/aihotel/支付宝多租户模式下支付功能实现/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">支付宝多租户模式下支付功能实现</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+    
+
+
+
+</article>
+
+<div id="reward" class="reward-lay">
+    <a class="reward-off" id="rewardOff" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/xdlog/images/reward/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/xdlog/images/reward/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+</div>
+  </main>
+  <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>var BLOG = { ROOT: '/xdlog/' };
+BLOG.SHARE = {
+title: "基于docker容器部署superm项目",
+pic: "/xdlog/img/logo.jpg",
+summary: document.getElementsByName('summary')[0].content,
+url: "https://xudongye.github.io/xdlog/superm/基于docker容器部署superm项目/" }
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+  <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script src="/xdlog/js/main.min.js?v=1.1.7"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/xdlog/js/search.min.js?v=1.1.7"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

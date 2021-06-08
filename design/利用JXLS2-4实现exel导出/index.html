@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <title>利用JXLS2.4实现exel导出 | lessinthemore | 大道至简</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="JXLS">
+  <meta name="description" content="java集成jxls实现Excle导出功能 项目需求(场景描述)：酒店租用智能生成设备佣金账单  酒店安装智能设备后，设备每5分钟上报一次状态信息，后台接到上报信息之后并缓存下设备连续在线时间 连续在线(duration)满4小时(timeInterval = currentTime-lastReportTime &amp;gt;= 10min,duration=0)，记录一笔设备使用佣金 每一个酒店or">
+<meta name="keywords" content="JXLS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用JXLS2.4实现exel导出">
+<meta property="og:url" content="https://xudongye.github.io/xdlog/design/利用JXLS2-4实现exel导出/index.html">
+<meta property="og:site_name" content="lessinthemore">
+<meta property="og:description" content="java集成jxls实现Excle导出功能 项目需求(场景描述)：酒店租用智能生成设备佣金账单  酒店安装智能设备后，设备每5分钟上报一次状态信息，后台接到上报信息之后并缓存下设备连续在线时间 连续在线(duration)满4小时(timeInterval = currentTime-lastReportTime &amp;gt;= 10min,duration=0)，记录一笔设备使用佣金 每一个酒店or">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/jxls_temp.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/hotel_info.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/hotel_tv.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/hotel_network.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/hotel_elec.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/hotel_cur.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/hotel_vrv.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/jxls_temp_zhushi.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/jxls_room_args.png">
+<meta property="og:image" content="https://xudongye.github.io/xdlog/images/algorithm/image_2byte.png">
+<meta property="og:updated_time" content="2020-12-18T02:51:05.409Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用JXLS2.4实现exel导出">
+<meta name="twitter:description" content="java集成jxls实现Excle导出功能 项目需求(场景描述)：酒店租用智能生成设备佣金账单  酒店安装智能设备后，设备每5分钟上报一次状态信息，后台接到上报信息之后并缓存下设备连续在线时间 连续在线(duration)满4小时(timeInterval = currentTime-lastReportTime &amp;gt;= 10min,duration=0)，记录一笔设备使用佣金 每一个酒店or">
+<meta name="twitter:image" content="https://xudongye.github.io/xdlog/images/algorithm/jxls_temp.png">
+  
+    <link rel="alternative" href="/atom.xml" title="lessinthemore" type="application/atom+xml">
+  
+  <meta name="summary" content="没有人可以和生活讨价还价。——《风雨哈佛路》">
+  <link rel="shortcut icon" href="/xdlog/favicon.ico">
+  <link rel="stylesheet" href="/xdlog/css/style.css?v=1.1.7">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar"><img src="/xdlog/img/logo.jpg"></a>
+        <hgroup class="introduce">
+          <h5 class="nickname">大雷小宇</h5>
+          <a href="mailto:irememberu_0924@163.com" title="irememberu_0924@163.com" class="mail">irememberu_0924@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/xudongye" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/thanks"  >
+                <i class="icon icon-lg icon-link"></i>
+                致谢
+              </a>
+            </li>
+        
+      </ul>
+
+      <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>lessinthemore &copy; 2021</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+    </div>
+  </div>
+</aside>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">利用JXLS2.4实现exel导出</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container">
+        <h1 class="title">利用JXLS2.4实现exel导出</h1>
+        
+        
+
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#java集成jxls实现Excle导出功能"><span class="post-toc-number">1.</span> <span class="post-toc-text">java集成jxls实现Excle导出功能</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jxls多sheet导出"><span class="post-toc-number">2.</span> <span class="post-toc-text">jxls多sheet导出</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-design/利用JXLS2-4实现exel导出" 
+  class="post-article article-type-post" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">利用JXLS2.4实现exel导出</h1>
+        <div class="post-meta">
+            <time datetime="2019-12-27T06:11:24.000Z" itemprop="datePublished" class="post-time">
+  2019-12-27
+</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/excel/">excel</a></li></ul>
+
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="java集成jxls实现Excle导出功能"><a href="#java集成jxls实现Excle导出功能" class="headerlink" title="java集成jxls实现Excle导出功能"></a>java集成jxls实现Excle导出功能</h3><ul>
+<li><p>项目需求(场景描述)：酒店租用智能生成设备佣金账单</p>
+<ul>
+<li>酒店安装智能设备后，设备每5分钟上报一次状态信息，后台接到上报信息之后并缓存下设备连续在线时间</li>
+<li>连续在线(duration)满4小时(timeInterval = currentTime-lastReportTime &gt;= 10min,duration=0)，记录一笔设备使用佣金</li>
+<li>每一个酒店organization,不同房间设备在同时上报</li>
+<li>账单范围以及单笔账单归属日期，以开始时间(startTime)为参考值,条件：startTime &gt; 12:00,则todayDate - 1 day(即startTime=2019-12-27 11:59:59,则此笔账单recordDate=2019-12-26)。</li>
+<li>账单周期(周（每周二凌晨2点统计一次上周账单），月（每月2号凌晨2点统计一次上月账单）)starDate-endDate</li>
+</ul>
+</li>
+<li><p>回归正题，集成jxls,maven项目为例</p>
+<ul>
+<li><p>依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jxls<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jxls<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jxls<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jxls-poi<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.9<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jxls<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jxls-jexcel<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> yexudong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/1/11 16:23</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BillExcelExport</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String templateFileName = <span class="string">"D:\\yc_learn_project\\jxls\\jxls-examples\\src\\main\\resources\\templates\\对账单.xlsx"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String destFileName = <span class="string">"D:\\var\\yangchun_对账单.xlsx"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ParsePropertyException, InvalidFormatException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (args.length &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">            templateFileName = args[<span class="number">0</span>];</span><br><span class="line">            destFileName = args[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        YoungchAccount account = <span class="keyword">new</span> YoungchAccount(<span class="string">"阳淳股份"</span>, <span class="string">"123245335345346"</span>, <span class="string">"中国银行"</span>);</span><br><span class="line"></span><br><span class="line">        BillStat billStat = <span class="keyword">new</span> BillStat(<span class="string">"演示箱"</span>, <span class="number">1000.0</span>D, <span class="string">"231234"</span>, <span class="number">1</span>D, <span class="string">"2018-12-31"</span>, <span class="string">"2019-01-06"</span>, <span class="number">1000.0</span>D, <span class="string">"2018-01-07 02:00:00"</span>, <span class="number">1</span>);</span><br><span class="line">        BillDepartment department = <span class="keyword">new</span> BillDepartment(<span class="string">"阳淳财务对账单"</span>, account, billStat);</span><br><span class="line">        department.addRecord(<span class="keyword">new</span> BillRecordDetail(<span class="string">"s213aeqwdhb123123"</span>, <span class="string">"101"</span>, <span class="string">"2018-12-31 12:00:00"</span>, <span class="string">"2019-01-01"</span>, <span class="number">1</span>, <span class="number">12.0</span>, <span class="number">12.0</span>, <span class="string">"device"</span>));</span><br><span class="line">        department.addRecord(<span class="keyword">new</span> BillRecordDetail(<span class="string">"s213aeqwdhb123123"</span>, <span class="string">"101"</span>, <span class="string">"2018-12-31 12:00:00"</span>, <span class="string">"2019-01-01"</span>, <span class="number">1</span>, <span class="number">12.0</span>, <span class="number">12.0</span>, <span class="string">"device"</span>));</span><br><span class="line">        department.addRecord(<span class="keyword">new</span> BillRecordDetail(<span class="string">"s213aeqwdhb123123"</span>, <span class="string">"101"</span>, <span class="string">"2018-12-31 12:00:00"</span>, <span class="string">"2019-01-01"</span>, <span class="number">1</span>, <span class="number">12.0</span>, <span class="number">12.0</span>, <span class="string">"device"</span>));</span><br><span class="line">        department.addRecord(<span class="keyword">new</span> BillRecordDetail(<span class="string">"s213aeqwdhb123123"</span>, <span class="string">"101"</span>, <span class="string">"2018-12-31 12:00:00"</span>, <span class="string">"2019-01-01"</span>, <span class="number">1</span>, <span class="number">12.0</span>, <span class="number">12.0</span>, <span class="string">"device"</span>));</span><br><span class="line">        department.addRecord(<span class="keyword">new</span> BillRecordDetail(<span class="string">"s213aeqwdhb123123"</span>, <span class="string">"101"</span>, <span class="string">"2018-12-31 12:00:00"</span>, <span class="string">"2019-01-01"</span>, <span class="number">1</span>, <span class="number">12.0</span>, <span class="number">12.0</span>, <span class="string">"device"</span>));</span><br><span class="line">        department.addRecord(<span class="keyword">new</span> BillRecordDetail(<span class="string">"s213aeqwdhb123123"</span>, <span class="string">"101"</span>, <span class="string">"2018-12-31 12:00:00"</span>, <span class="string">"2019-01-01"</span>, <span class="number">1</span>, <span class="number">12.0</span>, <span class="number">12.0</span>, <span class="string">"device"</span>));</span><br><span class="line">        Map beans = <span class="keyword">new</span> HashMap();</span><br><span class="line">        beans.put(<span class="string">"bill"</span>, department);</span><br><span class="line">        writeExcel(beans, destFileName, templateFileName);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">writeExcel</span><span class="params">(Map beans, String destFileName, String templateFileName)</span> <span class="keyword">throws</span> IOException, InvalidFormatException </span>&#123;</span><br><span class="line"></span><br><span class="line">        XLSTransformer transformer = <span class="keyword">new</span> XLSTransformer();</span><br><span class="line"><span class="comment">//        transformer.registerRowProcessor(new StyleRowProcessor("bill.records"));</span></span><br><span class="line">        transformer.transformXLS(templateFileName, beans, destFileName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ApiOperation</span>(</span><br><span class="line">        value = <span class="string">"管理员生成周期账单明细excel表单"</span>,</span><br><span class="line">        notes = <span class="string">"生成周期账单"</span>,</span><br><span class="line">        response = ApiResponseBody.class</span><br><span class="line">)</span><br><span class="line"><span class="meta">@ApiImplicitParam</span>(name = <span class="string">"u_id"</span>, value = <span class="string">"调试模式"</span>, paramType = <span class="string">"query"</span>, dataType = <span class="string">"String"</span>, defaultValue = <span class="string">"1"</span>)</span><br><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/period-excel"</span>, method = RequestMethod.GET)</span><br><span class="line"><span class="meta">@UserAuthenticationRequired</span>(</span><br><span class="line">        needPermission = &#123;RoleConstants.Permissions.CREATE_UPDATE_ONLY&#125;,</span><br><span class="line">        doLog = <span class="keyword">true</span>,</span><br><span class="line">        moduleName = <span class="string">"bill"</span>,</span><br><span class="line">        operateType = <span class="string">"get"</span>,</span><br><span class="line">        description = <span class="string">"生成对账单#&#123;#billId&#125;excel"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ResponseEntity <span class="title">getExcel</span><span class="params">(HttpServletRequest request, HttpServletResponse response, UserAccessToken uat,</span></span></span><br><span class="line"><span class="function"><span class="params">                               @RequestParam String billId)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    ApiResponseBody&lt;String&gt; apiResponseBody = <span class="keyword">new</span> ApiResponseBody&lt;&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//导出数据bean</span></span><br><span class="line">        BillDepartment department = billDepartment(billId);</span><br><span class="line">        Map beans = <span class="keyword">new</span> HashMap();</span><br><span class="line">        beans.put(<span class="string">"bill"</span>, department);</span><br><span class="line">        String destFileName = simpleDateFormat.format(<span class="keyword">new</span> Date()) + fileName.replace(<span class="string">"&#123;&#123;orgName&#125;&#125;"</span>, department.getBillStat().getOrgName());</span><br><span class="line">        <span class="comment">//模板路径</span></span><br><span class="line">        String templateFileName = delegate.getConfiguration().getFile().getExcelPath() + <span class="string">"bill_template.xlsx"</span>;</span><br><span class="line">        BillExcelExport.writeExcel(beans,</span><br><span class="line">                delegate.getConfiguration().getFile().getExcelPath() + destFileName,</span><br><span class="line">                templateFileName);</span><br><span class="line">        <span class="comment">//拼装excel网络路径</span></span><br><span class="line">        String excelUrl = delegate.getConfiguration().getFile().</span><br><span class="line">                getUrlPrefix().replace(<span class="string">"&#123;&#123;media&#125;&#125;"</span>, <span class="string">"excel"</span>) + destFileName;</span><br><span class="line">        billService.updateExcelUrl(billId, excelUrl);</span><br><span class="line">        apiResponseBody.setCode(<span class="number">200</span>);</span><br><span class="line">        apiResponseBody.setMessage(<span class="string">"success!"</span>);</span><br><span class="line">        apiResponseBody.setData(excelUrl);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IllegalArgumentException ie) &#123;</span><br><span class="line">        apiResponseBody.setCode(<span class="number">400</span>);</span><br><span class="line">        apiResponseBody.setMessage(ie.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ResponseEntity(apiResponseBody, HttpStatus.OK);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>excel模板<br><img src="../../images/algorithm/jxls_temp.png" alt=""></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="jxls多sheet导出"><a href="#jxls多sheet导出" class="headerlink" title="jxls多sheet导出"></a>jxls多sheet导出</h3><ul>
+<li><p>智能酒店安装设备流程之勘店</p>
+<ul>
+<li>在成为智能酒店设备之前，实地勘察酒店环境是非常有必要的</li>
+<li><p>勘店内容划分为：</p>
+<ul>
+<li>酒店基本信息<br><img src="../../images/algorithm/hotel_info.png" alt=""></li>
+<li>电视部分<br><img src="../../images/algorithm/hotel_tv.png" alt=""></li>
+<li>网络部分<br><img src="../../images/algorithm/hotel_network.png" alt=""></li>
+<li>强电部分<br><img src="../../images/algorithm/hotel_elec.png" alt=""></li>
+<li>窗帘部分<br><img src="../../images/algorithm/hotel_cur.png" alt=""></li>
+<li>空调部分<br><img src="../../images/algorithm/hotel_vrv.png" alt=""></li>
+</ul>
+</li>
+<li><p>模板批注才是精髓<br><img src="../../images/algorithm/jxls_temp_zhushi.png" alt=""></p>
+</li>
+<li><p>代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> yexudong</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2019/9/10 10:02</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JxlsUtils</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">//添加自定义指令（可覆盖jxls原指令）</span></span><br><span class="line">        XlsCommentAreaBuilder.addCommandMapping(<span class="string">"image"</span>, ImageCommand.class);</span><br><span class="line">        XlsCommentAreaBuilder.addCommandMapping(<span class="string">"each"</span>, EachCommand.class);</span><br><span class="line">        XlsCommentAreaBuilder.addCommandMapping(<span class="string">"merge"</span>, MergeCommand.class);</span><br><span class="line">        XlsCommentAreaBuilder.addCommandMapping(<span class="string">"link"</span>, LinkCommand.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">exportExcel</span><span class="params">(InputStream is, OutputStream os, Map&lt;String, Object&gt;</span></span></span><br><span class="line"><span class="function"><span class="params">            model)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Context context = PoiTransformer.createInitialContext();</span><br><span class="line">        <span class="keyword">if</span> (model != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (Map.Entry&lt;String, Object&gt; entry : model.entrySet()) &#123;</span><br><span class="line">                context.putVar(entry.getKey(), entry.getValue());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        JxlsHelper jxlsHelper = JxlsHelper.getInstance();</span><br><span class="line">        Transformer transformer = jxlsHelper.createTransformer(is, os);</span><br><span class="line">        <span class="comment">//获得配置</span></span><br><span class="line">        JexlExpressionEvaluator evaluator = (JexlExpressionEvaluator) transformer.getTransformationConfig().getExpressionEvaluator();</span><br><span class="line">        <span class="comment">//设置静默模式，不报警告</span></span><br><span class="line">        evaluator.getJexlEngine().setSilent(<span class="keyword">true</span>);</span><br><span class="line">        <span class="comment">//函数强制，自定义功能</span></span><br><span class="line">        Map&lt;String, Object&gt; funcs = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">        funcs.put(<span class="string">"jx"</span>, <span class="keyword">new</span> JxlsUtils());    <span class="comment">//添加自定义功能</span></span><br><span class="line">        evaluator.getJexlEngine().setFunctions(funcs);</span><br><span class="line">        <span class="comment">//必须要这个，否者表格函数统计会错乱</span></span><br><span class="line">        jxlsHelper.setUseFastFormulaProcessor(<span class="keyword">false</span>).processTemplate(context, transformer);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">exportExcel</span><span class="params">(File xls, File out, Map&lt;String, Object&gt; model)</span> <span class="keyword">throws</span> FileNotFoundException, IOException </span>&#123;</span><br><span class="line">        exportExcel(<span class="keyword">new</span> FileInputStream(xls), <span class="keyword">new</span> FileOutputStream(out), model);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">exportExcel</span><span class="params">(String templatePath, OutputStream os, Map&lt;String, Object&gt; model)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        File template = getTemplate(templatePath);</span><br><span class="line">        <span class="keyword">if</span> (template != <span class="keyword">null</span>) &#123;</span><br><span class="line">            exportExcel(<span class="keyword">new</span> FileInputStream(template), os, model);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Exception(<span class="string">"Excel 模板未找到。"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取jxls模版文件</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> File <span class="title">getTemplate</span><span class="params">(String path)</span> </span>&#123;</span><br><span class="line">        File template = <span class="keyword">new</span> File(path);</span><br><span class="line">        <span class="keyword">if</span> (template.exists()) &#123;</span><br><span class="line">            <span class="keyword">return</span> template;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 日期格式化</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">dateFmt</span><span class="params">(Date date, String fmt)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (date == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            SimpleDateFormat dateFmt = <span class="keyword">new</span> SimpleDateFormat(fmt);</span><br><span class="line">            <span class="keyword">return</span> dateFmt.format(date);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// if判断</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">ifelse</span><span class="params">(<span class="keyword">boolean</span> b, Object o1, Object o2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> b ? o1 : o2;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 图片转为byte数组</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> path</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">byte</span>[] image2byte(String path) &#123;</span><br><span class="line">        <span class="keyword">byte</span>[] data = <span class="keyword">null</span>;</span><br><span class="line">        URL url = <span class="keyword">null</span>;</span><br><span class="line">        InputStream input = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            url = <span class="keyword">new</span> URL(path);</span><br><span class="line">            HttpURLConnection httpUrl = (HttpURLConnection) url.openConnection();</span><br><span class="line">            httpUrl.connect();</span><br><span class="line">            httpUrl.getInputStream();</span><br><span class="line">            input = httpUrl.getInputStream();</span><br><span class="line">            ByteArrayOutputStream output = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">            <span class="keyword">byte</span>[] buf = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="keyword">int</span> numBytesRead = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> ((numBytesRead = input.read(buf)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                output.write(buf, <span class="number">0</span>, numBytesRead);</span><br><span class="line">            &#125;</span><br><span class="line">            data = output.toByteArray();</span><br><span class="line">            output.close();</span><br><span class="line">            input.close();</span><br><span class="line">            <span class="keyword">return</span> data;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> String <span class="title">createExcel</span><span class="params">(CollectExcelBean excelBean)</span> </span>&#123;</span><br><span class="line">        String excelUrl = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String destFileName = fileName.replace(<span class="string">"&#123;&#123;hotelName&#125;&#125;"</span>, excelBean.getHotelName())</span><br><span class="line">                    .replace(<span class="string">"&#123;&#123;roomNo&#125;&#125;"</span>, excelBean.getRoom().getRoomNo())</span><br><span class="line">                    .replace(<span class="string">"&#123;&#123;timestamp&#125;&#125;"</span>, String.valueOf(System.currentTimeMillis()));</span><br><span class="line">            String templatePath = delegate.getConfiguration().getFile().getExcelPath() + <span class="string">"collect_template.xlsx"</span>;</span><br><span class="line">            LOGGER.info(<span class="string">"template excel dest file path: &#123;&#125; "</span>, templatePath);</span><br><span class="line">            Map&lt;String, Object&gt; data = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">            data.put(<span class="string">"collect"</span>, excelBean);</span><br><span class="line">            OutputStream os = <span class="keyword">new</span> FileOutputStream(delegate.getConfiguration().getFile().getExcelPath() + destFileName);</span><br><span class="line">            <span class="comment">//调用封装的工具类，传入模板路径，输出流，和装有数据的Map,按照模板导出</span></span><br><span class="line">            JxlsUtils.exportExcel(templatePath, os, data);</span><br><span class="line">            os.close();</span><br><span class="line">            excelUrl = delegate.getConfiguration().getFile().</span><br><span class="line">                    getUrlPrefix().replace(<span class="string">"&#123;&#123;media&#125;&#125;"</span>, <span class="string">"excel"</span>) + destFileName;</span><br><span class="line">            excelBean.setExcelUrl(excelUrl);</span><br><span class="line">            LOGGER.info(<span class="string">"excel dest file &#123;&#125; generate new excel &#123;&#125; success!"</span>, destFileName, excelUrl);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">            LOGGER.error(<span class="string">" excel generate failure! reason :&#123;&#125;"</span>, e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> excelUrl;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实体部分参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CollectExcelBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String excelUrl;</span><br><span class="line">    <span class="keyword">private</span> String exportPerson;</span><br><span class="line">    <span class="keyword">private</span> Long exportPersonId;</span><br><span class="line">    <span class="keyword">private</span> String hotelName;</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line">    <span class="comment">//施工房间数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> roomCount;</span><br><span class="line">    <span class="comment">//酒店总房间数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> roomTotalCount;</span><br><span class="line">    <span class="keyword">private</span> String pmsName;</span><br><span class="line">    <span class="comment">//对接人</span></span><br><span class="line">    <span class="keyword">private</span> String pmsMan;</span><br><span class="line">    <span class="comment">//服务器，局域网，云端</span></span><br><span class="line">    <span class="keyword">private</span> String pmsServer;</span><br><span class="line">    <span class="comment">//房间信息</span></span><br><span class="line">    <span class="keyword">private</span> RoomBean room;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> TvBean tv;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> NetworkBean network;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> CurtainBean curtain;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> VrvBean vrv;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ElecBean elec;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ElecBean <span class="title">getElec</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> elec;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setElec</span><span class="params">(ElecBean elec)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.elec = elec;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> VrvBean <span class="title">getVrv</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> vrv;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setVrv</span><span class="params">(VrvBean vrv)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.vrv = vrv;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CurtainBean <span class="title">getCurtain</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> curtain;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setCurtain</span><span class="params">(CurtainBean curtain)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.curtain = curtain;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> NetworkBean <span class="title">getNetwork</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> network;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNetwork</span><span class="params">(NetworkBean network)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.network = network;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TvBean <span class="title">getTv</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> tv;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTv</span><span class="params">(TvBean tv)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.tv = tv;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getExcelUrl</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> excelUrl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setExcelUrl</span><span class="params">(String excelUrl)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.excelUrl = excelUrl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getExportPerson</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> exportPerson;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setExportPerson</span><span class="params">(String exportPerson)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.exportPerson = exportPerson;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Long <span class="title">getExportPersonId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> exportPersonId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setExportPersonId</span><span class="params">(Long exportPersonId)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.exportPersonId = exportPersonId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getHotelName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> hotelName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHotelName</span><span class="params">(String hotelName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.hotelName = hotelName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getAddress</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> address;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAddress</span><span class="params">(String address)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.address = address;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getRoomCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> roomCount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRoomCount</span><span class="params">(<span class="keyword">int</span> roomCount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.roomCount = roomCount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getRoomTotalCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> roomTotalCount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRoomTotalCount</span><span class="params">(<span class="keyword">int</span> roomTotalCount)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.roomTotalCount = roomTotalCount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPmsName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> pmsName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPmsName</span><span class="params">(String pmsName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.pmsName = pmsName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPmsMan</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> pmsMan;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPmsMan</span><span class="params">(String pmsMan)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.pmsMan = pmsMan;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getPmsServer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> pmsServer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPmsServer</span><span class="params">(String pmsServer)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.pmsServer = pmsServer;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RoomBean <span class="title">getRoom</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> room;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setRoom</span><span class="params">(RoomBean room)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.room = room;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>图片属性<br><img src="../../images/algorithm/jxls_room_args.png" alt=""></p>
+</li>
+<li>图片链接一定要转成byte[],否则无法显示<br><img src="../../images/algorithm/image_2byte.png" alt=""></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        
+        <blockquote class="post-copyright">
+            <div class="content">
+               原创作品，允许转载，转载时务必以链接形式标明文章出处、作者信息以及本声明，否则将追究法律责任。<a href="/xdlog/design/利用JXLS2-4实现exel导出/" target="_blank" rel="external">https://xudongye.github.io/xdlog/design/利用JXLS2-4实现exel导出/</a>
+            </div>
+            <footer>
+                <a href="https://xudongye.github.io/xdlog">
+                    <img src="/xdlog/img/logo.jpg" alt="大雷小宇">
+                    大雷小宇
+                </a>
+            </footer>
+        </blockquote>
+
+        
+        <div class="post-reward">
+            <a id="rewardBtn" href="javascript:;" class="post-reward-btn waves-effect waves-circle waves-light">赏</a>
+        </div>
+        
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/JXLS/">JXLS</a></li></ul>
+
+
+            
+            <div class="post-share-wrap">
+                <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+                <a href="javascript:;" id="share-fab" class="post-share-fab waves-effect waves-circle">
+                    <i class="icon icon-share-alt icon-lg"></i>
+                </a>
+            </div>
+            
+
+        </div>
+    </div>   
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/xdlog/aihotel/支付宝多租户模式下支付功能实现/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">支付宝多租户模式下支付功能实现</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/xdlog/algorithm/利用DFA算法实现敏感词过滤/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">利用DFA算法实现敏感词过滤</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+    
+
+
+
+</article>
+
+<div id="reward" class="reward-lay">
+    <a class="reward-off" id="rewardOff" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/xdlog/images/reward/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/xdlog/images/reward/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+</div>
+  </main>
+  <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>var BLOG = { ROOT: '/xdlog/' };
+BLOG.SHARE = {
+title: "利用JXLS2.4实现exel导出",
+pic: "/xdlog/img/logo.jpg",
+summary: document.getElementsByName('summary')[0].content,
+url: "https://xudongye.github.io/xdlog/design/利用JXLS2-4实现exel导出/" }
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+  <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script src="/xdlog/js/main.min.js?v=1.1.7"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/xdlog/js/search.min.js?v=1.1.7"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

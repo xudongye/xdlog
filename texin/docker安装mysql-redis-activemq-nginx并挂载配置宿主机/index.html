@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+  <title>centos7.4 部署 docker，nginx, mysql,redis,activemq | lessinthemore | 大道至简</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="微联电召">
+  <meta name="description" content="mysql1234567891011121314151617181920212223242526272829303132333435363738394041#安装dockerdocker pull mysql#先启动docker run --name mysql -p 4148:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql#注意：my.cnf得从docker">
+<meta name="keywords" content="微联电召">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos7.4 部署 docker，nginx, mysql,redis,activemq">
+<meta property="og:url" content="https://xudongye.github.io/xdlog/texin/docker安装mysql-redis-activemq-nginx并挂载配置宿主机/index.html">
+<meta property="og:site_name" content="lessinthemore">
+<meta property="og:description" content="mysql1234567891011121314151617181920212223242526272829303132333435363738394041#安装dockerdocker pull mysql#先启动docker run --name mysql -p 4148:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql#注意：my.cnf得从docker">
+<meta property="og:updated_time" content="2021-01-05T12:31:47.933Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="centos7.4 部署 docker，nginx, mysql,redis,activemq">
+<meta name="twitter:description" content="mysql1234567891011121314151617181920212223242526272829303132333435363738394041#安装dockerdocker pull mysql#先启动docker run --name mysql -p 4148:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql#注意：my.cnf得从docker">
+  
+    <link rel="alternative" href="/atom.xml" title="lessinthemore" type="application/atom+xml">
+  
+  <meta name="summary" content="没有人可以和生活讨价还价。——《风雨哈佛路》">
+  <link rel="shortcut icon" href="/xdlog/favicon.ico">
+  <link rel="stylesheet" href="/xdlog/css/style.css?v=1.1.7">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar"><img src="/xdlog/img/logo.jpg"></a>
+        <hgroup class="introduce">
+          <h5 class="nickname">大雷小宇</h5>
+          <a href="mailto:irememberu_0924@163.com" title="irememberu_0924@163.com" class="mail">irememberu_0924@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/xudongye" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/xdlog/thanks"  >
+                <i class="icon icon-lg icon-link"></i>
+                致谢
+              </a>
+            </li>
+        
+      </ul>
+
+      <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>lessinthemore &copy; 2021</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></p>
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+    </div>
+  </div>
+</aside>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">centos7.4 部署 docker，nginx, mysql,redis,activemq</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container">
+        <h1 class="title">centos7.4 部署 docker，nginx, mysql,redis,activemq</h1>
+        
+        
+
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#mysql"><span class="post-toc-number">1.</span> <span class="post-toc-text">mysql</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#redis"><span class="post-toc-number">2.</span> <span class="post-toc-text">redis</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#mongo"><span class="post-toc-number">3.</span> <span class="post-toc-text">mongo</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#activemq"><span class="post-toc-number">4.</span> <span class="post-toc-text">activemq</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nginx"><span class="post-toc-number">5.</span> <span class="post-toc-text">nginx</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nginx-conf"><span class="post-toc-number">6.</span> <span class="post-toc-text">nginx.conf</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-texin/docker安装mysql-redis-activemq-nginx并挂载配置宿主机" 
+  class="post-article article-type-post" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">centos7.4 部署 docker，nginx, mysql,redis,activemq</h1>
+        <div class="post-meta">
+            <time datetime="2020-09-10T06:21:07.000Z" itemprop="datePublished" class="post-time">
+  2020-09-10
+</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/xdlog/categories/程序设计/">程序设计</a></li></ul>
+
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#安装docker</span><br><span class="line">docker pull mysql</span><br><span class="line"></span><br><span class="line">#先启动</span><br><span class="line">docker run --name mysql -p 4148:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql</span><br><span class="line"></span><br><span class="line">#注意：my.cnf得从docker mysql容器中复制一份到/texin/volume/mysql/conf中</span><br><span class="line">docker cp mysql:/etc/mysql/my.cnf /texin/volume/mysql/conf</span><br><span class="line"></span><br><span class="line">#成功后关闭mysql</span><br><span class="line">#重新启动</span><br><span class="line">#启动并挂载配置到宿主机</span><br><span class="line">docker run -p 4148:3306 --name mysql \</span><br><span class="line"> -v /texin/volume/mysql/log:/var/log/mysql \</span><br><span class="line"> -v /texin/volume/mysql/data:/var/lib/mysql \</span><br><span class="line"> -v /texin/volume/mysql/conf/my.cnf:/etc/mysql/my.cnf \</span><br><span class="line"> -e MYSQL_ROOT_PASSWORD=root  \</span><br><span class="line"> -d mysql</span><br><span class="line">#进入mysql容器</span><br><span class="line">docker exec -it mysql /bin/bash</span><br><span class="line"></span><br><span class="line">#本地登录mysql</span><br><span class="line">mysql -uroot -proot</span><br><span class="line">#查询mysql用户</span><br><span class="line">select user,host from mysql.user;</span><br><span class="line">#新建用户@&apos;%&apos; 不限ip连接，只要本地则@&apos;localhost&apos;即可</span><br><span class="line">create user &apos;weilian&apos;@&apos;%&apos; identified by &apos;weilian2020&apos;;</span><br><span class="line">#查看用户密码方式注意远程连接不支持：caching_sha2_password验证方式</span><br><span class="line">#我们将他改成msyql_native_password</span><br><span class="line">alter user &apos;weilian&apos;@&apos;%&apos; identified with mysql_native_password BY &apos;weilian2020&apos;;</span><br><span class="line">#刷新</span><br><span class="line">flush privileges;</span><br><span class="line">#查看用户密码方式，检查是否修改成功</span><br><span class="line">select host,user,plugin,authentication_string from mysql.user;</span><br><span class="line">#指定数据库texin授权用户</span><br><span class="line">grant all privileges on texin.* to &apos;weilian&apos;@&apos;%&apos;;</span><br><span class="line">#授予用户所有权限</span><br><span class="line">grant all privileges on *.* to &apos;weilian&apos;@&apos;%&apos;;</span><br><span class="line">#如果navicat还是连接失败请在挂载主机目录的my.cnf文件中加一句</span><br><span class="line">default_authentication_plugin=mysql_native_password</span><br><span class="line">#即可实现远程</span><br></pre></td></tr></table></figure>
+<h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#安装redis默认lasted版本</span><br><span class="line">docker pull redis</span><br><span class="line">#启动并挂载</span><br><span class="line">docker run -p 4149:6379 --name redis \</span><br><span class="line">-v /texin/volume/redis/conf/redis.conf:/etc/redis/redis.conf \</span><br><span class="line">-v /texin/volume/redis/data:/data \</span><br><span class="line">-d redis redis-server --appendonly yes --requirepass &apos;weilian2020&apos;</span><br></pre></td></tr></table></figure>
+<h3 id="mongo"><a href="#mongo" class="headerlink" title="mongo"></a>mongo</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#安装mongo默认lasted版本</span><br><span class="line">docker pull mongo</span><br><span class="line">#启动并挂载</span><br><span class="line">docker run \</span><br><span class="line">--name mongo \</span><br><span class="line">-p 4147:27017 \</span><br><span class="line">-e MONGO_INITDB_ROOT_USERNAME=&apos;weilian&apos; -e MONGO_INITDB_ROOT_PASSWORD=&apos;weilian2020&apos; \</span><br><span class="line">-v /texin/volume/mongo/data:/data/db \</span><br><span class="line">-v /texin/volume/mongo/configdb:/data/configdb/ \</span><br><span class="line">-d  mongo</span><br></pre></td></tr></table></figure>
+<h3 id="activemq"><a href="#activemq" class="headerlink" title="activemq"></a>activemq</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#搜索activemq版本列表</span><br><span class="line">docker search activemq</span><br><span class="line">#安装activemq</span><br><span class="line">docker pull webcenter/activemq</span><br><span class="line">#启动指定对外端口61617和8167</span><br><span class="line">docker run -d --name activemq -p 61617:61616 -p 8162:8161 webcenter/activemq</span><br><span class="line"></span><br><span class="line">#挂载宿主机</span><br><span class="line">#第一步：用临时方式启动一个activemq 容器</span><br><span class="line">docker run --user root --privileged=true --rm -ti \</span><br><span class="line">  -v  /texin/volume/activemq/conf:/mnt/conf \</span><br><span class="line">  -v  /texin/volume/activemq/data:/mnt/data \</span><br><span class="line">  webcenter/activemq /bin/sh</span><br><span class="line">#第二步：将容器中的配置目录和数据目录拷贝出去并退出</span><br><span class="line">chown activemq:activemq /mnt/conf</span><br><span class="line">chown activemq:activemq /mnt/data</span><br><span class="line">cp -a /opt/activemq/conf/* /mnt/conf/</span><br><span class="line">cp -a /opt/activemq/data/* /mnt/data/</span><br><span class="line">#第三步：运行activemq</span><br><span class="line">docker run -d --name activemq -p 61617:61616 -p 8162:8161 \</span><br><span class="line">-v /texin/volume/activemq/conf:/opt/activemq/conf \</span><br><span class="line">-v /texin/volume/activemq/data:/opt/activemq/data \</span><br><span class="line">-v /texin/volume/activemq/log:/var/log/activemq \</span><br><span class="line">webcenter/activemq</span><br></pre></td></tr></table></figure>
+<h3 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#安装nginx 并配置https</span><br><span class="line">docker pull nginx</span><br><span class="line">#启动</span><br><span class="line"></span><br><span class="line">docker run -p 80:80 -p 443:443 --name nginx \</span><br><span class="line">-v /texin/volume/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \</span><br><span class="line">-v /texin/volume/front:/etc/nginx/html \</span><br><span class="line">-v /texin/volume/nginx/logs:/var/log/nginx  \</span><br><span class="line">-v /texin/volume/nginx/conf/cert:/etc/nginx/cert  \</span><br><span class="line">-d nginx</span><br><span class="line"></span><br><span class="line">#在宿主机texin/volume/nginx/conf目录下新建nginx.conf</span><br><span class="line">#内容(这是最终配置) 前后端分离资源访问</span><br></pre></td></tr></table></figure>
+<h3 id="nginx-conf"><a href="#nginx-conf" class="headerlink" title="nginx.conf"></a>nginx.conf</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br></pre></td><td class="code"><pre><span class="line">#user  nobody;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">#error_log  logs/error.log;</span><br><span class="line">#error_log  logs/error.log  notice;</span><br><span class="line">#error_log  logs/error.log  info;</span><br><span class="line"></span><br><span class="line">#pid        logs/nginx.pid;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    charset utf-8,gbk;</span><br><span class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</span><br><span class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</span><br><span class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</span><br><span class="line"></span><br><span class="line">    access_log  /var/log/nginx/access.log  main;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line">    #tcp_nopush     on;</span><br><span class="line"></span><br><span class="line">    #keepalive_timeout  0;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen      80;</span><br><span class="line">        listen 443 ssl;</span><br><span class="line">        server_name  dev.ruixuelong.com;</span><br><span class="line"></span><br><span class="line">        ssl_certificate      /etc/nginx/cert/4670445_dev.ruixuelong.com.pem;</span><br><span class="line">        ssl_certificate_key  /etc/nginx/cert/4670445_dev.ruixuelong.com.key;</span><br><span class="line"></span><br><span class="line">        ssl_session_cache    shared:SSL:1m;</span><br><span class="line">        ssl_session_timeout  5m;</span><br><span class="line"></span><br><span class="line">        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">        ssl_prefer_server_ciphers  on;</span><br><span class="line"></span><br><span class="line">        charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            try_files $uri $uri/ @router;</span><br><span class="line">          </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /payment/ &#123;</span><br><span class="line">            root html;</span><br><span class="line">            try_files $uri $uri/ /payment/@router;</span><br><span class="line">            #index index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">	   location /manage/ &#123;</span><br><span class="line">            root html;</span><br><span class="line">            try_files $uri $uri/ /manage/@router;</span><br><span class="line">            #index index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        location @router &#123;</span><br><span class="line">            rewrite ^.*$ /index.html last;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /admin/ &#123;</span><br><span class="line">        set $cors &apos;&apos;;</span><br><span class="line">        if ($http_origin ~* &apos;https?://(localhost(:8090)?|dev\.ruixuelong\.com|ruixuelong\.com)&apos;) &#123;</span><br><span class="line">         set $cors &apos;true&apos;;</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">        if ($cors = &apos;true&apos;) &#123;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Origin&apos; &quot;$http_origin&quot; always;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Credentials&apos; &apos;true&apos; always;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Methods&apos; &apos;GET, POST, PUT, DELETE, OPTIONS&apos; always;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Headers&apos; &apos;Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With&apos; always;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if ($request_method = &apos;OPTIONS&apos;) &#123;</span><br><span class="line">        return 204;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        proxy_set_header X-Forwarded-Host $host;</span><br><span class="line">        proxy_set_header X-Forwarded-Server $host;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_pass http://39.99.150.17:8080/admin/;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /taxi/ &#123;</span><br><span class="line">        set $cors &apos;&apos;;</span><br><span class="line">        if ($http_origin ~* &apos;https?://(localhost(:8090)?|dev\.ruixuelong\.com|ruixuelong\.com)&apos;) &#123;</span><br><span class="line">         set $cors &apos;true&apos;;</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">        if ($cors = &apos;true&apos;) &#123;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Origin&apos; &quot;$http_origin&quot; always;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Credentials&apos; &apos;true&apos; always;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Methods&apos; &apos;GET, POST, PUT, DELETE, OPTIONS&apos; always;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Headers&apos; &apos;Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With&apos; always;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if ($request_method = &apos;OPTIONS&apos;) &#123;</span><br><span class="line">        return 204;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        proxy_set_header X-Forwarded-Host $host;</span><br><span class="line">        proxy_set_header X-Forwarded-Server $host;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_pass http://39.99.150.17:8081/taxi/;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location /texin/ &#123;</span><br><span class="line">        set $cors &apos;&apos;;</span><br><span class="line">        if ($http_origin ~* &apos;https?://(localhost(:8090)?|dev\.ruixuelong\.com|ruixuelong\.com)&apos;) &#123;</span><br><span class="line">         set $cors &apos;true&apos;;</span><br><span class="line">         &#125;</span><br><span class="line"></span><br><span class="line">        if ($cors = &apos;true&apos;) &#123;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Origin&apos; &quot;$http_origin&quot; always;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Credentials&apos; &apos;true&apos; always;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Methods&apos; &apos;GET, POST, PUT, DELETE, OPTIONS&apos; always;</span><br><span class="line">        add_header &apos;Access-Control-Allow-Headers&apos; &apos;Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Mx-ReqToken,X-Requested-With&apos; always;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        if ($request_method = &apos;OPTIONS&apos;) &#123;</span><br><span class="line">        return 204;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        proxy_set_header X-Forwarded-Host $host;</span><br><span class="line">        proxy_set_header X-Forwarded-Server $host;</span><br><span class="line">        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_pass http://39.99.150.17:8082/texin/;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        #error_page  404              /404.html;</span><br><span class="line"></span><br><span class="line">        # redirect server error pages to the static page /50x.html</span><br><span class="line">        #</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        # proxy the PHP scripts to Apache listening on 127.0.0.1:80</span><br><span class="line">        #</span><br><span class="line">        #location ~ \.php$ &#123;</span><br><span class="line">        #    proxy_pass   http://127.0.0.1;</span><br><span class="line">        #&#125;</span><br><span class="line"></span><br><span class="line">        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</span><br><span class="line">        #</span><br><span class="line">        #location ~ \.php$ &#123;</span><br><span class="line">        #    root           html;</span><br><span class="line">        #    fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">        #    fastcgi_index  index.php;</span><br><span class="line">        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span><br><span class="line">        #    include        fastcgi_params;</span><br><span class="line">        #&#125;</span><br><span class="line"></span><br><span class="line">        # deny access to .htaccess files, if Apache&apos;s document root</span><br><span class="line">        # concurs with nginx&apos;s one</span><br><span class="line">        #</span><br><span class="line">        #location ~ /\.ht &#123;</span><br><span class="line">        #    deny  all;</span><br><span class="line">        #&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # another virtual host using mix of IP-, name-, and port-based configuration</span><br><span class="line">    #</span><br><span class="line">    #server &#123;</span><br><span class="line">    #    listen       8000;</span><br><span class="line">    #    listen       somename:8080;</span><br><span class="line">    #    server_name  somename  alias  another.alias;</span><br><span class="line"></span><br><span class="line">    #    location / &#123;</span><br><span class="line">    #        root   html;</span><br><span class="line">    #        index  index.html index.htm;</span><br><span class="line">    #    &#125;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # HTTPS server</span><br><span class="line">    #</span><br><span class="line">    #server &#123;</span><br><span class="line">    #    listen       443 ssl;</span><br><span class="line">    #    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    #    ssl_certificate      cert.pem;</span><br><span class="line">    #    ssl_certificate_key  cert.key;</span><br><span class="line"></span><br><span class="line">    #    ssl_session_cache    shared:SSL:1m;</span><br><span class="line">    #    ssl_session_timeout  5m;</span><br><span class="line"></span><br><span class="line">    #    ssl_ciphers  HIGH:!aNULL:!MD5;</span><br><span class="line">    #    ssl_prefer_server_ciphers  on;</span><br><span class="line"></span><br><span class="line">    #    location / &#123;</span><br><span class="line">    #        root   html;</span><br><span class="line">    #        index  index.html index.htm;</span><br><span class="line">    #    &#125;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>###注：所有端口记得要在aliyun安全规则添加规则并开放防火墙端口 </p>
+
+        </div>
+        
+        <blockquote class="post-copyright">
+            <div class="content">
+               原创作品，允许转载，转载时务必以链接形式标明文章出处、作者信息以及本声明，否则将追究法律责任。<a href="/xdlog/texin/docker安装mysql-redis-activemq-nginx并挂载配置宿主机/" target="_blank" rel="external">https://xudongye.github.io/xdlog/texin/docker安装mysql-redis-activemq-nginx并挂载配置宿主机/</a>
+            </div>
+            <footer>
+                <a href="https://xudongye.github.io/xdlog">
+                    <img src="/xdlog/img/logo.jpg" alt="大雷小宇">
+                    大雷小宇
+                </a>
+            </footer>
+        </blockquote>
+
+        
+        <div class="post-reward">
+            <a id="rewardBtn" href="javascript:;" class="post-reward-btn waves-effect waves-circle waves-light">赏</a>
+        </div>
+        
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/xdlog/tags/微联电召/">微联电召</a></li></ul>
+
+
+            
+            <div class="post-share-wrap">
+                <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+                <a href="javascript:;" id="share-fab" class="post-share-fab waves-effect waves-circle">
+                    <i class="icon icon-share-alt icon-lg"></i>
+                </a>
+            </div>
+            
+
+        </div>
+    </div>   
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/xdlog/texin/centos7.4 docker安装/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">centos7.4 docker安装</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/xdlog/superm/基于docker容器部署superm项目/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">基于docker容器部署superm项目</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+    
+
+
+
+</article>
+
+<div id="reward" class="reward-lay">
+    <a class="reward-off" id="rewardOff" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/xdlog/images/reward/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/xdlog/images/reward/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+</div>
+  </main>
+  <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>var BLOG = { ROOT: '/xdlog/' };
+BLOG.SHARE = {
+title: "centos7.4 部署 docker，nginx, mysql,redis,activemq",
+pic: "/xdlog/img/logo.jpg",
+summary: document.getElementsByName('summary')[0].content,
+url: "https://xudongye.github.io/xdlog/texin/docker安装mysql-redis-activemq-nginx并挂载配置宿主机/" }
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+  <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script src="/xdlog/js/main.min.js?v=1.1.7"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/xdlog/js/search.min.js?v=1.1.7"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
